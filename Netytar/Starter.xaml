@@ -1,0 +1,182 @@
+﻿<Window
+    x:Class="Netytar.Starter"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Netytar"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Starter"
+    Width="1500"
+    Height="900"
+    Background="Black"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    WindowState="Maximized"
+    WindowStyle="None"
+    mc:Ignorable="d">
+
+    <Window.Resources>
+        <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Margin" Value="3" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="Black"
+                            BorderThickness="4"
+                            CornerRadius="100">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="0,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
+            <RowDefinition Height="80" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Label
+            Width="auto"
+            Height="76"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Background="Black"
+            Content="NETYTAR"
+            FontFamily="Magneto"
+            FontSize="50"
+            FontWeight="Bold"
+            Foreground="White" />
+        <Line
+            Grid.Row="0"
+            Width="auto"
+            VerticalAlignment="Bottom"
+            Stretch="UniformToFill"
+            Stroke="SaddleBrown"
+            StrokeThickness="4"
+            X1="1" />
+        <Label
+            Grid.Row="1"
+            Height="80"
+            VerticalAlignment="Top"
+            HorizontalContentAlignment="Center"
+            Background="LightGray"
+            Content="Benvenuto in Netytar"
+            FontFamily="Magneto"
+            FontSize="58"
+            FontStretch="Condensed"
+            FontWeight="Bold"
+            Foreground="Black" />
+        <Grid Grid.Row="2" Background="LightGray">
+
+            <Button
+                Grid.Row="2"
+                Width="190"
+                Height="100"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Click="Button_Click"
+                FontSize="34"
+                FontWeight="ExtraBold"
+                Style="{DynamicResource MyButtonStyle}">
+                <Button.Background>
+                    <ImageBrush
+                        AlignmentX="Center"
+                        ImageSource="Images\Icons\Freccia.PNG"
+                        Stretch="Uniform" />
+                </Button.Background>
+            </Button>
+            <Image
+                Width="385"
+                Height="212"
+                Margin="35,83,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Source="Images\Cattura1.PNG"
+                Stretch="Fill" />
+            <Label
+                Height="175"
+                Margin="550,105,212,0"
+                VerticalAlignment="Top"
+                Content="Le note sulle scale sono disegnate con punti e colori diversi.&#xA;Quello rosso è sempre la nota fondamentale. &#xA;Una linea rossa indica una scala maggiore.&#xA;Muoversi con lo sguardo farà lampeggiare il tasto selezionato&#xA;e apparirà una linea bianca, mostrando la traccia dello sguardo."
+                FontSize="23"
+                FontWeight="ExtraBold" />
+            <Image
+                Width="190"
+                Height="97"
+                Margin="35,407,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Source="Images\rm_line1.png"
+                Stretch="Fill" />
+            <Label
+                Width="250"
+                Height="125"
+                Margin="35,509.5,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="PULSANTI START E EXIT&#xA;Questi due pulsanti vengono&#xA;utilizzati per disegnare la&#xA;superficie Netytar e uscire&#xA;dal programma"
+                FontSize="17"
+                FontWeight="ExtraBold" />
+            <Image
+                Width="162.2"
+                Height="97"
+                Margin="389.5,407,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Source="Images\rm_scale.png"
+                Stretch="Fill" />
+            <Image
+                Width="174"
+                Height="97"
+                Margin="779,407,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Source="Images\rm_dynamics.png"
+                Stretch="Fill" />
+            <Label
+                Width="340"
+                Height="170"
+                Margin="389.5,509,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="SELETTORE DI SCALA&#xA;Può essere utilizzato per selezionare&#xA;diverse scale da disegnare.&#xA;Chiudendo l'occhio sinistro verrà&#xA;disegnata una scala maggiore, mentre&#xA;chiudendo l'occhio destro apparirà una&#xA;scala minore."
+                FontSize="17"
+                FontWeight="ExtraBold" />
+            <Label
+                Width="277"
+                Height="125"
+                Margin="779.1,509,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="BARRA DELLE DINAMICHE&#xA;Questa barra indica la pressione&#xA;che si applica al sensore&#xA;La linea orizzontale bianca&#xA;indica la velocità massima(127)."
+                FontSize="17"
+                FontWeight="ExtraBold" />
+            <Image
+                Width="218"
+                Height="95"
+                Margin="1158,409,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Source="Images\rm_sensor.png"
+                Stretch="Fill" />
+            <Label
+                Width="245"
+                Height="125"
+                Margin="1158,509,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="SELETTORE DEL SENSORE&#xA;Può essere utilizzato per&#xA;scegliere quale sensore stai&#xA;utilizzando per suonare."
+                FontSize="17"
+                FontWeight="ExtraBold" />
+        </Grid>
+
+    </Grid>
+
+</Window>

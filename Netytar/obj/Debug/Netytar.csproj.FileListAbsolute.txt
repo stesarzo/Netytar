@@ -1,0 +1,223 @@
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\Tobii.EyeX.Client.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\Libraries\Tobii.Interaction.Net.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\Libraries\Tobii.Interaction.Model.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\Netytar.exe.config
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\Netytar.exe
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\Netytar.pdb
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\EyeTribe.ClientSdk.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\NAudio.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\NeeqDMIs.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\Newtonsoft.Json.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\RawInputProcessor.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\Tobii.Interaction.Model.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\Tobii.Interaction.Net.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\WpfAnimatedGif.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\ArduinoDriver.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\ArduinoUploader.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\NLog.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\RJCP.SerialPortStream.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\IntelHexFormatReader.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\NeeqDMIs.pdb
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\NAudio.xml
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\Newtonsoft.Json.xml
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\WpfAnimatedGif.pdb
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\WpfAnimatedGif.xml
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\NLog.xml
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\RJCP.SerialPortStream.pdb
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\bin\Debug\RJCP.SerialPortStream.xml
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\obj\Debug\Netytar.csprojAssemblyReference.cache
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\obj\Debug\MainWindow.baml
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\obj\Debug\MainWindow.g.cs
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\obj\Debug\App.g.cs
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\obj\Debug\Netytar_Content.g.cs
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\obj\Debug\Netytar_MarkupCompile.cache
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\obj\Debug\Netytar.g.resources
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\obj\Debug\Netytar.Properties.Resources.resources
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\obj\Debug\Netytar.csproj.GenerateResource.cache
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\obj\Debug\Netytar.csproj.CopyComplete
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\obj\Debug\Netytar.exe
+C:\root_X542U\Frammenti software\Visual Studio Projects\NETYTAR_RIPRISTINO\Netytar\obj\Debug\Netytar.pdb
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\bin\Debug\Tobii.EyeX.Client.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\bin\Debug\Libraries\Tobii.Interaction.Net.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\bin\Debug\Libraries\Tobii.Interaction.Model.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\bin\Debug\Netytar.exe.config
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\bin\Debug\Netytar.exe
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\bin\Debug\Netytar.pdb
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\bin\Debug\EyeTribe.ClientSdk.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\bin\Debug\NAudio.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\bin\Debug\NeeqDMIs.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\bin\Debug\Newtonsoft.Json.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\bin\Debug\RawInputProcessor.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\bin\Debug\Tobii.Interaction.Model.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\bin\Debug\Tobii.Interaction.Net.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\bin\Debug\WpfAnimatedGif.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\bin\Debug\ArduinoDriver.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\bin\Debug\ArduinoUploader.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\bin\Debug\NLog.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\bin\Debug\IntelHexFormatReader.dll
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\bin\Debug\NeeqDMIs.pdb
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\bin\Debug\NeeqDMIs.dll.config
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\bin\Debug\NAudio.xml
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\bin\Debug\Newtonsoft.Json.xml
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\bin\Debug\WpfAnimatedGif.pdb
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\bin\Debug\WpfAnimatedGif.xml
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\bin\Debug\NLog.xml
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\obj\Debug\Netytar.csprojAssemblyReference.cache
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\obj\Debug\MainWindow.baml
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\obj\Debug\MainWindow.g.cs
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\obj\Debug\App.g.cs
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\obj\Debug\Netytar_Content.g.cs
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\obj\Debug\Netytar_MarkupCompile.cache
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\obj\Debug\Netytar.g.resources
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\obj\Debug\Netytar.Properties.Resources.resources
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\obj\Debug\Netytar.csproj.GenerateResource.cache
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\obj\Debug\Netytar.csproj.CopyComplete
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\obj\Debug\Netytar.exe
+C:\root_X542U\Frammenti software\Visual Studio Projects\Netytar\obj\Debug\Netytar.pdb
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\obj\Debug\Netytar.csprojAssemblyReference.cache
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\obj\Debug\MainWindow.baml
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\obj\Debug\MainWindow.g.cs
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\obj\Debug\App.g.cs
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\obj\Debug\Netytar_Content.g.cs
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\obj\Debug\Netytar_MarkupCompile.cache
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\obj\Debug\Netytar.g.resources
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\obj\Debug\Netytar.Properties.Resources.resources
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\obj\Debug\Netytar.csproj.GenerateResource.cache
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\obj\Debug\Netytar.csproj.CoreCompileInputs.cache
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\obj\Debug\Netytar.exe
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\obj\Debug\Netytar.pdb
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\Tobii.EyeX.Client.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\Libraries\Tobii.Interaction.Net.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\Libraries\Tobii.Interaction.Model.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\Netytar.exe.config
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\Netytar.exe
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\Netytar.pdb
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\EyeTribe.ClientSdk.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\NAudio.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\NeeqDMIs.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\Newtonsoft.Json.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\RawInputProcessor.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\Tobii.Interaction.Model.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\Tobii.Interaction.Net.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\WpfAnimatedGif.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\ArduinoDriver.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\ArduinoUploader.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\NLog.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\IntelHexFormatReader.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\NeeqDMIs.pdb
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\NeeqDMIs.dll.config
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\NAudio.xml
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\Newtonsoft.Json.xml
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\WpfAnimatedGif.pdb
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\WpfAnimatedGif.xml
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\NLog.xml
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\obj\Debug\Netytar.csproj.CopyComplete
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\Tobii.EyeX.Client.dll
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\Libraries\Tobii.Interaction.Net.dll
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\Libraries\Tobii.Interaction.Model.dll
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\Netytar.exe.config
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\Netytar.exe
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\Netytar.pdb
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\EyeTribe.ClientSdk.dll
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\NAudio.dll
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\NeeqDMIs.dll
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\RawInputProcessor.dll
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\Tobii.Interaction.Model.dll
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\Tobii.Interaction.Net.dll
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\WpfAnimatedGif.dll
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\ArduinoDriver.dll
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\ArduinoUploader.dll
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\NLog.dll
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\RJCP.SerialPortStream.dll
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\IntelHexFormatReader.dll
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\NeeqDMIs.pdb
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\NeeqDMIs.dll.config
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\NAudio.xml
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\WpfAnimatedGif.pdb
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\WpfAnimatedGif.xml
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\NLog.xml
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\RJCP.SerialPortStream.pdb
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\RJCP.SerialPortStream.xml
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\obj\Debug\Netytar.csprojAssemblyReference.cache
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\obj\Debug\MainWindow.baml
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\obj\Debug\MainWindow.g.cs
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\obj\Debug\App.g.cs
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\obj\Debug\Netytar_Content.g.cs
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\obj\Debug\Netytar_MarkupCompile.cache
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\obj\Debug\Netytar.g.resources
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\obj\Debug\Netytar.Properties.Resources.resources
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\obj\Debug\Netytar.csproj.GenerateResource.cache
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\obj\Debug\Netytar.csproj.CoreCompileInputs.cache
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\obj\Debug\Netytar.csproj.CopyComplete
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\obj\Debug\Netytar.exe
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\obj\Debug\Netytar.pdb
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\obj\Debug\Settings.g.cs
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\obj\Debug\Netytar_MarkupCompile.lref
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\obj\Debug\Settings.baml
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\Microsoft.Win32.Registry.dll
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\NAudio.Asio.dll
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\NAudio.Core.dll
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\NAudio.Midi.dll
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\NAudio.Wasapi.dll
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\NAudio.WinForms.dll
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\NAudio.WinMM.dll
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\System.Security.AccessControl.dll
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\System.Security.Principal.Windows.dll
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\Microsoft.Win32.Registry.xml
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\System.Security.AccessControl.xml
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\bin\Debug\System.Security.Principal.Windows.xml
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\obj\Debug\Starter.g.cs
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\obj\Debug\Starter.baml
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\obj\Debug\Starter2.g.cs
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\obj\Debug\Starter2.baml
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\obj\Debug\Settings2.g.cs
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\obj\Debug\Settings2.baml
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\obj\Debug\Init.g.cs
+C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\obj\Debug\Init.baml
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\obj\Debug\Netytar.csproj.AssemblyReference.cache
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\obj\Debug\MainWindow.baml
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\obj\Debug\MainWindow.g.cs
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\obj\Debug\App.g.cs
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\obj\Debug\Netytar_Content.g.cs
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\obj\Debug\Netytar_MarkupCompile.cache
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\Tobii.EyeX.Client.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\Libraries\Tobii.Interaction.Net.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\Libraries\Tobii.Interaction.Model.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\Netytar.exe.config
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\Netytar.exe
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\Netytar.pdb
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\Microsoft.Win32.Registry.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\NAudio.Asio.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\NAudio.Core.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\NAudio.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\NAudio.Midi.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\NAudio.Wasapi.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\NAudio.WinForms.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\NAudio.WinMM.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\NeeqDMIs.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\Newtonsoft.Json.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\RawInputProcessor.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\System.Security.AccessControl.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\System.Security.Principal.Windows.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\Tobii.Interaction.Model.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\Tobii.Interaction.Net.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\WpfAnimatedGif.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\EyeTribe.ClientSdk.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\NeeqDMIs.pdb
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\NeeqDMIs.dll.config
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\Microsoft.Win32.Registry.xml
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\NAudio.xml
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\Newtonsoft.Json.xml
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\System.Security.AccessControl.xml
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\System.Security.Principal.Windows.xml
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\WpfAnimatedGif.pdb
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\bin\Debug\WpfAnimatedGif.xml
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\obj\Debug\Netytar.g.resources
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\obj\Debug\Netytar.Properties.Resources.resources
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\obj\Debug\Netytar.csproj.GenerateResource.cache
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\obj\Debug\Netytar.csproj.CoreCompileInputs.cache
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\obj\Debug\Netytar.csproj.CopyComplete
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\obj\Debug\Netytar.exe
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar_CustomInterface\Netytar\obj\Debug\Netytar.pdb
