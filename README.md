@@ -28,3 +28,11 @@ Netytar is a mute MIDI controller/interface. Windows operating systems already T
 Download the latest [Netytar Release](https://github.com/LIMUNIMI/Netytar/releases), **extract it** and run Netytar.exe. No installation is required (it is a portable application). Be careful to before install the **Software requirements and dependencies** listed above!
 
 Have fun!
+
+# Developer? Want to modify the code or compile it by yourself?
+Netytar's source code is released under [GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html) Open Source license, thus you can access, modify, fork, republish its source code complying with that license (e.g. derived works should be published under the same license).
+
+Netytar has been developed using C# programming language, and has dependencies to Windows .NET Framework 4.8 libraries and others. You may need [Microsoft Visual Studio IDE](https://visualstudio.microsoft.com/) in order to load the project and edit it.
+Netytar has a **strict dependency** to my NeeqDMIs Digital Musical Instrument prototyping framework. You should download it and replace the reference within Netytar project with NeeqDMIs path in your PC (or just place NeeqDMIs in the same root folder as Netytar's main folder.
+
+Don't hesitate to contact me or open an Issue on this repo if you encounter any problem loading the project.
