@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Netytar.DMIbox.SensorBehaviors
 {
-    public class SBbreathSensor : ISensorReaderBehavior
+    public class SBbreathSensor : ISensorBehavior
     {
         private int v = 1;
         private int offThresh;

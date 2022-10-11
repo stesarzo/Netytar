@@ -11,7 +11,7 @@ namespace Netytar
     {
         public int HighlightStrokeDim { get; set; } = 5;
         public int HighlightRadius { get; set; } = 65;
-        public int VerticalSpacer { get; set; } = -80;
+        public int VerticalSpacer { get; set; } = -70;
         public int HorizontalSpacer { get; set; } = 180;
         public int OccluderOffset { get; set; } = 35;
         public int EllipseRadius { get; set; } = 23;

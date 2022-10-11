@@ -2,7 +2,7 @@
 
 namespace Netytar.DMIbox.SensorBehaviors
 {
-    public class SBreadSerial : ISensorReaderBehavior
+    public class SBreadSerial : ISensorBehavior
     {
         private string cose = "";
             

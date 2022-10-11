@@ -15,28 +15,28 @@ namespace Netytar
     public class AutoScroller
     {
         #region Params
-        private ScrollViewer scrollViewer;
-        private int radiusThreshold;
-        private int proportional;
-        private IPointFilter filter;
+        protected ScrollViewer scrollViewer;
+        protected int radiusThreshold;
+        protected int proportional;
+        protected IPointFilter filter;
         #endregion
 
         #region Scrollviewer params
-        private System.Windows.Point scrollCenter;
-        private System.Windows.Point basePosition;
+        protected System.Windows.Point scrollCenter;
+        protected System.Windows.Point basePosition;
         #endregion
 
         #region Internal counters
-        private DispatcherTimer samplerTimer = new DispatcherTimer(DispatcherPriority.Render);
+        protected DispatcherTimer samplerTimer = new DispatcherTimer(DispatcherPriority.Render);
         // private Timer samplerTimer = new Timer();
         // private MicroTimer samplerTimer = new MicroTimer();
-        private Point lastSampledPoint;
-        private Point lastMean;
-        private double Xdifference;
-        private double Ydifference;
+        protected Point lastSampledPoint;
+        protected Point lastMean;
+        protected double Xdifference;
+        protected double Ydifference;
         #endregion
 
-        private bool enabled = false;
+        protected bool enabled = false;
         public bool Enabled
         {
             get { return enabled; }
@@ -57,11 +57,11 @@ namespace Netytar
             // Setting sampling timer
             samplerTimer.Interval = new TimeSpan(10000);//1000; //1;
             //samplerTimer.MicroTimerElapsed += SamplerTimer_MicroTimerElapsed;
-            samplerTimer.Tick += ListenMouse;
+            samplerTimer.Tick += ListenPosition;
             samplerTimer.Start();
         }
 
-        private void ListenMouse(object sender, EventArgs e)
+        protected void ListenPosition(object sender, EventArgs e)
         {
             if (enabled)
             {
@@ -75,7 +75,7 @@ namespace Netytar
             }
         }
 
-        private void Scroll()
+        protected void Scroll()
         {
             Xdifference = (scrollCenter.X - lastMean.X);
             Ydifference = (scrollCenter.Y - lastMean.Y);
@@ -86,11 +86,11 @@ namespace Netytar
             }
         }
 
-        private Point GetMousePos()
+        protected Point GetMousePos()
         {
             temp = scrollViewer.PointToScreen(Mouse.GetPosition(scrollViewer));
             return new Point((int)temp.X, (int)temp.Y);
         }
-        private System.Windows.Point temp = new System.Windows.Point();
+        protected System.Windows.Point temp = new System.Windows.Point();
     }
 }

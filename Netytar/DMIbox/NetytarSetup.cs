@@ -9,6 +9,7 @@ using NeeqDMIs.Music;
 using Netytar.DMIbox.KeyboardBehaviors;
 using Netytar.DMIbox.SensorBehaviors;
 using Netytar.DMIbox.TobiiBehaviors;
+using RawInputProcessor;
 using System;
 using System.Windows.Interop;
 using Tobii.Interaction.Framework;
@@ -26,7 +27,7 @@ namespace Netytar.DMIbox
         {
             IntPtr windowHandle = new WindowInteropHelper(Rack.DMIBox.NetytarMainWindow).Handle;
 
-            Rack.DMIBox.KeyboardModule = new KeyboardModule(windowHandle);
+            Rack.DMIBox.KeyboardModule = new KeyboardModule(windowHandle, RawInputCaptureMode.Foreground);
 
             // MIDI
             Rack.DMIBox.MidiModule = new MidiModuleNAudio(1, 1);
@@ -46,7 +47,6 @@ namespace Netytar.DMIbox
             {
                 Rack.DMIBox.EyeTribeModule = new EyeTribeModule();
                 Rack.DMIBox.EyeTribeModule.Start();
-                Rack.DMIBox.EyeTribeModule.MouseEmulator = new MouseEmulator(new PointFilterBypass());
                 Rack.DMIBox.EyeTribeModule.MouseEmulatorGazeMode = GazeMode.Raw;
             }
 
@@ -70,7 +70,7 @@ namespace Netytar.DMIbox
             Rack.DMIBox.SensorReader.Behaviors.Add(new SBreadSerial());
 
             // SURFACE INIT
-            Rack.DMIBox.AutoScroller = new AutoScroller(Rack.DMIBox.NetytarMainWindow.scrlNetytar, 0, 100, new PointFilterMAExpDecaying(0.1f)); // OLD was 100, 0.1f
+            Rack.DMIBox.AutoScroller = new AutoScroller_ButtonScroller(Rack.DMIBox.NetytarMainWindow.scrlNetytar, 0, 130, new PointFilterMAExpDecaying(0.1f)); // OLD was 100, 0.1f
             Rack.DMIBox.NetytarSurface = new NetytarSurface(Rack.DMIBox.NetytarMainWindow.canvasNetytar, Rack.DrawMode);
 
             Rack.DMIBox.NetytarSurface.DrawButtons();

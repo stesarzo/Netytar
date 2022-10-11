@@ -118,10 +118,8 @@ namespace Netytar
             this.netytarDrawer = netytarDrawer;
 
             occluder = new Rectangle();
-            occluder.Stroke = Brushes.Transparent;
-            occluder.Fill = Brushes.Transparent;
-            occluder.Stroke = new SolidColorBrush(Color.FromArgb(40, 0, 0, 0));
-            occluder.Fill = new SolidColorBrush(Color.FromArgb(40, 0, 0, 0));
+            occluder.Stroke = new SolidColorBrush(Color.FromArgb(80, 0, 0, 0));
+            occluder.Fill = new SolidColorBrush(Color.FromArgb(80, 0, 0, 0));
             occluder.StrokeThickness = 1;
             occluder.HorizontalAlignment = HorizontalAlignment.Left;
             occluder.VerticalAlignment = VerticalAlignment.Center;

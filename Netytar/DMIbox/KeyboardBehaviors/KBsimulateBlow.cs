@@ -1,6 +1,8 @@
 ﻿using NeeqDMIs.Keyboard;
 using Netytar.DMIbox;
 using RawInputProcessor;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Netytar
 {

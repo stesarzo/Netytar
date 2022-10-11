@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace Netytar.DMIbox.SensorBehaviors
 {
-    public class SBaccelerometerTest : ISensorReaderBehavior
+    public class SBaccelerometerTest : ISensorBehavior
     {
         string[] para = new string[3];
 

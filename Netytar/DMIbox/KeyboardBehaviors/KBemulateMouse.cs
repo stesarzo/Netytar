@@ -14,7 +14,6 @@ namespace Netytar
         {
             if (e.VirtualKey == (ushort)keyAction)
             {
-                Rack.DMIBox.TobiiModule.MouseEmulator = new MouseEmulator(new PointFilterBypass());
                 Rack.DMIBox.TobiiModule.MouseEmulator.EyetrackerToMouse = true;
                 Rack.DMIBox.TobiiModule.MouseEmulator.CursorVisible = false;
 
