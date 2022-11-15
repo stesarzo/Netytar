@@ -1,7 +1,9 @@
 ﻿using NAudio.Wave;
+using NeeqDMIs.ErrorLogging;
 using NeeqDMIs.Music;
 using Netytar.DMIbox;
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -33,6 +35,8 @@ namespace Netytar
         public MainWindow()
         {
             InitializeComponent();
+            TraceAdder.AddTrace();
+
             DataContext = this;
 
             updater = new Timer();
@@ -598,6 +602,11 @@ namespace Netytar
 
                 UpdateIndicators();
             }
+        }
+
+        private void btnNeutral_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -1,6 +1,8 @@
-﻿using NeeqDMIs;
-using NeeqDMIs.ATmega;
+﻿using NeeqDMIs.ATmega;
+using NeeqDMIs.Eyetracking.Eyetribe;
+using NeeqDMIs.Eyetracking.Tobii;
 using NeeqDMIs.Keyboard;
+using NeeqDMIs.MIDI;
 using NeeqDMIs.Music;
 using System.Windows.Controls;
 
@@ -9,7 +11,7 @@ namespace Netytar.DMIbox
     /// <summary>
     /// DMIBox for Netytar, implementing the internal logic of the instrument.
     /// </summary>
-    public class NetytarDMIBox : DMIBox
+    public class NetytarDMIBox
     {
         private const _NetytarControlModes DEFAULT_NETYTARCONTROLMODE = _NetytarControlModes.Keyboard;
         private const _ModulationControlModes DEFAULT_MODULATIONCONTROLMODE = _ModulationControlModes.On;
@@ -19,6 +21,9 @@ namespace Netytar.DMIbox
         private Button lastGazedButton = new Button();
         private bool hasAButtonGaze = false;
         public _Eyetracker Eyetracker { get; set; } = _Eyetracker.Tobii;
+        public TobiiModule TobiiModule { get; set; }
+        public EyeTribeModule EyeTribeModule { get; set; }
+        public IMidiModule MidiModule { get; set; }
         public MainWindow NetytarMainWindow { get; set; }
 
         public KeyboardModule KeyboardModule { get; set; }
@@ -28,8 +33,10 @@ namespace Netytar.DMIbox
 
         private _ModulationControlModes modulationControlMode = DEFAULT_MODULATIONCONTROLMODE;
         private _BreathControlModes breathControlMode = DEFAULT_BREATHCONTROLMODE;
-        public _ModulationControlModes ModulationControlMode { get => modulationControlMode; set { modulationControlMode = value; ResetModulationAndPressure(); } }
-        public _BreathControlModes BreathControlMode { get => breathControlMode; set { breathControlMode = value; ResetModulationAndPressure(); } }
+        public _ModulationControlModes ModulationControlMode
+        { get => modulationControlMode; set { modulationControlMode = value; ResetModulationAndPressure(); } }
+        public _BreathControlModes BreathControlMode
+        { get => breathControlMode; set { breathControlMode = value; ResetModulationAndPressure(); } }
 
         #endregion Switchable
 
@@ -66,6 +73,7 @@ namespace Netytar.DMIbox
                             }
                         }
                         break;
+
                     case _SlidePlayModes.Off:
                         if (value != blow)
                         {
@@ -82,7 +90,6 @@ namespace Netytar.DMIbox
                         }
                         break;
                 }
-                
             }
         }
 
@@ -190,6 +197,7 @@ namespace Netytar.DMIbox
                             }
                         }
                         break;
+
                     case _SlidePlayModes.Off:
                         if (value != selectedNote)
                         {

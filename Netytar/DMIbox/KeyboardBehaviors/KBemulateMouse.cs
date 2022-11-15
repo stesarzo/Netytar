@@ -1,7 +1,4 @@
-﻿using NeeqDMIs.Eyetracking.PointFilters;
-using NeeqDMIs.Eyetracking.Utils;
-using NeeqDMIs.Keyboard;
-using Netytar;
+﻿using NeeqDMIs.Keyboard;
 using RawInputProcessor;
 
 namespace Netytar
