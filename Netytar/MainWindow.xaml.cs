@@ -1,13 +1,11 @@
-﻿using NAudio.Wave;
-using NeeqDMIs.ErrorLogging;
+﻿using NeeqDMIs.ErrorLogging;
 using NeeqDMIs.Music;
 using Netytar.DMIbox;
 using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Media;
+using System.Windows.Threading;
 using Tobii.Interaction.Wpf;
 
 namespace Netytar
@@ -17,62 +15,60 @@ namespace Netytar
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const int BreathMax = 340;
         private readonly SolidColorBrush ActiveBrush = new SolidColorBrush(Colors.LightGreen);
         private readonly SolidColorBrush WarningBrush = new SolidColorBrush(Colors.DarkRed);
         private readonly SolidColorBrush BlankBrush = new SolidColorBrush(Colors.Black);
-        private WaveOutEvent outputDevice;
-        private AudioFileReader audioFile;
 
-        private int breathSensorValue = 0;
-        private Scale StartingScale = ScalesFactory.Cmaj;
-        private Scale lastScale;
-        private Scale selectedScale;
+        private readonly SolidColorBrush GazeButtonColor = new SolidColorBrush(Colors.DarkGoldenrod);
         private bool NetytarStarted = false;
-        private Timer updater;
+        private DispatcherTimer updater;
         private double velocityBarMaxHeight = 0;
+
+        private Scale lastScale = ScalesFactory.Cmaj;
+
+        public Button LastSettingsGazedButton { get; set; } = null;
+
+        private Brush LastGazedBrush = null;
 
         public MainWindow()
         {
             InitializeComponent();
-            TraceAdder.AddTrace();
 
+            // Debugger
+            TraceAdder.AddTrace();
             DataContext = this;
 
-            updater = new Timer();
-            updater.Interval = 10;
-            updater.Tick += UpdateWindow;
+            // GUI updater
+            updater = new DispatcherTimer();
+            updater.Interval = new TimeSpan(1000);
+            updater.Tick += UpdateTimedVisuals;
             updater.Start();
-
-            lastScale = StartingScale;
-            SelectedScale = StartingScale;
         }
 
-        public int BreathSensorValue { get => breathSensorValue; set => breathSensorValue = value; }
+        public int BreathSensorValue { get; set; } = 0;
 
-        public Scale SelectedScale { get => selectedScale; set => selectedScale = value; }
+        public Scale SelectedScale { get; set; } = ScalesFactory.Cmaj;
 
         public int SensorPort
         {
-            get { return Rack.UserSettings.SensorPort; }
+            get { return R.UserSettings.SensorPort; }
             set
             {
                 if (value > 0)
                 {
-                    Rack.UserSettings.SensorPort = value;
+                    R.UserSettings.SensorPort = value;
                 }
             }
         }
 
         public void ReceiveNoteChange()
         {
-            txtPitch.Text = Rack.DMIBox.SelectedNote.ToPitchValue().ToString();
-            txtNoteName.Text = Rack.DMIBox.SelectedNote.ToStandardString();
+            UpdateGUIVisuals();
         }
 
         public void ReceiveBlowingChange()
         {
-            if (Rack.DMIBox.Blow)
+            if (R.NDB.Blow)
             {
                 txtIsBlowing.Text = "B";
             }
@@ -84,43 +80,52 @@ namespace Netytar
 
         internal void ChangeScale(ScaleCodes scaleCode)
         {
-            Rack.DMIBox.NetytarSurface.Scale = new Scale(Rack.DMIBox.SelectedNote.ToAbsNote(), scaleCode);
+            R.NDB.NetytarSurface.Scale = new Scale(R.NDB.SelectedNote.ToAbsNote(), scaleCode);
         }
 
         private void eyeGazeHandler(object sender, HasGazeChangedRoutedEventArgs e)
         {
             if (e.HasGaze)
             {
-                Rack.DMIBox.HasAButtonGaze = true;
-                Rack.DMIBox.LastGazedButton = (System.Windows.Controls.Button)sender;
+                R.NDB.HasAButtonGaze = true;
+                R.NDB.LastGazedButton = (System.Windows.Controls.Button)sender;
             }
             else
             {
-                Rack.DMIBox.HasAButtonGaze = false;
+                R.NDB.HasAButtonGaze = false;
             }
         }
 
-        private void UpdateWindow(object sender, EventArgs e)
+        private void UpdateTimedVisuals(object sender, EventArgs e)
         {
             if (NetytarStarted)
             {
-                VelocityBar.Height = (velocityBarMaxHeight * breathSensorValue) / BreathMax;
+                // VelocityBar.Height = (velocityBarMaxHeight * BreathSensorValue) / BreathMax;
 
                 if (SelectedScale.GetName().Equals(lastScale.GetName()) == false)
                 {
-                    lastScale = selectedScale;
-                    Rack.DMIBox.NetytarSurface.Scale = selectedScale;
+                    lastScale = SelectedScale;
+                    R.NDB.NetytarSurface.Scale = SelectedScale;
+                    UpdateGUIVisuals();
                 }
 
-                txtNoteName.Text = Rack.DMIBox.SelectedNote.ToStandardString();
-                txtPitch.Text = Rack.DMIBox.SelectedNote.ToPitchValue().ToString();
-                if (Rack.DMIBox.Blow)
+                txtNoteName.Text = R.NDB.SelectedNote.ToStandardString();
+                txtPitch.Text = R.NDB.SelectedNote.ToPitchValue().ToString();
+                if (R.NDB.Blow)
                 {
                     txtIsBlowing.Text = "B";
                 }
                 else
                 {
                     txtIsBlowing.Text = "_";
+                }
+
+                prbBreathSensor.Value = R.NDB.BreathValue;
+
+                if (R.RaiseClickEvent)
+                {
+                    LastSettingsGazedButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                    R.RaiseClickEvent = false;
                 }
 
                 /*
@@ -138,180 +143,87 @@ namespace Netytar
             }
         }
 
-        private void StartNetytar(object sender, RoutedEventArgs e)
+        private void StartNetytar()
         {
-            AddScaleListItems();
 
+            // EventHandler for all buttons
+            EventManager.RegisterClassHandler(typeof(Button), Button.MouseEnterEvent, new RoutedEventHandler(Global_SettingsButton_MouseEnter));
+
+            R.UserSettings = R.SavingSystem.LoadSettings();
             NetytarSetup netytarSetup = new NetytarSetup(this);
             netytarSetup.Setup();
 
-            //wpfInteractorAgent = NetytarRack.DMIBox.TobiiModule.TobiiHost.InitializeWpfAgent();
-
-            InitializeVolumeBar();
-            InitializeSensorPortText();
-
-            if (Rack.UserSettings.NetytarControlMode == _NetytarControlModes.Keyboard)
-            {
-                indCtrlKeyboard.Background = ActiveBrush;
-            }
-
-            if (Rack.UserSettings.NetytarControlMode == _NetytarControlModes.BreathSensor)
-            {
-                indCtrlBreath.Background = ActiveBrush;
-            }
-
-            btnStart.IsEnabled = false;
-            btnStart.Foreground = new SolidColorBrush(Colors.Black);
-
+            // Checks the selected MIDI port is available
             CheckMidiPort();
 
-            breathSensorValue = 0;
+            // wpfInteractorAgent = NetytarRack.DMIBox.TobiiModule.TobiiHost.InitializeWpfAgent();
 
-            UpdateIndicators();
-
-            NetytarStarted = true; // LEAVE AT THE END!
-
+            // Hide Settings
+            brdSettings.Visibility = Visibility.Hidden;
             
+            // LEAVE AT THE END!
+            NetytarStarted = true;
+            UpdateSensorConnection();
+            UpdateGUIVisuals();
         }
 
-        private void UpdateIndicators()
+        private void UpdateGUIVisuals()
         {
-            switch (Rack.UserSettings.NetytarControlMode)
-            {
-                case _NetytarControlModes.BreathSensor:
-                    indCtrlKeyboard.Background = BlankBrush;
-                    indCtrlBreath.Background = ActiveBrush;
-                    indCtrlEyePos.Background = BlankBrush;
-                    indCtrlEyeVel.Background = BlankBrush;
-                    break;
+            // TEXT
+            txtMIDIch.Text = "MP" + R.UserSettings.MIDIPort.ToString();
+            txtSensorPort.Text = "COM" + R.UserSettings.SensorPort.ToString();
+            txtRootNote.Text = R.UserSettings.RootNote.ToString();
+            txtSpacing.Text = R.UserSettings.HorizontalSpacer.ToString();
 
-                case _NetytarControlModes.EyePos:
-                    indCtrlKeyboard.Background = BlankBrush;
-                    indCtrlBreath.Background = BlankBrush;
-                    indCtrlEyePos.Background = ActiveBrush;
-                    indCtrlEyeVel.Background = BlankBrush;
-                    break;
-
-                case _NetytarControlModes.Keyboard:
-                    indCtrlKeyboard.Background = ActiveBrush;
-                    indCtrlBreath.Background = BlankBrush;
-                    indCtrlEyePos.Background = BlankBrush;
-                    indCtrlEyeVel.Background = BlankBrush;
-                    break;
-
-                case _NetytarControlModes.EyeVel:
-                    indCtrlKeyboard.Background = BlankBrush;
-                    indCtrlBreath.Background = BlankBrush;
-                    indCtrlEyePos.Background = BlankBrush;
-                    indCtrlEyeVel.Background = ActiveBrush;
-                    break;
-            }
-
-            switch (Rack.DMIBox.ModulationControlMode)
-            {
-                case _ModulationControlModes.On:
-                    indModulationControl.Background = ActiveBrush;
-                    break;
-
-                case _ModulationControlModes.Off:
-                    indModulationControl.Background = BlankBrush;
-                    break;
-            }
-
-            switch (Rack.DMIBox.BreathControlMode)
-            {
-                case _BreathControlModes.Switch:
-                    indBreathSwitch.Background = ActiveBrush;
-                    break;
-
-                case _BreathControlModes.Dynamic:
-                    indBreathSwitch.Background = BlankBrush;
-                    break;
-            }
-
-            switch (Rack.UserSettings.SharpNotesMode)
-            {
-                case _SharpNotesModes.On:
-                    indShowSharps.Background = ActiveBrush;
-                    break;
-
-                case _SharpNotesModes.Off:
-                    indShowSharps.Background = WarningBrush;
-                    break;
-            }
-
-            switch (Rack.UserSettings.BlinkSelectScaleMode)
-            {
-                case _BlinkSelectScaleMode.On:
-                    indBlinkSelectScale.Background = ActiveBrush;
-                    break;
-
-                case _BlinkSelectScaleMode.Off:
-                    indBlinkSelectScale.Background = WarningBrush;
-                    break;
-            }
-
-            switch (Rack.UserSettings.SlidePlayMode)
-            {
-                case _SlidePlayModes.On:
-                    indSlidePlay.Background = ActiveBrush;
-                    break;
-
-                case _SlidePlayModes.Off:
-                    indSlidePlay.Background = WarningBrush;
-                    break;
-            }
-
-            sldDistance.Value = Rack.UserSettings.HorizontalSpacer;
+            /// INDICATORS
+            indBreath.Background = R.UserSettings.NetytarControlMode == _NetytarControlModes.BreathSensor ? ActiveBrush : BlankBrush;
+            indKeyboard.Background = R.UserSettings.NetytarControlMode == _NetytarControlModes.Keyboard ? ActiveBrush : BlankBrush;
+            indRootNoteColor.Background = R.ColorCode.FromAbsNote(R.UserSettings.RootNote);
+            indScaleMajor.Background = (R.UserSettings.ScaleCode == ScaleCodes.maj) ? ActiveBrush : BlankBrush;
+            indScaleMinor.Background = (R.UserSettings.ScaleCode == ScaleCodes.min) ? ActiveBrush : BlankBrush;
+            indMod.Background = R.UserSettings.ModulationControlMode == _ModulationControlModes.On ? ActiveBrush: BlankBrush;
+            indBSwitch.Background = R.UserSettings.BreathControlMode == _BreathControlModes.Switch ? ActiveBrush : BlankBrush;
+            indSharpNotes.Background = R.UserSettings.SharpNotesMode == _SharpNotesModes.On ? ActiveBrush : BlankBrush;
+            //indBlinkPlay.Background = R.UserSettings.Bli
+            indSlidePlay.Background = R.UserSettings.SlidePlayMode == _SlidePlayModes.On ? ActiveBrush : BlankBrush;
+            indToggleCursor.Background = R.NDB.CursorHidden ? ActiveBrush: BlankBrush;
+            indToggleAutoScroll.Background = R.NDB.AutoScroller.Enabled ? ActiveBrush : BlankBrush;
+            indToggleEyeTracker.Background = R.NDB.TobiiModule.MouseEmulator.EyetrackerToMouse ? ActiveBrush : BlankBrush;
+            indSettings.Background = IsSettingsShown ? ActiveBrush : BlankBrush;
+            indNoteNames.Background = R.NDB.NetytarSurface.NoteNamesVisualized ? ActiveBrush : BlankBrush;
 
             /* MIDI */
-            lblMIDIch.Text = "MP" + Rack.DMIBox.MidiModule.OutDevice.ToString();
+            txtMIDIch.Text = "MP" + R.NDB.MidiModule.OutDevice.ToString();
             CheckMidiPort();
         }
 
         private void CheckMidiPort()
         {
-            if (Rack.DMIBox.MidiModule.IsMidiOk())
+            if (R.NDB.MidiModule.IsMidiOk())
             {
-                lblMIDIch.Foreground = ActiveBrush;
+                txtMIDIch.Foreground = ActiveBrush;
             }
             else
             {
-                lblMIDIch.Foreground = WarningBrush;
+                txtMIDIch.Foreground = WarningBrush;
             }
         }
 
-        private void InitializeSensorPortText()
-        {
-            txtSensorPort.Foreground = WarningBrush;
-            txtSensorPort.Text = "COM" + SensorPort;
-            UpdateSensorConnection();
-        }
-
-        private void InitializeVolumeBar()
-        {
-            velocityBarMaxHeight = VelocityBarBorder.ActualHeight;
-            VelocityBar.Height = 0;
-            MaxBar.Height = VelocityBar.Height = (velocityBarMaxHeight * 127) / BreathMax;
-        }
+        //private void InitializeVolumeBar()
+        //{
+        //    velocityBarMaxHeight = VelocityBarBorder.ActualHeight;
+        //    VelocityBar.Height = 0;
+        //    // MaxBar.Height = VelocityBar.Height = (velocityBarMaxHeight * 127) / BreathMax;
+        //}
 
         private void Test(object sender, RoutedEventArgs e)
         {
-            Rack.DMIBox.NetytarSurface.DrawScale();
-        }
-
-        private void AddScaleListItems()
-        {
-            foreach (Scale scale in ScalesFactory.GetList())
-            {
-                ListBoxItem item = new ListBoxItem() { Content = scale.GetName() };
-                lstScaleChanger.Items.Add(item);
-            }
+            R.NDB.NetytarSurface.DrawScale();
         }
 
         private void BtnScroll_Click(object sender, RoutedEventArgs e)
         {
-            Rack.DMIBox.AutoScroller.Enabled = !Rack.DMIBox.AutoScroller.Enabled;
+            R.NDB.AutoScroller.Enabled = !R.NDB.AutoScroller.Enabled;
         }
 
         private void BtnFFBTest_Click(object sender, RoutedEventArgs e)
@@ -319,34 +231,29 @@ namespace Netytar
             //Rack.DMIBox.FfbModule.FlashFFB();
         }
 
-        private void LstScaleChanger_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Rack.DMIBox.NetytarSurface.Scale = Scale.FromString(((ListBoxItem)lstScaleChanger.SelectedItem).Content.ToString());
-        }
-
-        private void btnMIDIchMinus_Click(object sender, RoutedEventArgs e)
+        private void BtnMIDIchMinus_Click(object sender, RoutedEventArgs e)
         {
             if (NetytarStarted)
             {
-                Rack.UserSettings.MIDIPort--;
-                Rack.DMIBox.MidiModule.OutDevice = Rack.UserSettings.MIDIPort;
+                R.UserSettings.MIDIPort--;
+                R.NDB.MidiModule.OutDevice = R.UserSettings.MIDIPort;
                 //lblMIDIch.Text = "MP" + Rack.DMIBox.MidiModule.OutDevice.ToString();
 
                 //CheckMidiPort();
-                UpdateIndicators();
+                UpdateGUIVisuals();
             }
         }
 
-        private void btnMIDIchPlus_Click(object sender, RoutedEventArgs e)
+        private void BtnMIDIchPlus_Click(object sender, RoutedEventArgs e)
         {
             if (NetytarStarted)
             {
-                Rack.UserSettings.MIDIPort++;
-                Rack.DMIBox.MidiModule.OutDevice = Rack.UserSettings.MIDIPort;
+                R.UserSettings.MIDIPort++;
+                R.NDB.MidiModule.OutDevice = R.UserSettings.MIDIPort;
                 //lblMIDIch.Text = "MP" + Rack.DMIBox.MidiModule.OutDevice.ToString();
 
                 //CheckMidiPort();
-                UpdateIndicators();
+                UpdateGUIVisuals();
             }
         }
 
@@ -354,12 +261,12 @@ namespace Netytar
         {
             if (NetytarStarted)
             {
-                Rack.UserSettings.NetytarControlMode = _NetytarControlModes.Keyboard;
-                Rack.DMIBox.ResetModulationAndPressure();
+                R.UserSettings.NetytarControlMode = _NetytarControlModes.Keyboard;
+                R.NDB.ResetModulationAndPressure();
 
-                breathSensorValue = 0;
+                BreathSensorValue = 0;
 
-                UpdateIndicators();
+                UpdateGUIVisuals();
             }
         }
 
@@ -367,16 +274,16 @@ namespace Netytar
         {
             if (NetytarStarted)
             {
-                Rack.UserSettings.NetytarControlMode = _NetytarControlModes.BreathSensor;
-                Rack.DMIBox.ResetModulationAndPressure();
+                R.UserSettings.NetytarControlMode = _NetytarControlModes.BreathSensor;
+                R.NDB.ResetModulationAndPressure();
 
-                breathSensorValue = 0;
+                BreathSensorValue = 0;
 
-                UpdateIndicators();
+                UpdateGUIVisuals();
             }
         }
 
-        private void btnSensorPortPlus_Click(object sender, RoutedEventArgs e)
+        private void BtnSensorPortPlus_Click(object sender, RoutedEventArgs e)
         {
             if (NetytarStarted)
             {
@@ -389,7 +296,7 @@ namespace Netytar
         {
             txtSensorPort.Text = "COM" + SensorPort.ToString();
 
-            if (Rack.DMIBox.SensorReader.Connect(SensorPort))
+            if (R.NithBSModule.Connect(SensorPort))
             {
                 txtSensorPort.Foreground = ActiveBrush;
             }
@@ -399,7 +306,7 @@ namespace Netytar
             }
         }
 
-        private void btnSensorPortMinus_Click(object sender, RoutedEventArgs e)
+        private void BtnSensorPortMinus_Click(object sender, RoutedEventArgs e)
         {
             if (NetytarStarted)
             {
@@ -408,9 +315,10 @@ namespace Netytar
             }
         }
 
-        private void btnExit_Click(object sender, RoutedEventArgs e)
+        private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
-            Rack.DMIBox.Dispose();
+            R.SavingSystem.SaveSettings(R.UserSettings);
+            R.NDB.Dispose();
             Close();
         }
 
@@ -418,12 +326,12 @@ namespace Netytar
         {
             if (NetytarStarted)
             {
-                Rack.UserSettings.NetytarControlMode = _NetytarControlModes.EyePos;
-                Rack.DMIBox.ResetModulationAndPressure();
+                R.UserSettings.NetytarControlMode = _NetytarControlModes.EyePos;
+                R.NDB.ResetModulationAndPressure();
 
-                breathSensorValue = 0;
+                BreathSensorValue = 0;
 
-                UpdateIndicators();
+                UpdateGUIVisuals();
             }
         }
 
@@ -437,15 +345,15 @@ namespace Netytar
             {
                 //btnCalibrateHeadPose.Background = new SolidColorBrush(Colors.LightGreen);
 
-                if (Rack.DMIBox.TobiiModule.LastHeadPoseData != null && Rack.DMIBox.TobiiModule.LastHeadPoseData.HasHeadPosition)
+                if (R.NDB.TobiiModule.LastHeadPoseData != null && R.NDB.TobiiModule.LastHeadPoseData.HasHeadPosition)
                 {
-                    Rack.DMIBox.HeadPoseBaseX = Rack.DMIBox.TobiiModule.LastHeadPoseData.HeadRotation.X;
-                    Rack.DMIBox.HeadPoseBaseY = Rack.DMIBox.TobiiModule.LastHeadPoseData.HeadRotation.Y;
-                    Rack.DMIBox.HeadPoseBaseZ = Rack.DMIBox.TobiiModule.LastHeadPoseData.HeadRotation.Z;
+                    R.NDB.HeadPoseBaseX = R.NDB.TobiiModule.LastHeadPoseData.HeadRotation.X;
+                    R.NDB.HeadPoseBaseY = R.NDB.TobiiModule.LastHeadPoseData.HeadRotation.Y;
+                    R.NDB.HeadPoseBaseZ = R.NDB.TobiiModule.LastHeadPoseData.HeadRotation.Z;
                 }
 
-                Rack.DMIBox.CalibrateGyroBase();
-                Rack.DMIBox.CalibrateAccBase();
+                R.NDB.CalibrateGyroBase();
+                R.NDB.CalibrateAccBase();
             }
         }
 
@@ -463,88 +371,40 @@ namespace Netytar
         {
             if (NetytarStarted)
             {
-                if (Rack.DMIBox.ModulationControlMode == _ModulationControlModes.Off)
-                {
-                    Rack.DMIBox.ModulationControlMode = _ModulationControlModes.On;
-                }
-                else if (Rack.DMIBox.ModulationControlMode == _ModulationControlModes.On)
-                {
-                    Rack.DMIBox.ModulationControlMode = _ModulationControlModes.Off;
-                }
+                R.UserSettings.ModulationControlMode = R.UserSettings.ModulationControlMode == _ModulationControlModes.On ? _ModulationControlModes.Off : _ModulationControlModes.On;
+                UpdateGUIVisuals();
             }
-
-            breathSensorValue = 0;
-
-            UpdateIndicators();
         }
 
         private void btnBreathControlSwitch_Click(object sender, RoutedEventArgs e)
         {
             if (NetytarStarted)
             {
-                if (Rack.DMIBox.BreathControlMode == _BreathControlModes.Switch)
+                if (R.NDB.BreathControlMode == _BreathControlModes.Switch)
                 {
-                    Rack.DMIBox.BreathControlMode = _BreathControlModes.Dynamic;
+                    R.NDB.BreathControlMode = _BreathControlModes.Dynamic;
                 }
-                else if (Rack.DMIBox.BreathControlMode == _BreathControlModes.Dynamic)
+                else if (R.NDB.BreathControlMode == _BreathControlModes.Dynamic)
                 {
-                    Rack.DMIBox.BreathControlMode = _BreathControlModes.Switch;
+                    R.NDB.BreathControlMode = _BreathControlModes.Switch;
                 }
             }
 
-            breathSensorValue = 0;
+            BreathSensorValue = 0;
 
-            UpdateIndicators();
+            UpdateGUIVisuals();
         }
 
         private void btnCtrlEyeVel_Click(object sender, RoutedEventArgs e)
         {
             if (NetytarStarted)
             {
-                Rack.UserSettings.NetytarControlMode = _NetytarControlModes.EyeVel;
-                Rack.DMIBox.ResetModulationAndPressure();
+                R.UserSettings.NetytarControlMode = _NetytarControlModes.EyeVel;
+                R.NDB.ResetModulationAndPressure();
 
-                breathSensorValue = 0;
+                BreathSensorValue = 0;
 
-                UpdateIndicators();
-            }
-        }
-
-        private void Button_Play(object sender, RoutedEventArgs e)
-        {
-            if (outputDevice == null)
-            {
-                outputDevice = new WaveOutEvent();
-                outputDevice.PlaybackStopped += OnPlaybackStopped;
-            }
-            if (audioFile == null)
-            {
-                audioFile = new AudioFileReader(@"C:\Users\Entica\Documents\GitHub\Netytar_CustomInterface\Netytar_CustomInterface\Netytar\Audio\80.mp3");
-                outputDevice.Init(audioFile);
-            }
-            outputDevice.Play();
-        }
-
-        private void Button_Stop(object sender, RoutedEventArgs e)
-        {
-            outputDevice?.Stop();
-        }
-
-        private void OnPlaybackStopped(object sender, StoppedEventArgs args)
-        {
-            outputDevice.Dispose();
-            outputDevice = null;
-            audioFile.Dispose();
-            audioFile = null;
-        }
-
-        private void sldDistance_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
-        {
-            if (NetytarStarted)
-            {
-                Rack.UserSettings.HorizontalSpacer = (int)sldDistance.Value;
-                Rack.UserSettings.VerticalSpacer = -(int)(sldDistance.Value / 2);
-                Rack.DMIBox.NetytarSurface.DrawButtons();
+                UpdateGUIVisuals();
             }
         }
 
@@ -552,17 +412,17 @@ namespace Netytar
         {
             if (NetytarStarted)
             {
-                if (Rack.UserSettings.SharpNotesMode == _SharpNotesModes.Off)
+                if (R.UserSettings.SharpNotesMode == _SharpNotesModes.Off)
                 {
-                    Rack.UserSettings.SharpNotesMode = _SharpNotesModes.On;
+                    R.UserSettings.SharpNotesMode = _SharpNotesModes.On;
                 }
-                else if (Rack.UserSettings.SharpNotesMode == _SharpNotesModes.On)
+                else if (R.UserSettings.SharpNotesMode == _SharpNotesModes.On)
                 {
-                    Rack.UserSettings.SharpNotesMode = _SharpNotesModes.Off;
+                    R.UserSettings.SharpNotesMode = _SharpNotesModes.Off;
                 }
 
-                UpdateIndicators();
-                Rack.DMIBox.NetytarSurface.DrawButtons();
+                UpdateGUIVisuals();
+                R.NDB.NetytarSurface.DrawButtons();
             }
         }
 
@@ -570,43 +430,273 @@ namespace Netytar
         {
             if (NetytarStarted)
             {
-                switch (Rack.UserSettings.BlinkSelectScaleMode)
+                switch (R.UserSettings.BlinkSelectScaleMode)
                 {
                     case _BlinkSelectScaleMode.Off:
-                        Rack.UserSettings.BlinkSelectScaleMode = _BlinkSelectScaleMode.On;
+                        R.UserSettings.BlinkSelectScaleMode = _BlinkSelectScaleMode.On;
                         break;
 
                     case _BlinkSelectScaleMode.On:
-                        Rack.UserSettings.BlinkSelectScaleMode = _BlinkSelectScaleMode.Off;
+                        R.UserSettings.BlinkSelectScaleMode = _BlinkSelectScaleMode.Off;
                         break;
                 }
 
-                UpdateIndicators();
+                UpdateGUIVisuals();
             }
         }
 
         private void btnSlidePlay_Click(object sender, RoutedEventArgs e)
         {
+            // TODO Rifare (?)
+
             if (NetytarStarted)
             {
-                switch (Rack.UserSettings.SlidePlayMode)
+                switch (R.UserSettings.SlidePlayMode)
                 {
                     case _SlidePlayModes.Off:
-                        Rack.UserSettings.SlidePlayMode = _SlidePlayModes.On;
+                        R.UserSettings.SlidePlayMode = _SlidePlayModes.On;
                         break;
 
                     case _SlidePlayModes.On:
-                        Rack.UserSettings.SlidePlayMode = _SlidePlayModes.Off;
+                        R.UserSettings.SlidePlayMode = _SlidePlayModes.Off;
                         break;
                 }
 
-                UpdateIndicators();
+                UpdateGUIVisuals();
             }
         }
 
         private void btnNeutral_Click(object sender, RoutedEventArgs e)
         {
+        }
 
+
+        private void btnNoCursor_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                R.NDB.CursorHidden = !R.NDB.CursorHidden;
+                Cursor = R.NDB.CursorHidden ? System.Windows.Input.Cursors.None : System.Windows.Input.Cursors.Arrow;
+            }
+
+            UpdateGUIVisuals();
+        }
+
+        private void btnToggleEyeTracker_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                R.NDB.TobiiModule.MouseEmulator.EyetrackerToMouse = !R.NDB.TobiiModule.MouseEmulator.EyetrackerToMouse;
+            }
+
+            UpdateGUIVisuals();
+        }
+
+        private void btnToggleAutoScroll_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                R.NDB.AutoScroller.Enabled = !R.NDB.AutoScroller.Enabled;
+            }
+
+            UpdateGUIVisuals();
+        }
+
+        public bool IsSettingsShown { get; set; } = false;
+        private void btnSettings_Click(object sender, RoutedEventArgs e)
+        {
+            switch (IsSettingsShown)
+            {
+                case false:
+                    IsSettingsShown = true;
+                    brdSettings.Visibility = Visibility.Visible;
+                    break;
+
+                case true:
+                    IsSettingsShown = false;
+                    brdSettings.Visibility = Visibility.Hidden;
+                    break;
+            }
+
+            UpdateGUIVisuals();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            StartNetytar();
+        }
+
+        private void btnScaleMajor_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                R.UserSettings.ScaleCode = ScaleCodes.maj;
+                R.NDB.NetytarSurface.Scale = new Scale(R.UserSettings.RootNote, R.UserSettings.ScaleCode);
+                UpdateGUIVisuals();
+            }
+        }
+
+        private void btnScaleMinor_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                R.UserSettings.ScaleCode = ScaleCodes.min;
+                R.NDB.NetytarSurface.Scale = new Scale(R.UserSettings.RootNote, R.UserSettings.ScaleCode);
+                UpdateGUIVisuals();
+            }
+        }
+
+        private void btnMod_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                R.UserSettings.ModulationControlMode = R.UserSettings.ModulationControlMode == _ModulationControlModes.On ? _ModulationControlModes.Off : _ModulationControlModes.On;
+                UpdateGUIVisuals();
+            }
+        }
+
+        private void btnBSwitch_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                R.UserSettings.BreathControlMode = R.UserSettings.BreathControlMode == _BreathControlModes.Dynamic ? _BreathControlModes.Switch : _BreathControlModes.Dynamic;
+                UpdateGUIVisuals();
+            }
+        }
+
+        private void btnSharpNotes_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                R.UserSettings.SharpNotesMode = R.UserSettings.SharpNotesMode == _SharpNotesModes.On ? _SharpNotesModes.Off : _SharpNotesModes.On;
+                R.NDB.NetytarSurface.DrawButtons();
+                UpdateGUIVisuals();
+            }
+        }
+
+        private void btnBlinkPlay_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSlidePlay_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                R.UserSettings.SlidePlayMode = R.UserSettings.SlidePlayMode == _SlidePlayModes.On ? _SlidePlayModes.Off : _SlidePlayModes.On;
+                UpdateGUIVisuals();
+            }
+        }
+
+        private void btnSpacingMinus_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                if (R.UserSettings.HorizontalSpacer > R.HORIZONTALSPACING_MIN)
+                {
+                    R.UserSettings.HorizontalSpacer -= 10;
+                    R.UserSettings.VerticalSpacer = -(R.UserSettings.HorizontalSpacer / 2);
+                }
+
+                R.NDB.NetytarSurface.DrawButtons();
+                UpdateGUIVisuals();
+            }
+        }
+
+        private void btnSpacingPlus_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                if(R.UserSettings.HorizontalSpacer < R.HORIZONTALSPACING_MAX)
+                {
+                    R.UserSettings.HorizontalSpacer += 10;
+                    R.UserSettings.VerticalSpacer = -(R.UserSettings.HorizontalSpacer / 2);
+                }
+
+                R.NDB.NetytarSurface.DrawButtons();
+                UpdateGUIVisuals();
+            }
+        }
+
+        private void btnKeyboard_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                R.UserSettings.NetytarControlMode = _NetytarControlModes.Keyboard;
+                UpdateGUIVisuals();
+            }
+        }
+
+        private void btnBreath_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                R.UserSettings.NetytarControlMode = _NetytarControlModes.BreathSensor;
+                UpdateGUIVisuals();
+            }
+        }
+
+        private void btnNoteNames_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                R.UserSettings.NoteNamesVisualized = !R.UserSettings.NoteNamesVisualized;
+                R.NDB.NetytarSurface.NoteNamesVisualized = R.UserSettings.NoteNamesVisualized;
+                UpdateGUIVisuals();
+            }
+        }
+
+        #region Global SettingsButtons
+
+        public void Global_NetytarButtonMouseEnter()
+        {
+            if (NetytarStarted)
+            {
+                if (LastSettingsGazedButton != null)
+                {
+                    // Reset Previous Button
+                    LastSettingsGazedButton.Background = LastGazedBrush;
+                    LastSettingsGazedButton = null;
+                }
+            }
+        }
+
+        private void Global_SettingsButton_MouseEnter(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                if (LastSettingsGazedButton != null)
+                {
+                    // Reset Previous Button
+                    LastSettingsGazedButton.Background = LastGazedBrush;
+                }
+
+                LastSettingsGazedButton = (Button)sender;
+                LastGazedBrush = LastSettingsGazedButton.Background;
+                LastSettingsGazedButton.Background = GazeButtonColor;
+            }
+        }
+
+        #endregion Global SettingsButtons
+
+        private void btnRootNotePlus_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                R.UserSettings.RootNote = R.UserSettings.RootNote.Next();
+                R.NDB.NetytarSurface.Scale = new Scale(R.UserSettings.RootNote, R.UserSettings.ScaleCode);
+                UpdateGUIVisuals();
+            }
+        }
+
+        private void btnRootNoteMinus_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                R.UserSettings.RootNote = R.UserSettings.RootNote.Previous();
+                R.NDB.NetytarSurface.Scale = new Scale(R.UserSettings.RootNote, R.UserSettings.ScaleCode);
+                UpdateGUIVisuals();
+            }
         }
     }
 }

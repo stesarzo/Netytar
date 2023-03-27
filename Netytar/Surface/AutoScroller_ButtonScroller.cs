@@ -37,10 +37,10 @@ namespace Netytar
         protected new void ListenPosition(object sender, EventArgs e)
         {
 
-            if (enabled && Rack.DMIBox.NetytarSurface.CheckedButton != null)
+            if (enabled && R.NDB.NetytarSurface.CheckedButton != null)
             {
-                var buttonX = Canvas.GetLeft(Rack.DMIBox.NetytarSurface.CheckedButton);
-                var buttonY = Canvas.GetTop(Rack.DMIBox.NetytarSurface.CheckedButton);
+                var buttonX = Canvas.GetLeft(R.NDB.NetytarSurface.CheckedButton);
+                var buttonY = Canvas.GetTop(R.NDB.NetytarSurface.CheckedButton);
 
                 var differenceX = (buttonX - scrollViewer.HorizontalOffset - scrollCenter.X);
                 var differenceY = (buttonY - scrollViewer.VerticalOffset - scrollCenter.Y);

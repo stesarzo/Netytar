@@ -4,31 +4,100 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="MainWindow"
-    Width="Auto"
-    Height="Auto"
-    ResizeMode="NoResize"
-    WindowStartupLocation="CenterScreen"
-    WindowState="Maximized"
-    WindowStyle="None"
-    mc:Ignorable="d">
+    Title="Netytar" WindowStyle="None" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen" WindowState="Maximized" Width="1537" Height="865" Loaded="Window_Loaded">
+    <!-- MAIN GRID -->
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="/Images/Backgrounds/DarkWood.png" TileMode="Tile" />
         </Grid.Background>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="131*" />
-            <ColumnDefinition Width="637*" />
-        </Grid.ColumnDefinitions>
-        <Border
-            Grid.Column="0"
-            Width="Auto"
-            Height="Auto"
-            Margin="15,76,15,0"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            BorderBrush="White"
-            BorderThickness="4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition Height="20*" />
+        </Grid.RowDefinitions>
+        
+        <!-- HEADBAR -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal" FlowDirection="LeftToRight">
+                
+                <Label Content="Netytar" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Magneto" FontSize="28" Foreground="White" Width="200"/>
+                <Border Style="{StaticResource LCDBorder}" Height="50" Width="100">
+                    <TextBlock Name="txtNoteName" Text="n" Style="{StaticResource LCDText}">
+                    </TextBlock>
+                </Border>
+                <Border Style="{StaticResource LCDBorder}" Height="50" Width="100">
+                    <TextBlock Name="txtPitch" Text="p" Style="{StaticResource LCDText}">
+                    </TextBlock>
+                </Border>
+                <Border Style="{StaticResource LCDBorder}" Height="50" Width="100">
+                    <TextBlock Name="txtIsBlowing" Text="b" Style="{StaticResource LCDText}">
+                    </TextBlock>
+                </Border>
+                <Border Width="200" Height="50" CornerRadius="15" Background="Black">
+                    <ProgressBar Name="prbBreathSensor" Margin="5,5,5,5"  Background="Black" Foreground="White" BorderThickness="0" Orientation="Horizontal" Maximum="100" Minimum="0"/>
+                </Border>
+                <Border Visibility="Hidden" Style="{StaticResource LCDBorder}" Height="50" Width="100">
+                    <TextBlock Name="txtTestIndicator" Text="val" Style="{StaticResource LCDText}" FontSize="7">
+                    </TextBlock>
+                </Border>
+                
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft" Grid.ColumnSpan="1">
+                <Button Name="btnExit" Style="{StaticResource RWood}" Click="BtnExit_Click" HorizontalContentAlignment="Center">
+                        <Image Source="/Images/Icons/Cross.png" Margin="10,10,10,10" />
+                </Button>
+                <Button Name="btnSettings" Style="{StaticResource MWood}" Click="btnSettings_Click" HorizontalContentAlignment="Center">
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="4,0,0,0" FlowDirection="LeftToRight">
+                        <Border Name="indSettings" Style="{StaticResource Indicator}" />
+                        <Image Source="/Images/Icons/Settings.png" Margin="10,8,0,8" />
+                    </StackPanel>
+                </Button>
+                <Button Name="btnToggleAutoScroll" Style="{StaticResource MWood}" Click="btnToggleAutoScroll_Click"  HorizontalContentAlignment="Center">
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="4,0,0,0" FlowDirection="LeftToRight">
+                        <Border Name="indToggleAutoScroll" Style="{StaticResource Indicator}" />
+                        <Image Source="/Images/Icons/AutoScroll.png" Margin="10,5,0,5" />
+                    </StackPanel>
+                </Button>
+                <Button Name="btnToggleEyeTracker" Style="{StaticResource MWood}" Click="btnToggleEyeTracker_Click"  HorizontalContentAlignment="Center">
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="4,0,0,0" FlowDirection="LeftToRight">
+                        <Border Name="indToggleEyeTracker" Style="{StaticResource Indicator}" />
+                        <Image Source="/Images/Icons/EyeTracker.png" Margin="10,5,0,5" />
+                    </StackPanel>
+                </Button>
+                <Button Name="btnToggleCursor" Style="{StaticResource MWood}" Click="btnNoCursor_Click"  HorizontalContentAlignment="Center">
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="4,0,0,0" FlowDirection="LeftToRight">
+                        <Border Name="indToggleCursor" Style="{StaticResource Indicator}" />
+                        <Image Source="/Images/Icons/NoCursor.png" Margin="10,8,0,8" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+        
+        <!-- LAYOUT -->
+        <TabControl Grid.Row="1" x:Name="tabSolo" BorderBrush="Transparent" Background="Black" Grid.ColumnSpan="2">
+            <TabItem x:Name="tabNetytar" Header="Netytar" Visibility="Collapsed" BorderBrush="Transparent">
+                <Grid Background="Black">
+                    <ScrollViewer  x:Name="scrlNetytar" Width="Auto" Height="Auto" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" BorderBrush="Transparent">
+                        <Canvas x:Name="canvasNetytar" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,0,0,0" Width="2000" Height="2000">
+                            <Canvas.Background>
+                                <SolidColorBrush Color="Black" />
+                            </Canvas.Background>
+                        </Canvas>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        
+         <!-- SETTINGS panel -->
+        <Border Name="brdSettings" Grid.Row="1" HorizontalAlignment="Left" Width="375" Height="Auto" Margin="5,5,5,5" CornerRadius="10" Visibility="Visible">
             <Border.Background>
                 <ImageBrush ImageSource="/Images/Backgrounds/LightWood.jpg" TileMode="Tile" />
             </Border.Background>
@@ -36,1022 +105,178 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                </Grid.RowDefinitions>
 
-                <!--  START AND EXIT  -->
-                <Grid Grid.Row="0" Grid.RowSpan="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                    </Grid.ColumnDefinitions>
-                    <Border
-                        Grid.Column="1"
-                        Width="Auto"
-                        Height="Auto"
-                        Margin="3,3,3,3"
-                        BorderBrush="WhiteSmoke"
-                        BorderThickness="2">
-                        <Button
-                            x:Name="btnStart"
-                            Width="Auto"
-                            Height="Auto"
-                            Click="StartNetytar"
-                            Content="Start"
-                            FontFamily="Magneto"
-                            FontSize="22"
-                            Foreground="White"
-                            IsCancel="True">
-                            <Button.Background>
-                                <ImageBrush
-                                    ImageSource="Images/Backgrounds/MidWood.png"
-                                    Stretch="None"
-                                    TileMode="Tile" />
-                            </Button.Background>
-                        </Button>
-                    </Border>
-                    <Border
-                        Grid.Column="0"
-                        Width="Auto"
-                        Height="Auto"
-                        Margin="3,3,3,3"
-                        BorderBrush="WhiteSmoke"
-                        BorderThickness="2">
-                        <Button
-                            Name="btnExit"
-                            Width="Auto"
-                            Height="Auto"
-                            Click="btnExit_Click"
-                            Content="Exit"
-                            FontFamily="Magneto"
-                            FontSize="22"
-                            Foreground="White"
-                            IsCancel="True">
-                            <!--  tobii:Behaviors.IsGazeAware="True"  -->
-
-                            <Button.Background>
-                                <ImageBrush
-                                    ImageSource="Images/Backgrounds/MidWood.png"
-                                    Stretch="None"
-                                    TileMode="Tile" />
-                            </Button.Background>
-                        </Button>
-                    </Border>
-                </Grid>
-
-                <!--  SCALE SELECTOR AND VELOCITYBAR  -->
-                <Grid Grid.Row="1" Grid.RowSpan="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                    </Grid.ColumnDefinitions>
-                    <Border
-                        Margin="3,3,3,3"
-                        Name="VelocityBarBorder"
-                        Grid.Column="1"
-                        Width="Auto"
-                        Height="Auto"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        Background="Black"
-                        BorderBrush="White"
-                        BorderThickness="2"
-                        CornerRadius="0">
-                        <Border
-                            Name="VelocityBar"
-                            Width="Auto"
-                            Height="10"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Bottom"
-                            Background="LightGreen"
-                            BorderThickness="0"
-                            CornerRadius="0">
-                            <!--Border.Background>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                    <GradientStop Color="LightCoral" Offset="0.0"></GradientStop>
-                                    <GradientStop Color="DarkRed" Offset="0.6"></GradientStop>
-                                </LinearGradientBrush>
-                            </Border.Background-->
+                <!-- Main Stackpanel -->
+                <StackPanel Grid.Column="0" Orientation="Vertical">
+                    
+                    <!-- Midi port selector -->
+                    <Label Content="Midi port" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width = "1*" />
+                            <ColumnDefinition Width = "1*" />
+                            <ColumnDefinition Width = "1*" />
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="btnMIDIchMinus" Content="⮜" Click="BtnMIDIchMinus_Click" Style="{StaticResource DWood}" />
+                        <Border Grid.Column="1" Name="brdMIDIch" Style="{StaticResource LCDBorder}">
+                            <TextBlock Name="txtMIDIch" Text="MP-" Style="{StaticResource LCDText}">
+                            </TextBlock>
                         </Border>
-                    </Border>
-                    <Border
-                        Name="MaxBar"
-                        Grid.Column="1"
-                        Width="Auto"
-                        Height="Auto"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Bottom"
-                        Background="Transparent"
-                        BorderBrush="White"
-                        BorderThickness="1"
-                        CornerRadius="0" />
-                    <ListBox
-                        Margin="3,3,3,3"
-                        x:Name="lstScaleChanger"
-                        Grid.Column="0"
-                        Width="Auto"
-                        Height="Auto"
-                        Background="Black"
-                        BorderBrush="WhiteSmoke"
-                        BorderThickness="2"
-                        Foreground="WhiteSmoke"
-                        SelectionChanged="LstScaleChanger_SelectionChanged" />
-                </Grid>
+                        <Button Grid.Column="2" x:Name="btnMIDIchPlus" Content="⮞" Click="BtnMIDIchPlus_Click" Style="{StaticResource DWood}" />
+                    </Grid>
+                    
+                    <!-- Com port selector -->
+                    <Label Content="Sensor port" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width = "1*" />
+                            <ColumnDefinition Width = "1*" />
+                            <ColumnDefinition Width = "1*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Name="btnSensorPortMinus" Content="⮜" Click="BtnSensorPortMinus_Click" Style="{StaticResource DWood}" />
+                        <Border Grid.Column="1" Style="{StaticResource LCDBorder}">
+                            <TextBlock Name="txtSensorPort" Text="COM" Style="{StaticResource LCDText}">
+                            </TextBlock>
+                        </Border>
+                        <Button Grid.Column="2" Name="btnSensorPortPlus" Content="⮞" Click="BtnSensorPortPlus_Click" Style="{StaticResource DWood}" HorizontalAlignment="Left" Margin="5,5,0,5" Width="115" />
+                    </Grid>
+                    
+                    <!-- Control selector -->
+                    <UniformGrid Columns="2" Rows="1">
+                        <Button Name="btnKeyboard" Style="{StaticResource DWoodLeft}" Click="btnKeyboard_Click">
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="4,0,0,0">
+                                <Border Name="indKeyboard" Style="{StaticResource Indicator}" />
+                                <Label Content="Keyboard" VerticalAlignment="Center" FontSize="18"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Name="btnBreath" Style="{StaticResource DWoodLeft}" Click="btnBreath_Click">
 
-                <!--  CONTROL SELECTORS  -->
-                <Grid Grid.Row="3" Grid.RowSpan="4" Margin="3,3,3,3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="40" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="1*" />
-                    </Grid.RowDefinitions>
-                    <Button
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="4,0,0,0">
+                                <Border Name="indBreath" Style="{StaticResource Indicator}" />
+                                <Label Content="Breath" VerticalAlignment="Center" FontSize="18"/>
+                            </StackPanel>
+                        </Button>
+                    </UniformGrid>
+                    
+                    <!-- Root note selector -->
+                    <Label Content="Scale selection" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width = "1*" />
+                            <ColumnDefinition Width = "1*" />
+                            <ColumnDefinition Width = "1*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Name="btnRootNoteMinus" Content="⮜" Click="btnRootNoteMinus_Click"  Style="{StaticResource DWood}" />
+                        <Border Grid.Column="1" Style="{StaticResource LCDBorder}">
+                            <UniformGrid Columns="2">
+                                <TextBlock Name="txtRootNote" Text="N" Style="{StaticResource LCDText}" />
+                                <Border Name="indRootNoteColor" Style="{StaticResource Indicator}" Background="white" />
+                            </UniformGrid>
+                        </Border>
+                        <Button Grid.Column="2" Name="btnRootNotePlus" Content="⮞" Click="btnRootNotePlus_Click" Style="{StaticResource DWood}" />
+                    </Grid>
+                    
+                    <!-- Scale type selector -->
+                    <UniformGrid Columns="2" Rows="1">
+                        <Button Name="btnScaleMajor" Style="{StaticResource DWoodLeft}" Click="btnScaleMajor_Click">
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="4,0,0,0">
+                                <Border Name="indScaleMajor" Style="{StaticResource Indicator}" />
+                                <Label Content="Major" VerticalAlignment="Center" FontSize="18" Foreground="LightCoral" />
+                            </StackPanel>
+                        </Button>
+                        <Button Name="btnScaleMinor" Style="{StaticResource DWoodLeft}" Click="btnScaleMinor_Click">
+
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="4,0,0,0">
+                                <Border Name="indScaleMinor" Style="{StaticResource Indicator}" />
+                                <Label Content="Minor" VerticalAlignment="Center" FontSize="18" Foreground="LightBlue"/>
+                            </StackPanel>
+                        </Button>
+                    </UniformGrid>
+                    
+                    <!-- Keys spacing -->
+                    <Label Content="Keys spacing" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width = "1*" />
+                            <ColumnDefinition Width = "1*" />
+                            <ColumnDefinition Width = "1*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Name="btnSpacingMinus" Content="⮜" Click="btnSpacingMinus_Click"  Style="{StaticResource DWood}" />
+                        <Border Grid.Column="1" Style="{StaticResource LCDBorder}">
+                            <TextBlock Name="txtSpacing" Text="-" Style="{StaticResource LCDText}">
+                            </TextBlock>
+                        </Border>
+                        <Button Grid.Column="2" Name="btnSpacingPlus" Content="⮞" Click="btnSpacingPlus_Click"  Style="{StaticResource DWood}" />
+                    </Grid>
+                    
+                    <!-- ============ Switchable settings -->
+                    <Label Content="" Height="14" />
+                    <UniformGrid Columns="2" Rows="3">
                         
-                        Name="btnCtrlKeyboard"
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Width="Auto"
-                        Height="Auto"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        BorderBrush="White"
-                        BorderThickness="2"
-                        Click="btnCtrlKeyboard_Click">
-                        <Button.Background>
-                            <ImageBrush
-                                ImageSource="Images/Backgrounds/MidWood.png"
-                                Stretch="None"
-                                TileMode="Tile" />
-                        </Button.Background>
-                    </Button>
-                    <Button
-                        Name="btnCtrlBreath"
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Width="Auto"
-                        Height="Auto"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        BorderBrush="White"
-                        BorderThickness="2"
-                        Click="btnCtrlBreath_Click">
-                        <Button.Background>
-                            <ImageBrush
-                                ImageSource="Images/Backgrounds/MidWood.png"
-                                Stretch="None"
-                                TileMode="Tile" />
-                        </Button.Background>
-                    </Button>
+                        <!-- Mod -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Button Name="btnMod" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnMod_Click">
+                                <Border Name="indMod" Style="{StaticResource Indicator}" />
+                            </Button>
+                            <Label VerticalAlignment="Center" Content="Modul." />
+                        </StackPanel>
+                        
+                        <!-- Breath switch -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Button Name="btnBSwitch" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnBSwitch_Click">
+                                <Border Name="indBSwitch" Style="{StaticResource Indicator}" />
+                            </Button>
+                            <Label VerticalAlignment="Center" Content="B. switch" />
+                        </StackPanel>
+                        
+                        <!-- Sharp notes -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Button Name="btnSharpNotes" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnSharpNotes_Click">
+                                <Border Name="indSharpNotes" Style="{StaticResource Indicator}" />
+                            </Button>
+                            <Label VerticalAlignment="Center" Content="Accid." />
+                        </StackPanel>
+                        
+                        
+                        
+                        <!-- Slide play -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Button Name="btnSlidePlay" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnSlidePlay_Click">
+                                <Border Name="indSlidePlay" Style="{StaticResource Indicator}" />
+                            </Button>
+                            <Label VerticalAlignment="Center" Content="Legato" />
+                        </StackPanel>
+                        
+                        <!-- Note names -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Button Name="btnNoteNames" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnNoteNames_Click">
+                                <Border Name="indNoteNames" Style="{StaticResource Indicator}" />
+                            </Button>
+                            <Label VerticalAlignment="Center" Content="Names" />
+                        </StackPanel>
+                        
+                        <!-- Blink play (HIDDEN) -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Button Name="btnBlinkPlay" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnBlinkPlay_Click">
+                                <Border Name="indBlinkPlay" Style="{StaticResource Indicator}" />
+                            </Button>
+                            <Label VerticalAlignment="Center" Content="Blink p." />
+                        </StackPanel>
+
+                    </UniformGrid>
                     
-                    <Button
-                        Visibility="Hidden"
-                        Name="btnCtrlEyePos"
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Width="Auto"
-                        Height="Auto"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        BorderBrush="White"
-                        BorderThickness="2"
-                        Click="btnCtrlEyePos_Click">
-                        <Button.Background>
-                            <ImageBrush
-                                ImageSource="Images/Backgrounds/MidWood.png"
-                                Stretch="None"
-                                TileMode="Tile" />
-                        </Button.Background>
-                    </Button>
-                    <Button
-                        Visibility="Hidden"
-                        Name="btnCtrlEyeVel"
-                        Grid.Row="3"
-                        Grid.Column="0"
-                        Width="Auto"
-                        Height="Auto"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        BorderBrush="White"
-                        BorderThickness="2"
-                        Click="btnCtrlEyeVel_Click">
-                        <Button.Background>
-                            <ImageBrush
-                                ImageSource="Images/Backgrounds/MidWood.png"
-                                Stretch="None"
-                                TileMode="Tile" />
-                        </Button.Background>
-                    </Button>
-                    <Border
-                        Name="indCtrlKeyboard"
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Width="20"
-                        Height="20"
-                        Margin="4,0,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Stretch"
-                        Background="Black"
-                        BorderBrush="White"
-                        BorderThickness="2"
-                        CornerRadius="10" />
-                    <Border
-                        Name="indCtrlBreath"
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Width="20"
-                        Height="20"
-                        Margin="4,0,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Stretch"
-                        Background="Black"
-                        BorderBrush="White"
-                        BorderThickness="2"
-                        CornerRadius="10" />
-                    <Border
-                        Visibility="Hidden"
-                        Name="indCtrlEyePos"
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Width="20"
-                        Height="20"
-                        Margin="4,0,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Stretch"
-                        Background="Black"
-                        BorderBrush="White"
-                        BorderThickness="2"
-                        CornerRadius="10" />
-                    <Border
-                        Visibility="Hidden"
-                        Name="indCtrlEyeVel"
-                        Grid.Row="3"
-                        Grid.Column="1"
-                        Width="20"
-                        Height="20"
-                        Margin="4,0,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Stretch"
-                        Background="Black"
-                        BorderBrush="White"
-                        BorderThickness="2"
-                        CornerRadius="10" />
-                    <Label
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Margin="22,0,0,0"
-                        Content="Keyboard"
-                        FontFamily="Magneto"
-                        FontSize="18"
-                        Foreground="White" />
-                    <Label
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Margin="22,0,0,0"
-                        Content="Breath"
-                        FontFamily="Magneto"
-                        FontSize="18"
-                        Foreground="White" />
-                    <Label
-                        Visibility="Hidden"
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Margin="22,0,0,0"
-                        Content="EyePos"
-                        FontFamily="Magneto"
-                        FontSize="18"
-                        Foreground="White" />
-                    <Label
-                        Visibility="Hidden"
-                        Grid.Row="3"
-                        Grid.Column="1"
-                        Margin="22,0,0,0"
-                        Content="EyeVel"
-                        FontFamily="Magneto"
-                        FontSize="18"
-                        Foreground="White" />
-                </Grid>
-
-                <!--  BREATH SENSOR PORT SELECTOR -->
-                <Grid Grid.Row="7" Margin="3,3,3,3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                    </Grid.ColumnDefinitions>
-                    <Border
-                        Grid.Column="0"
-                        Width="Auto"
-                        Height="Auto"
-                        Background="Black"
-                        BorderBrush="WhiteSmoke"
-                        BorderThickness="2"
-                        Visibility="Visible">
-                        <Button
-                            Name="btnSensorPortMinus"
-                            Width="Auto"
-                            Height="Auto"
-                            Click="btnSensorPortMinus_Click"
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center"
-                            Content="t"
-                            FontFamily="Wingdings 3"
-                            FontSize="18"
-                            Foreground="White"
-                            IsCancel="True">
-                            <Button.Background>
-                                <ImageBrush
-                                    ImageSource="Images/Backgrounds/DarkWood.png"
-                                    Stretch="None"
-                                    TileMode="Tile" />
-                            </Button.Background>
-                        </Button>
-                    </Border>
-                    <Border
-                        Grid.Column="1"
-                        Width="Auto"
-                        Height="Auto"
-                        Background="Black"
-                        BorderBrush="WhiteSmoke"
-                        BorderThickness="2"
-                        Visibility="Visible">
-                        <TextBlock
-                            Name="txtSensorPort"
-                            Background="Black"
-                            FontFamily="Digital-7 Italic"
-                            FontSize="25"
-                            Foreground="LightCoral"
-                            Text=""
-                            TextAlignment="Center" />
-                    </Border>
-                    <Border
-                        Grid.Column="2"
-                        Width="Auto"
-                        Height="Auto"
-                        Background="Black"
-                        BorderBrush="WhiteSmoke"
-                        BorderThickness="2"
-                        Visibility="Visible">
-                        <Button
-                            Name="btnSensorPortPlus"
-                            Width="Auto"
-                            Height="Auto"
-                            Margin="0,0,0,0"
-                            Click="btnSensorPortPlus_Click"
-                            Content="u"
-                            FontFamily="Wingdings 3"
-                            FontSize="18"
-                            Foreground="White"
-                            IsCancel="True">
-                            <Button.Background>
-                                <ImageBrush
-                                    ImageSource="Images/Backgrounds/DarkWood.png"
-                                    Stretch="None"
-                                    TileMode="Tile" />
-                            </Button.Background>
-                        </Button>
-                    </Border>
-                </Grid>
-
-                <!--  MIDI CHANNEL SELECTOR  -->
-                <Grid Grid.Row="8" Margin="3,3,3,3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-                    <Border
-                        Grid.Column="0"
-                        Width="Auto"
-                        Height="Auto"
-                        Background="Black"
-                        BorderBrush="WhiteSmoke"
-                        BorderThickness="2">
-                        <Button
-                            x:Name="btnMIDIchMinus"
-                            Width="Auto"
-                            Height="Auto"
-                            Click="btnMIDIchMinus_Click"
-                            Content="t"
-                            FontFamily="Wingdings 3"
-                            FontSize="18"
-                            Foreground="White"
-                            IsCancel="True">
-                            <Button.Background>
-                                <ImageBrush
-                                    ImageSource="Images/Backgrounds/DarkWood.png"
-                                    Stretch="None"
-                                    TileMode="Tile" />
-                            </Button.Background>
-                        </Button>
-                    </Border>
-                    <Border
-                        Grid.Column="1"
-                        Width="Auto"
-                        Height="Auto"
-                        Background="Black"
-                        BorderBrush="WhiteSmoke"
-                        BorderThickness="2">
-                        <TextBlock
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Name="lblMIDIch"
-                            Background="Black"
-                            FontFamily="Digital-7 Italic"
-                            FontSize="25"
-                            Foreground="LightCoral"
-                            Text=""
-                            TextAlignment="Center" />
-                    </Border>
-                    <Border
-                        Grid.Column="2"
-                        Width="Auto"
-                        Height="Auto"
-                        Background="Black"
-                        BorderBrush="WhiteSmoke"
-                        BorderThickness="2">
-                        <Button
-                            x:Name="btnMIDIchPlus"
-                            Width="Auto"
-                            Height="Auto"
-                            Click="btnMIDIchPlus_Click"
-                            Content="u"
-                            FontFamily="Wingdings 3"
-                            FontSize="18"
-                            Foreground="White"
-                            IsCancel="True">
-                            <Button.Background>
-                                <ImageBrush
-                                    ImageSource="Images/Backgrounds/DarkWood.png"
-                                    Stretch="None"
-                                    TileMode="Tile" />
-                            </Button.Background>
-                        </Button>
-                    </Border>
-                </Grid>
-
-                <!--  3 INDICATORS  -->
-                <Grid Grid.Row="9" Margin="3,3,3,3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                    </Grid.ColumnDefinitions>
-                    <Border
-                        Grid.Column="0"
-                        Width="Auto"
-                        Height="Auto"
-                        Background="Black"
-                        BorderBrush="WhiteSmoke"
-                        BorderThickness="2">
-                        <TextBlock
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            x:Name="txtPitch"
-                            Background="Black"
-                            FontFamily="Digital-7 Italic"
-                            FontSize="25"
-                            Foreground="LightCoral"
-                            Text="60"
-                            TextAlignment="Center" />
-                    </Border>
-                    <Border
-                        Grid.Column="2"
-                        Width="Auto"
-                        Height="Auto"
-                        Background="Black"
-                        BorderBrush="WhiteSmoke"
-                        BorderThickness="2" Grid.ColumnSpan="2">
-                        <TextBlock
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            x:Name="txtIsBlowing"
-                            Background="Black"
-                            FontFamily="Digital-7 Italic"
-                            FontSize="25"
-                            Foreground="LightCoral"
-                            Text="_"
-                            TextAlignment="Center" />
-                    </Border>
-                    <Border
-                        Grid.Column="1"
-                        Width="Auto"
-                        Height="Auto"
-                        Background="Black"
-                        BorderBrush="WhiteSmoke"
-                        BorderThickness="2">
-                        <TextBlock
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            x:Name="txtNoteName"
-                            Background="Black"
-                            FontFamily="Digital-7 Italic"
-                            FontSize="25"
-                            Foreground="LightCoral"
-                            Text="C"
-                            TextAlignment="Center" />
-                    </Border>
-                </Grid>
-
-                <!--  MODULATION AND SWITCHES  -->
-                <Grid Grid.Row="10" Grid.RowSpan="2" Margin="3,3,3,3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="40" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="1*" />
-                    </Grid.RowDefinitions>
-                    <Button
-                        Name="btnModulationControlSwitch"
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Width="Auto"
-                        Height="Auto"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        BorderBrush="White"
-                        BorderThickness="2"
-                        Click="btnModulationControlSwitch_Click">
-                        <Button.Background>
-                            <ImageBrush
-                                ImageSource="Images/Backgrounds/MidWood.png"
-                                Stretch="None"
-                                TileMode="Tile" />
-                        </Button.Background>
-                    </Button>
-                    <Button
-                        Name="btnBreathControlSwitch"
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Width="Auto"
-                        Height="Auto"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        BorderBrush="White"
-                        BorderThickness="2"
-                        Click="btnBreathControlSwitch_Click">
-                        <Button.Background>
-                            <ImageBrush
-                                ImageSource="Images/Backgrounds/MidWood.png"
-                                Stretch="None"
-                                TileMode="Tile" />
-                        </Button.Background>
-                    </Button>
-
-                    <Border
-                        Name="indModulationControl"
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Width="20"
-                        Height="20"
-                        Margin="4,0,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Stretch"
-                        Background="Black"
-                        BorderBrush="White"
-                        BorderThickness="2"
-                        CornerRadius="10" />
-                    <Border
-                        Name="indBreathSwitch"
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Width="20"
-                        Height="20"
-                        Margin="4,0,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Stretch"
-                        Background="Black"
-                        BorderBrush="White"
-                        BorderThickness="2"
-                        CornerRadius="10" />
-
-                    <Label
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Margin="22,0,0,0"
-                        Content="Mod"
-                        FontFamily="Magneto"
-                        FontSize="18"
-                        Foreground="White" />
-                    <Label
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Margin="22,0,0,0"
-                        Content="BSwitch"
-                        FontFamily="Magneto"
-                        FontSize="18"
-                        Foreground="White" />
-                </Grid>
-
-                <!--  LAYOUT MODIFIERS -->
-                <Grid Grid.Row="12" Grid.RowSpan="5" Margin="3,3,3,3">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="1*" />
-                    </Grid.RowDefinitions>
-                    <Label
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Margin="0,0,0,0"
-                            Content="Keys distance"
-                            FontFamily="Magneto"
-                            FontSize="18"
-                            Foreground="White" />
-                    <Slider
-                        Grid.Row="1"
-                        Name="sldDistance"
-                        HorizontalAlignment="Stretch"
-                        Minimum="50"
-                        Maximum="400"
-                        Thumb.DragCompleted="sldDistance_DragCompleted" Height="18" Margin="0,0,-0.2,0" Grid.RowSpan="2" VerticalAlignment="Top" RenderTransformOrigin="0.501,0.5" />
-                    <Grid Grid.Row="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <Button
-                        Name="btnRemoveSharps"
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Width="Auto"
-                        Height="Auto"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        BorderBrush="White"
-                        BorderThickness="2"
-                        Click="btnRemoveSharps_Click">
-                            <Button.Background>
-                                <ImageBrush
-                                ImageSource="Images/Backgrounds/MidWood.png"
-                                Stretch="None"
-                                TileMode="Tile" />
-                            </Button.Background>
-                        </Button>
-                        <Border
-                            Name="indShowSharps"
-                            Grid.Column="1"
-                            Width="20"
-                            Height="20"
-                            Margin="4,0,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Stretch"
-                            Background="Black"
-                            BorderBrush="White"
-                            BorderThickness="2"
-                            CornerRadius="10" />
-                        <Label
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Margin="22,0,0,0"
-                            Content="Sharp notes"
-                            FontFamily="Magneto"
-                            FontSize="18"
-                            Foreground="White" />
-                    </Grid>
-
-                    <Grid Grid.Row="3">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <Button
-                        Name="btnBlinkSelectScale"
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Width="Auto"
-                        Height="Auto"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        BorderBrush="White"
-                        BorderThickness="2"
-                        Click="btnBlinkSelectScale_Click">
-                            <Button.Background>
-                                <ImageBrush
-                                ImageSource="Images/Backgrounds/MidWood.png"
-                                Stretch="None"
-                                TileMode="Tile" />
-                            </Button.Background>
-                        </Button>
-                        <Border
-                            Name="indBlinkSelectScale"
-                            Grid.Column="1"
-                            Width="20"
-                            Height="20"
-                            Margin="4,0,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Stretch"
-                            Background="Black"
-                            BorderBrush="White"
-                            BorderThickness="2"
-                            CornerRadius="10" />
-                        <Label
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Margin="22,0,0,0"
-                            Content="Blink scale"
-                            FontFamily="Magneto"
-                            FontSize="18"
-                            Foreground="White" />
-                    </Grid>
-                    
-                    <Grid Grid.Row="4">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <Button
-                        Name="btnSlidePlay"
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Width="Auto"
-                        Height="Auto"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        BorderBrush="White"
-                        BorderThickness="2"
-                        Click="btnSlidePlay_Click">
-                            <Button.Background>
-                                <ImageBrush
-                                ImageSource="Images/Backgrounds/MidWood.png"
-                                Stretch="None"
-                                TileMode="Tile" />
-                            </Button.Background>
-                        </Button>
-                        <Border
-                            Name="indSlidePlay"
-                            Grid.Column="1"
-                            Width="20"
-                            Height="20"
-                            Margin="4,0,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Stretch"
-                            Background="Black"
-                            BorderBrush="White"
-                            BorderThickness="2"
-                            CornerRadius="10" />
-                        <Label
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Margin="22,0,0,0"
-                            Content="Slide play"
-                            FontFamily="Magneto"
-                            FontSize="18"
-                            Foreground="White" />
-                    </Grid>
-                </Grid>
-
-                <!--  CALIBRATOR FOR EYECONTROL  -->
-                <Grid Grid.Row="17" Grid.RowSpan ="3"  Margin="5,1,5,1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="1*" />
-                    </Grid.RowDefinitions>
-                    <Label
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Margin="0,0,0,0"
-                            Content="Neutral zone"
-                            FontFamily="Magneto"
-                            FontSize="18"
-                            Foreground="White" />
-                    <Border
-                        Grid.Column="0"
-                        Grid.Row="1"
-                        Grid.RowSpan="2"
-                        Width="Auto"
-                        Height="Auto"
-                        BorderBrush="WhiteSmoke"
-                        BorderThickness="2"
-                        Visibility="Visible">
-                        <Button
-                            Name="btnNeutral"
-                            Width="Auto"
-                            Height="Auto"
-                            Content=""
-                            FontFamily="Magneto"
-                            FontSize="22"
-                            Foreground="White"
-                            IsCancel="True">
-                            <Button.Background>
-                                <SolidColorBrush Color="Black" />
-                            </Button.Background>
-                        </Button>
-                    </Border>
-                    
-                    <!--Border
-                        Grid.Column="1"
-                        Width="Auto"
-                        Height="Auto"
-                        BorderBrush="WhiteSmoke"
-                        BorderThickness="2"
-                        Visibility="Visible">
-                        <Button
-                            Name="btnCalibrateHeadPose"
-                            Width="Auto"
-                            Height="Auto"
-                            Content=""
-                            FontFamily="Magneto"
-                            FontSize="22"
-                            Foreground="White"
-                            IsCancel="True"
-                            MouseEnter="btnCalibrateHeadPose_MouseEnter"
-                            MouseLeave="btnCalibrateHeadPose_MouseLeave">
-                            <Button.Background>
-                                <SolidColorBrush Color="Black" />
-                            </Button.Background>
-                        </Button>
-                    </Border-->
-                    <Border
-                        Grid.Column="1"
-                        Width="Auto"
-                        Height="60"
-                        Margin="1,1,1,1"
-                        Background="Black"
-                        BorderBrush="WhiteSmoke"
-                        BorderThickness="2"
-                        Visibility="Hidden">
-                        <Button
-                            x:Name="btnFlasher"
-                            Width="Auto"
-                            Height="Auto"
-                            Margin="0,1,1,0"
-                            Click="btnTestClick"
-                            Content="~"
-                            FontFamily="Webdings"
-                            FontSize="18"
-                            Foreground="White"
-                            IsCancel="True">
-                            <Button.Background>
-                                <ImageBrush
-                                    ImageSource="Images/Backgrounds/DarkWood.png"
-                                    Stretch="None"
-                                    TileMode="Tile" />
-                            </Button.Background>
-                        </Button>
-                    </Border>
-                    <!--Border
-                        Grid.Column="0"
-                        Grid.ColumnSpan="1"
-                        Width="Auto"
-                        Height="Auto"
-                        Background="Black"
-                        Visibility="Visible">
-                        <TextBlock
-                            Name="txtTest"
-                            Margin="0,0,0,0"
-                            Background="Black"
-                            FontFamily="Arial"
-                            FontSize="13"
-                            Foreground="White"
-                            Text=""
-                            TextAlignment="Left" />
-                    </Border-->
-                </Grid>
+                </StackPanel>
             </Grid>
         </Border>
-        <Border
-            Grid.Column="1"
-            Width="Auto"
-            Height="Auto"
-            Margin="5,76,20,2"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            BorderBrush="White"
-            BorderThickness="4">
-            <Border.Background>
-                <ImageBrush ImageSource="Images/Backgrounds/LightWood.jpg" TileMode="Tile" />
-            </Border.Background>
-            <TabControl x:Name="tabSolo" Margin="0,0,0,0">
-                <TabItem
-                    x:Name="tabNetytar"
-                    Header="Netytar"
-                    Visibility="Collapsed">
-                    <Grid>
-                        <Grid.Background>
-                            <SolidColorBrush Color="Black" />
-                            <!--ImageBrush ImageSource="Images/Backgrounds/PanWood.png" TileMode="Tile"></-->
-                        </Grid.Background>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="12*" />
-                        </Grid.RowDefinitions>
-                        <ScrollViewer
-                            x:Name="scrlNetytar"
-                            Grid.Row="0"
-                            Width="Auto"
-                            Height="Auto"
-                            Margin="0,0,0,0"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            HorizontalScrollBarVisibility="Visible"
-                            VerticalScrollBarVisibility="Visible">
-                            <Canvas
-                                x:Name="canvasNetytar"
-                                Margin="0,0,0,0"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch" />
-                        </ScrollViewer>
-                    </Grid>
-                </TabItem>
-            </TabControl>
-        </Border>
+       
+        
+        <!-- OLD ___________________________________________ OLD __________________ -->
 
-        <Label
-            x:Name="lblSettigs"
-            Grid.Column="0"
-            Grid.ColumnSpan="2"
-            Width="170"
-            Height="44"
-            Margin="15,21,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Content="Settings"
-            FontFamily="Magneto"
-            FontSize="30"
-            Foreground="White" />
-        <Label
-            x:Name="lblSolo"
-            Grid.Column="1"
-            Width="100"
-            Height="44"
-            Margin="0,21,20,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            Content="Solo"
-            FontFamily="Magneto"
-            FontSize="30"
-            Foreground="White" />
+
+                <!--  MODULATION AND SWITCHES  -->
+        
     </Grid>
 
-    <!--  HEAD POSITION LABELS  -->
-    <!--Border Grid.Row ="6" BorderThickness="2" BorderBrush="White" Margin="5,1,5,1">
-                    <Grid Grid.Row="6">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="1*" />
-                            <RowDefinition Height="1*" />
-                            <RowDefinition Height="1*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Name="txtEyePosX" Grid.Row="0" Background="Black" Foreground="White" Text="X" />
-                        <TextBlock Name="txtEyePosY" Grid.Row="1" Background="Black" Foreground="White" Text="Y" />
-                        <TextBlock Name="txtEyePosZ" Grid.Row="2" Background="Black" Foreground="White" Text="Z" />
-                    </Grid>
-                </Border-->
 
-    <!--  BUTTONS FOR TESTS  -->
-    <!--Grid Grid.Row="6" Margin="5,1,5,1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width = "1*" />
-                        <ColumnDefinition Width = "1*" />
-                        <ColumnDefinition Width = "1*" />
-                    </Grid.ColumnDefinitions>
-                    <Border Background="Black" Grid.Column="0" BorderThickness="2" BorderBrush="WhiteSmoke" Width="Auto" Height="60" Margin="1,1,1,1">
-                        <Button x:Name="btnScroll" Foreground="White" Content="no"  Width="Auto" Height="Auto" Margin="0,1,1,0" Click="BtnScroll_Click" FontFamily="Wingdings 3" FontSize="18" IsCancel="True">
-                            <Button.Background>
-                                <ImageBrush ImageSource="Images/Backgrounds/DarkWood.png" TileMode="Tile" Stretch="None"></ImageBrush>
-                            </Button.Background>
-                        </Button>
-                    </Border>
-                    <Border Background="Black" Grid.Column="2" BorderThickness="2" BorderBrush="WhiteSmoke" Width="Auto" Height="60" Margin="1,1,1,1">
-                        <Button x:Name="btnFFBTest" Foreground="White" Content="@"  Width="Auto" Height="Auto" Margin="0,1,1,0" Click="BtnFFBTest_Click" FontFamily="Webdings" FontSize="18" IsCancel="True">
-                            <Button.Background>
-                                <ImageBrush ImageSource="Images/Backgrounds/DarkWood.png" TileMode="Tile" Stretch="None"></ImageBrush>
-                            </Button.Background>
-                        </Button>
-                    </Border>
-                </Grid-->
+    
 </Window>

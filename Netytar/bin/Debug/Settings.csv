@@ -1,0 +1,2 @@
+VerticalSpacer,HorizontalSpacer,OccluderOffset,EllipseRadius,LineThickness,HighlightStrokeDim,HighlightRadius,SharpNotesMode,BlinkSelectScaleMode,BreathControlMode,NetytarControlMode,ModulationControlMode,SlidePlayMode,SensorPort,MIDIPort,RootNote,ScaleCode,NoteNamesVisualized
+-90,180,35,23,3,5,65,On,On,Dynamic,Keyboard,Off,On,3,0,C,maj,True

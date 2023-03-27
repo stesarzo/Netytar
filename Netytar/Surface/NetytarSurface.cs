@@ -26,23 +26,36 @@ namespace Netytar
         None
     }
 
+    
     public class NetytarSurface
     {
-        private NetytarButton checkedButton;
-        private Ellipse highlighter = new Ellipse();
+        private Ellipse highlighter;
+
         private NetytarButton lastCheckedButton;
         private Scale scale = ScalesFactory.Cmaj;
+        private List<TextBlock> NoteNames { get; set; } = new List<TextBlock>();
+
 
         public NetytarSurface(Canvas canvas, NetytarSurfaceLineModes drawMode)
         {
-            LoadSettings();
             this.DrawMode = drawMode;
 
             this.canvas = canvas;
+            InitializeHighlighter();
+
             ResetCanvasDimensions();
         }
 
-        public NetytarButton CheckedButton { get => checkedButton; }
+        private void InitializeHighlighter()
+        {
+            highlighter = new Ellipse();
+            highlighter.Height = highlighter.Width = R.UserSettings.HighlightRadius;
+            highlighter.Stroke = new SolidColorBrush(Colors.White);
+            highlighter.StrokeThickness = R.UserSettings.HighlightStrokeDim;
+        }
+
+        public NetytarButton CheckedButton { get; private set; }
+        private bool noteNamesVisualized = false;
         public NetytarSurfaceLineModes DrawMode { get; set; } = NetytarSurfaceLineModes.OnlyScaleLines;
         public NetytarSurfaceHighlightModes HighLightMode { get; set; }
 
@@ -52,40 +65,22 @@ namespace Netytar
             set { scale = value; DrawButtons(); }
         }
 
-        #region Settings
-
-        private _SharpNotesModes sharpNotesMode;
-        private int ellipseRadius;
-
-        private int generativePitch;
-
-        private int horizontalSpacer;
-
-        private List<Color> keysColorCode = new List<Color>()
+        public bool NoteNamesVisualized
         {
-            Colors.Red,
-            Colors.Orange,
-            Colors.Yellow,
-            Colors.LightGreen,
-            Colors.Blue,
-            Colors.Purple,
-            Colors.Coral
-        };
-
-        private int lineThickness;
-        private SolidColorBrush majorBrush;
-        private SolidColorBrush minorBrush;
-        private int nCols;
-        private SolidColorBrush notInScaleBrush;
-        private int nRows;
-        private int occluderAlpha;
-        private int occluderOffset;
-        private int startPositionX;
-        private int startPositionY;
-        private SolidColorBrush transparentBrush = new SolidColorBrush(Colors.Transparent);
-        private int verticalSpacer;
-
-        #endregion Settings
+            get { return noteNamesVisualized; }
+            set
+            {
+                noteNamesVisualized = value;
+                if (value)
+                {
+                    DrawNoteNames();
+                }
+                else
+                {
+                    ClearNoteNames();
+                }
+            }
+        }
 
         #region Surface components
 
@@ -118,6 +113,36 @@ namespace Netytar
 
             drawnLines = new List<Line>();
         }
+        public void ClearNoteNames()
+        {
+            if(NoteNames.Count > 0)
+            {
+                foreach(TextBlock textBlock in NoteNames)
+                {
+                    canvas.Children.Remove(textBlock);
+                }
+            }
+            NoteNames.Clear();
+        }
+
+        public void DrawNoteNames()
+        {
+            ClearNoteNames();
+            foreach(NetytarButton button in netytarButtons)
+            {
+                TextBlock text = new TextBlock();
+                text.Text = button.Note.ToStandardString();
+                text.FontSize = 16;
+                text.Foreground = new SolidColorBrush(Colors.White);
+                text.Height = 20;
+                text.Width = button.Ellipse.Width;
+                text.TextAlignment = TextAlignment.Center;
+                Canvas.SetLeft(text, Canvas.GetLeft(button.Ellipse));
+                Canvas.SetTop(text, Canvas.GetTop(button.Ellipse) + button.Ellipse.Height + 5);
+                NoteNames.Add(text);
+                canvas.Children.Add(text);
+            }
+        }
 
         /// <summary>
         /// Logica di disegno dei pulsanti a schermo
@@ -125,7 +150,6 @@ namespace Netytar
         public void DrawButtons()
         {
             ClearButtons();
-            LoadSettings();
             ResetCanvasDimensions();
 
             if (canvas.Children.Contains(highlighter))
@@ -135,16 +159,16 @@ namespace Netytar
             canvas.Children.Add(highlighter);
 
             // Mi segno un po' di misure
-            int halfSpacer = horizontalSpacer / 2;
-            int spacer = horizontalSpacer;
+            int halfSpacer = R.UserSettings.HorizontalSpacer / 2;
+            int spacer = R.UserSettings.HorizontalSpacer;
 
             int firstSpacer = 0;
 
             bool isPairRow;
 
-            for (int row = 0; row < nRows; row++)
+            for (int row = 0; row < R.ButtonsSettings.NRows; row++)
             {
-                for (int col = 0; col < nCols; col++)
+                for (int col = 0; col < R.ButtonsSettings.NCols; col++)
                 {
                     #region Is row pair?
 
@@ -174,7 +198,7 @@ namespace Netytar
 
                     #region Define note
 
-                    int calcPitch = generativePitch;
+                    int calcPitch = R.ButtonsSettings.GenerativeNote;
                     calcPitch += col * 2 + row * 2;
                     if (isPairRow)
                     {
@@ -185,18 +209,18 @@ namespace Netytar
                     #endregion Define note
 
                     // Algoritmo che trova la posizione del pulsante
-                    int X = startPositionX + firstSpacer + col * horizontalSpacer;
-                    int Y = startPositionY + verticalSpacer * row;
+                    int X = R.ButtonsSettings.StartPositionX + firstSpacer + col * R.UserSettings.HorizontalSpacer;
+                    int Y = R.ButtonsSettings.StartPositionY + R.UserSettings.VerticalSpacer * row;
                     Canvas.SetLeft(netytarButtons[row, col], X);
                     Canvas.SetTop(netytarButtons[row, col], Y);
 
                     // Algoritmo che crea l'occluder e ne definisce le dimensioni
-                    netytarButtons[row, col].Occluder.Width = occluderOffset * 2;
-                    netytarButtons[row, col].Occluder.Height = occluderOffset * 2;
-                    netytarButtons[row, col].Occluder.Fill = new SolidColorBrush(Color.FromArgb((byte)occluderAlpha, 0xFF, 0xFF, 0xFF));
-                    netytarButtons[row, col].Occluder.Stroke = new SolidColorBrush(Color.FromArgb((byte)occluderAlpha, 0, 0, 0));
-                    Canvas.SetLeft(netytarButtons[row, col].Occluder, X - occluderOffset);
-                    Canvas.SetTop(netytarButtons[row, col].Occluder, Y - occluderOffset);
+                    netytarButtons[row, col].Occluder.Width = R.UserSettings.OccluderOffset * 2;
+                    netytarButtons[row, col].Occluder.Height = R.UserSettings.OccluderOffset * 2;
+                    netytarButtons[row, col].Occluder.Fill = new SolidColorBrush(Color.FromArgb((byte)R.ButtonsSettings.OccluderAlpha, 0xFF, 0xFF, 0xFF));
+                    netytarButtons[row, col].Occluder.Stroke = new SolidColorBrush(Color.FromArgb((byte)R.ButtonsSettings.OccluderAlpha, 0, 0, 0));
+                    Canvas.SetLeft(netytarButtons[row, col].Occluder, X - R.UserSettings.OccluderOffset);
+                    Canvas.SetTop(netytarButtons[row, col].Occluder, Y - R.UserSettings.OccluderOffset);
 
                     // Indica le posizioni sull'asse Z
                     Panel.SetZIndex(netytarButtons[row, col], 3);
@@ -205,7 +229,7 @@ namespace Netytar
                     // Aggiunge gli oggetti al canvas di Netytar
                     canvas.Children.Add(netytarButtons[row, col]);
                     canvas.Children.Add(netytarButtons[row, col].Occluder);
-                    if (Rack.UserSettings.SharpNotesMode == _SharpNotesModes.Off && !scale.IsInScale(netytarButtons[row, col].Note))
+                    if (R.UserSettings.SharpNotesMode == _SharpNotesModes.Off && !scale.IsInScale(netytarButtons[row, col].Note))
                     {
                         netytarButtons[row, col].Visibility = Visibility.Hidden;
                         netytarButtons[row, col].Occluder.Visibility = Visibility.Hidden;
@@ -227,29 +251,29 @@ namespace Netytar
 
                 List<AbsNotes> scaleNotes = scale.NotesInScale;
 
-                for (int j = 0; j < nCols; j++)
+                for (int j = 0; j < R.ButtonsSettings.NCols; j++)
                 {
-                    for (int k = 0; k < nCols; k++)
+                    for (int k = 0; k < R.ButtonsSettings.NCols; k++)
                     {
                         AbsNotes note = netytarButtons[j, k].Note.ToAbsNote();
 
                         Ellipse ellipse = new Ellipse();
 
-                        ellipse.Width = ellipseRadius * 2;
-                        ellipse.Height = ellipseRadius * 2;
+                        ellipse.Width = R.UserSettings.EllipseRadius * 2;
+                        ellipse.Height = R.UserSettings.EllipseRadius * 2;
 
-                        Canvas.SetLeft(ellipse, Canvas.GetLeft(netytarButtons[j, k]) - ellipseRadius);
-                        Canvas.SetTop(ellipse, Canvas.GetTop(netytarButtons[j, k]) - ellipseRadius);
+                        Canvas.SetLeft(ellipse, Canvas.GetLeft(netytarButtons[j, k]) - R.UserSettings.EllipseRadius);
+                        Canvas.SetTop(ellipse, Canvas.GetTop(netytarButtons[j, k]) - R.UserSettings.EllipseRadius);
                         Canvas.SetZIndex(ellipse, 2);
 
                         if (!scaleNotes.Contains(note))
                         {
-                            if (sharpNotesMode == _SharpNotesModes.On)
+                            if (R.UserSettings.SharpNotesMode == _SharpNotesModes.On)
                             {
-                                ellipse.Stroke = notInScaleBrush;
-                                ellipse.Fill = notInScaleBrush;
+                                ellipse.Stroke = R.ColorCode.NotInScaleBrush;
+                                ellipse.Fill = R.ColorCode.NotInScaleBrush;
                             }
-                            else if (sharpNotesMode == _SharpNotesModes.Off)
+                            else if (R.UserSettings.SharpNotesMode == _SharpNotesModes.Off)
                             {
                                 ellipse.Stroke = new SolidColorBrush(Colors.Transparent);
                                 ellipse.Fill = new SolidColorBrush(Colors.Transparent);
@@ -261,13 +285,14 @@ namespace Netytar
                             {
                                 if (note == scaleNotes[i])
                                 {
-                                    ellipse.Stroke = new SolidColorBrush(keysColorCode[i]);
-                                    ellipse.Fill = new SolidColorBrush(keysColorCode[i]);
+                                    ellipse.Stroke = R.ColorCode.KeysColorCode[i];
+                                    ellipse.Fill = R.ColorCode.KeysColorCode[i];
                                 }
                             }
                         }
 
                         drawnEllipses.Add(ellipse);
+                        netytarButtons[j, k].Ellipse = ellipse;
                     }
                 }
 
@@ -280,8 +305,10 @@ namespace Netytar
 
         public void DrawScale()
         {
-            DrawLines(scale);
             DrawEllipses(scale);
+            DrawLines(scale);
+
+            NoteNamesVisualized = R.UserSettings.NoteNamesVisualized;
         }
 
         public void FlashMovementLine()
@@ -296,13 +323,13 @@ namespace Netytar
 
         public void FlashSpark()
         {
-            if (checkedButton != null)
+            if (CheckedButton != null)
             {
                 Image image = new Image();
                 image.Height = 40;
                 image.Width = 40;
-                Canvas.SetLeft(image, Canvas.GetLeft(checkedButton) - 10);
-                Canvas.SetTop(image, Canvas.GetTop(checkedButton) - 15);
+                Canvas.SetLeft(image, Canvas.GetLeft(CheckedButton) - 10);
+                Canvas.SetTop(image, Canvas.GetTop(CheckedButton) - 15);
                 Canvas.SetZIndex(image, 100);
                 canvas.Children.Add(image);
 
@@ -312,7 +339,7 @@ namespace Netytar
                 bitImage.EndInit();
                 ImageBehavior.SetAnimatedSource(image, bitImage);
                 ImageBehavior.SetRepeatBehavior(image, new RepeatBehavior(1));
-                ImageBehavior.AddAnimationCompletedHandler(image, disposeImage);
+                ImageBehavior.AddAnimationCompletedHandler(image, DisposeImage);
             }
         }
 
@@ -320,10 +347,10 @@ namespace Netytar
         {
             if (sender != CheckedButton)
             {
-                Rack.DMIBox.SelectedNote = sender.Note;
+                R.NDB.SelectedNote = sender.Note;
 
-                lastCheckedButton = checkedButton;
-                checkedButton = sender;
+                lastCheckedButton = CheckedButton;
+                CheckedButton = sender;
 
                 FlashMovementLine();
 
@@ -334,39 +361,10 @@ namespace Netytar
             }
         }
 
-        public void LoadSettings()
-        {
-            ellipseRadius = Rack.UserSettings.EllipseRadius;
-            horizontalSpacer = Rack.UserSettings.HorizontalSpacer;
-            lineThickness = Rack.UserSettings.LineThickness;
-            occluderOffset = Rack.UserSettings.OccluderOffset;
-            verticalSpacer = Rack.UserSettings.VerticalSpacer;
-            sharpNotesMode = Rack.UserSettings.SharpNotesMode;
-
-            keysColorCode = Rack.ColorCode.KeysColorCode;
-            notInScaleBrush = Rack.ColorCode.NotInScaleBrush;
-            majorBrush = Rack.ColorCode.MajorBrush;
-            minorBrush = Rack.ColorCode.MinorBrush;
-
-            generativePitch = Rack.ButtonsSettings.GenerativeNote;
-            nCols = Rack.ButtonsSettings.NCols;
-            nRows = Rack.ButtonsSettings.NRows;
-            startPositionX = Rack.ButtonsSettings.StartPositionX;
-            startPositionY = Rack.ButtonsSettings.StartPositionY;
-            occluderAlpha = Rack.ButtonsSettings.OccluderAlpha;
-
-            highlighter.Width = Rack.UserSettings.HighlightRadius;
-            highlighter.Height = Rack.UserSettings.HighlightRadius;
-            highlighter.StrokeThickness = Rack.UserSettings.HighlightStrokeDim;
-            highlighter.Stroke = Rack.ColorCode.HighlightBrush;
-
-            //canvas.Background =
-        }
-
         private void ResetCanvasDimensions()
         {
-            canvas.Width = startPositionX * 2 + (horizontalSpacer + 13) * (nCols - 1);
-            canvas.Height = startPositionY * 2 + (verticalSpacer + 13) * (nRows - 1);
+            canvas.Width = R.ButtonsSettings.StartPositionX * 2 + (R.UserSettings.HorizontalSpacer + 13) * (R.ButtonsSettings.NCols - 1);
+            canvas.Height = R.ButtonsSettings.StartPositionY * 2 + (R.UserSettings.VerticalSpacer + 13) * (R.ButtonsSettings.NRows - 1);
         }
 
         private void ClearButtons()
@@ -379,12 +377,12 @@ namespace Netytar
                     canvas.Children.Remove(button.Occluder);
                 }
 
-                netytarButtons = new NetytarButton[nRows, nCols];
+                netytarButtons = new NetytarButton[R.ButtonsSettings.NRows, R.ButtonsSettings.NCols];
             }
-            netytarButtons = new NetytarButton[nRows, nCols];
+            netytarButtons = new NetytarButton[R.ButtonsSettings.NRows, R.ButtonsSettings.NCols];
         }
 
-        private void disposeImage(object sender, RoutedEventArgs e)
+        private void DisposeImage(object sender, RoutedEventArgs e)
         {
             canvas.Children.Remove(((Image)sender));
         }
@@ -403,15 +401,15 @@ namespace Netytar
                     switch (scale.ScaleCode)
                     {
                         case ScaleCodes.maj:
-                            inScaleBrush = majorBrush;
+                            inScaleBrush = R.ColorCode.MajorBrush;
                             break;
 
                         case ScaleCodes.min:
-                            inScaleBrush = minorBrush;
+                            inScaleBrush = R.ColorCode.MinorBrush;
                             break;
 
                         default:
-                            inScaleBrush = majorBrush;
+                            inScaleBrush = R.ColorCode.MajorBrush;
                             break;
                     }
 
@@ -422,9 +420,9 @@ namespace Netytar
                     Point realCenter1;
                     Point realCenter2;
 
-                    for (int row = 0; row < nRows; row++)
+                    for (int row = 0; row < R.ButtonsSettings.NRows; row++)
                     {
-                        for (int col = 0; col < nCols; col++)
+                        for (int col = 0; col < R.ButtonsSettings.NCols; col++)
                         {
                             #region Is row pair?
 
@@ -452,15 +450,15 @@ namespace Netytar
                                 {
                                     if (DrawMode == NetytarSurfaceLineModes.OnlyScaleLines)
                                     {
-                                        brush = transparentBrush;
+                                        brush = R.ColorCode.TransparentBrush;
                                     }
                                     else
                                     {
-                                        brush = notInScaleBrush;
+                                        brush = R.ColorCode.NotInScaleBrush;
                                     }
                                 }
-                                realCenter1 = new Point(Canvas.GetLeft(netytarButtons[row, col]), Canvas.GetTop(netytarButtons[row, col]));
-                                realCenter2 = new Point(Canvas.GetLeft(netytarButtons[row, col - 1]), Canvas.GetTop(netytarButtons[row, col - 1]));
+                                realCenter1 = new Point(Canvas.GetLeft(netytarButtons[row, col].Ellipse) + netytarButtons[row, col].Ellipse.Width / 2, Canvas.GetTop(netytarButtons[row, col].Ellipse) + netytarButtons[row, col].Ellipse.Height / 2);
+                                realCenter2 = new Point(Canvas.GetLeft(netytarButtons[row, col - 1].Ellipse) + netytarButtons[row, col - 1].Ellipse.Width / 2, Canvas.GetTop(netytarButtons[row, col - 1].Ellipse) + netytarButtons[row, col - 1].Ellipse.Height / 2);
                                 Line myLine = new Line();
 
                                 myLine.Stroke = brush;
@@ -468,9 +466,9 @@ namespace Netytar
                                 myLine.X2 = realCenter2.X;
                                 myLine.Y1 = realCenter1.Y;
                                 myLine.Y2 = realCenter2.Y;
-                                myLine.HorizontalAlignment = HorizontalAlignment.Left;
+                                myLine.HorizontalAlignment = HorizontalAlignment.Center;
                                 myLine.VerticalAlignment = VerticalAlignment.Center;
-                                myLine.StrokeThickness = lineThickness;
+                                myLine.StrokeThickness = R.UserSettings.LineThickness;
                                 Panel.SetZIndex(myLine, 1);
                                 drawnLines.Add(myLine);
 
@@ -494,23 +492,23 @@ namespace Netytar
                                 {
                                     if (DrawMode == NetytarSurfaceLineModes.OnlyScaleLines)
                                     {
-                                        brush = transparentBrush;
+                                        brush = R.ColorCode.TransparentBrush;
                                     }
                                     else
                                     {
-                                        brush = notInScaleBrush;
+                                        brush = R.ColorCode.NotInScaleBrush;
                                     }
                                 }
 
                                 if (isPairRow)
                                 {
-                                    realCenter1 = new Point(Canvas.GetLeft(netytarButtons[row, col]) + 2, Canvas.GetTop(netytarButtons[row, col]) + 2);
-                                    realCenter2 = new Point(Canvas.GetLeft(netytarButtons[row - 1, col]) + 11, Canvas.GetTop(netytarButtons[row - 1, col]) + 11);
+                                    realCenter1 = new Point(Canvas.GetLeft(netytarButtons[row, col].Ellipse) + netytarButtons[row, col].Ellipse.Width / 2, Canvas.GetTop(netytarButtons[row, col].Ellipse) + netytarButtons[row, col].Ellipse.Height / 2);
+                                    realCenter2 = new Point(Canvas.GetLeft(netytarButtons[row - 1, col].Ellipse) + netytarButtons[row - 1, col].Ellipse.Width / 2, Canvas.GetTop(netytarButtons[row - 1, col].Ellipse) + netytarButtons[row - 1, col].Ellipse.Height / 2);
                                 }
                                 else
                                 {
-                                    realCenter1 = new Point(Canvas.GetLeft(netytarButtons[row, col]) + 11, Canvas.GetTop(netytarButtons[row, col]) + 2);
-                                    realCenter2 = new Point(Canvas.GetLeft(netytarButtons[row - 1, col]) + 2, Canvas.GetTop(netytarButtons[row - 1, col]) + 11);
+                                    realCenter1 = new Point(Canvas.GetLeft(netytarButtons[row, col].Ellipse) + netytarButtons[row, col].Ellipse.Width / 2, Canvas.GetTop(netytarButtons[row, col].Ellipse) + netytarButtons[row, col].Ellipse.Width / 2);
+                                    realCenter2 = new Point(Canvas.GetLeft(netytarButtons[row - 1, col].Ellipse) + netytarButtons[row - 1, col].Ellipse.Width / 2, Canvas.GetTop(netytarButtons[row - 1, col].Ellipse) + netytarButtons[row - 1, col].Ellipse.Width / 2);
                                 }
 
                                 Line myLine = new Line();
@@ -522,7 +520,7 @@ namespace Netytar
                                 myLine.Y2 = realCenter2.Y;
                                 myLine.HorizontalAlignment = HorizontalAlignment.Left;
                                 myLine.VerticalAlignment = VerticalAlignment.Center;
-                                myLine.StrokeThickness = lineThickness;
+                                myLine.StrokeThickness = R.UserSettings.LineThickness;
                                 Panel.SetZIndex(myLine, 1);
                                 drawnLines.Add(myLine);
 
@@ -541,7 +539,7 @@ namespace Netytar
 
                                 if (isPairRow)
                                 {
-                                    if (col < nCols - 1)
+                                    if (col < R.ButtonsSettings.NCols - 1)
                                     {
                                         if (scale.AreConsequent(netytarButtons[row, col].Note, netytarButtons[row - 1, col + 1].Note))
                                         {
@@ -551,11 +549,11 @@ namespace Netytar
                                         {
                                             if (DrawMode == NetytarSurfaceLineModes.OnlyScaleLines)
                                             {
-                                                brush = transparentBrush;
+                                                brush = R.ColorCode.TransparentBrush;
                                             }
                                             else
                                             {
-                                                brush = notInScaleBrush;
+                                                brush = R.ColorCode.NotInScaleBrush;
                                             }
                                         }
                                         realCenter1 = new Point(Canvas.GetLeft(netytarButtons[row, col]) + 11, Canvas.GetTop(netytarButtons[row, col]) + 2);
@@ -570,7 +568,7 @@ namespace Netytar
                                         diaLine.Y2 = realCenter2.Y;
                                         diaLine.HorizontalAlignment = HorizontalAlignment.Left;
                                         diaLine.VerticalAlignment = VerticalAlignment.Center;
-                                        diaLine.StrokeThickness = lineThickness;
+                                        diaLine.StrokeThickness = R.UserSettings.LineThickness;
                                         Panel.SetZIndex(diaLine, 1);
                                         drawnLines.Add(diaLine);
 
@@ -590,11 +588,11 @@ namespace Netytar
                                         {
                                             if (DrawMode == NetytarSurfaceLineModes.OnlyScaleLines)
                                             {
-                                                brush = transparentBrush;
+                                                brush = R.ColorCode.TransparentBrush;
                                             }
                                             else
                                             {
-                                                brush = notInScaleBrush;
+                                                brush = R.ColorCode.NotInScaleBrush;
                                             }
                                         }
                                         realCenter1 = new Point(Canvas.GetLeft(netytarButtons[row, col]) + 2, Canvas.GetTop(netytarButtons[row, col]) + 2);
@@ -609,7 +607,7 @@ namespace Netytar
                                         diaLine.Y2 = realCenter2.Y;
                                         diaLine.HorizontalAlignment = HorizontalAlignment.Left;
                                         diaLine.VerticalAlignment = VerticalAlignment.Center;
-                                        diaLine.StrokeThickness = lineThickness;
+                                        diaLine.StrokeThickness = R.UserSettings.LineThickness;
                                         Panel.SetZIndex(diaLine, 1);
                                         drawnLines.Add(diaLine);
 

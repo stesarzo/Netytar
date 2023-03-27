@@ -6,11 +6,14 @@ using NeeqDMIs.Eyetracking.Utils;
 using NeeqDMIs.Keyboard;
 using NeeqDMIs.MIDI;
 using NeeqDMIs.Music;
+using NeeqDMIs.NithSensors;
+using Netytar.Behaviors.TobiiBehaviors;
 using Netytar.DMIbox.KeyboardBehaviors;
-using Netytar.DMIbox.SensorBehaviors;
+using Netytar.DMIbox.NithBSBehaviors;
 using Netytar.DMIbox.TobiiBehaviors;
 using RawInputProcessor;
 using System;
+using System.Collections.Generic;
 using System.Windows.Interop;
 using Tobii.Interaction.Framework;
 
@@ -20,61 +23,64 @@ namespace Netytar.DMIbox
     {
         public NetytarSetup(MainWindow window)
         {
-            Rack.DMIBox.NetytarMainWindow = window;
+            R.NetytarMainWindow = window;
         }
 
         public void Setup()
         {
-            IntPtr windowHandle = new WindowInteropHelper(Rack.DMIBox.NetytarMainWindow).Handle;
+            IntPtr windowHandle = new WindowInteropHelper(R.NetytarMainWindow).Handle;
 
-            Rack.DMIBox.KeyboardModule = new KeyboardModule(windowHandle, RawInputCaptureMode.Foreground);
+            R.NDB.KeyboardModule = new KeyboardModule(windowHandle, RawInputCaptureMode.Foreground);
 
             // MIDI
-            Rack.DMIBox.MidiModule = new MidiModuleNAudio(1, 1);
+            R.NDB.MidiModule = new MidiModuleNAudio(1, 1);
             //MidiDeviceFinder midiDeviceFinder = new MidiDeviceFinder(Rack.DMIBox.MidiModule);
             //midiDeviceFinder.SetToLastDevice();
-            Rack.DMIBox.MidiModule.OutDevice = 1;
+            R.NDB.MidiModule.OutDevice = 1;
 
             // EYETRACKER
-            if (Rack.DMIBox.Eyetracker == _Eyetracker.Tobii)
+            if (R.NDB.Eyetracker == _Eyetracker.Tobii)
             {
-                Rack.DMIBox.TobiiModule = new TobiiModule(GazePointDataMode.Unfiltered);
-                Rack.DMIBox.TobiiModule.HeadPoseBehaviors.Add(new HPBpitchPlay(10, 15, 1.5f, 30f));
-                Rack.DMIBox.TobiiModule.HeadPoseBehaviors.Add(new HPBvelocityPlay(8, 12, 2f, 120f, 0.2f));
+                R.NDB.TobiiModule = new TobiiModule(GazePointDataMode.Unfiltered);
+                R.NDB.TobiiModule.HeadPoseBehaviors.Add(new HPBpitchPlay(10, 15, 1.5f, 30f));
+                R.NDB.TobiiModule.HeadPoseBehaviors.Add(new HPBvelocityPlay(8, 12, 2f, 120f, 0.2f));
             }
 
-            if (Rack.DMIBox.Eyetracker == _Eyetracker.Eyetribe)
+            if (R.NDB.Eyetracker == _Eyetracker.Eyetribe)
             {
-                Rack.DMIBox.EyeTribeModule = new EyeTribeModule();
-                Rack.DMIBox.EyeTribeModule.Start();
-                Rack.DMIBox.EyeTribeModule.MouseEmulatorGazeMode = GazeMode.Raw;
+                R.NDB.EyeTribeModule = new EyeTribeModule();
+                R.NDB.EyeTribeModule.Start();
+                R.NDB.EyeTribeModule.MouseEmulatorGazeMode = GazeMode.Raw;
             }
 
-            // MISCELLANEOUS
-            Rack.DMIBox.SensorReader = new SensorModule(9600);
+            // NITHBS SENSOR INIT
+            R.NithBSModule = new NithModule();
+            R.NithBSModule.ExpectedArguments = new List<NithArguments> { NithArguments.press };
 
             // BEHAVIORS
             //Rack.DMIBox.KeyboardModule.KeyboardBehaviors.Add(new KBemulateMouse());
-            Rack.DMIBox.KeyboardModule.KeyboardBehaviors.Add(new KBautoScroller());
-            Rack.DMIBox.KeyboardModule.KeyboardBehaviors.Add(new KBemulateMouse());
-            Rack.DMIBox.KeyboardModule.KeyboardBehaviors.Add(new KBstopAutoScroller());
-            Rack.DMIBox.KeyboardModule.KeyboardBehaviors.Add(new KBstopEmulateMouse());
-            Rack.DMIBox.KeyboardModule.KeyboardBehaviors.Add(new KBsimulateBlow());
-            Rack.DMIBox.KeyboardModule.KeyboardBehaviors.Add(new KBselectScale());
+            R.NDB.KeyboardModule.KeyboardBehaviors.Add(new KBautoScroller());
+            R.NDB.KeyboardModule.KeyboardBehaviors.Add(new KBemulateMouse());
+            R.NDB.KeyboardModule.KeyboardBehaviors.Add(new KBstopAutoScroller());
+            R.NDB.KeyboardModule.KeyboardBehaviors.Add(new KBstopEmulateMouse());
+            R.NDB.KeyboardModule.KeyboardBehaviors.Add(new KBsimulateBlow());
+            R.NDB.KeyboardModule.KeyboardBehaviors.Add(new KBselectScale());
 
-            Rack.DMIBox.TobiiModule.BlinkBehaviors.Add(new EBBselectScale(Rack.DMIBox.NetytarMainWindow));
-            Rack.DMIBox.TobiiModule.BlinkBehaviors.Add(new EBBrepeatNote());
+            R.NDB.TobiiModule.BlinkBehaviors.Add(new EBBselectScale(R.NetytarMainWindow));
+            R.NDB.TobiiModule.BlinkBehaviors.Add(new EBBrepeatNote());
+            R.NDB.TobiiModule.BlinkBehaviors.Add(new EBBdoubleCloseClick());
 
-            Rack.DMIBox.SensorReader.Behaviors.Add(new SBbreathSensor(20, 28, 1.5f)); // 15 20
+            R.NithBSModule.SensorBehaviors.Add(new NSBnoteDynamics(8, 1, 8));
+            //R.NithBSModule.SensorBehaviors.Add(new SBbreathSensor(20, 28, 1.5f)); // 15 20
             //Rack.DMIBox.SensorReader.Behaviors.Add(new SBaccelerometerTest());
-            Rack.DMIBox.SensorReader.Behaviors.Add(new SBreadSerial());
+            //R.NDB.SensorReader.Behaviors.Add(new SBreadSerial());
 
             // SURFACE INIT
-            Rack.DMIBox.AutoScroller = new AutoScroller_ButtonScroller(Rack.DMIBox.NetytarMainWindow.scrlNetytar, 0, 130, new PointFilterMAExpDecaying(0.1f)); // OLD was 100, 0.1f
-            Rack.DMIBox.NetytarSurface = new NetytarSurface(Rack.DMIBox.NetytarMainWindow.canvasNetytar, Rack.DrawMode);
+            R.NDB.AutoScroller = new AutoScroller_ButtonScroller(R.NetytarMainWindow.scrlNetytar, 0, 130, new PointFilterMAExpDecaying(0.07f)); // OLD was 100, 0.1f
+            R.NDB.NetytarSurface = new NetytarSurface(R.NetytarMainWindow.canvasNetytar, R.DrawMode);
 
-            Rack.DMIBox.NetytarSurface.DrawButtons();
-            Rack.DMIBox.NetytarSurface.Scale = ScalesFactory.Cmaj;
+            R.NDB.NetytarSurface.DrawButtons();
+            R.NDB.NetytarSurface.Scale = new Scale(R.UserSettings.RootNote, R.UserSettings.ScaleCode);
         }
     }
 }

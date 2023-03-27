@@ -66,8 +66,8 @@ namespace Netytar
 
             if (enabled)
             {
-                var buttonX = Canvas.GetLeft(Rack.DMIBox.NetytarSurface.CheckedButton);
-                var buttonY = Canvas.GetTop(Rack.DMIBox.NetytarSurface.CheckedButton);
+                var buttonX = Canvas.GetLeft(R.NDB.NetytarSurface.CheckedButton);
+                var buttonY = Canvas.GetTop(R.NDB.NetytarSurface.CheckedButton);
 
                 var differenceX = scrollViewer.HorizontalOffset - buttonX + scrollCenter.X;
                 var differenceY = scrollViewer.VerticalOffset - buttonY + scrollCenter.Y;

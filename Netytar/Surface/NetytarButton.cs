@@ -14,6 +14,7 @@ namespace Netytar
         public MidiNotes Note { get { return note; } set { note = value; } }
 
         private Rectangle occluder;
+        public Ellipse Ellipse { get; set; }
         public Rectangle Occluder
         {
             get
@@ -155,6 +156,7 @@ namespace Netytar
         private void OccluderMouseEnterBehavior(object sender, MouseEventArgs e)
         {
             netytarDrawer.NetytarButton_OccluderMouseEnter(this);
+            R.NetytarMainWindow.Global_NetytarButtonMouseEnter();
         }
     }
 }
