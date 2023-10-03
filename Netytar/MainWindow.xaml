@@ -97,17 +97,18 @@
         </TabControl>
         
          <!-- SETTINGS panel -->
-        <Border Name="brdSettings" Grid.Row="1" HorizontalAlignment="Left" Width="375" Height="Auto" Margin="5,5,5,5" CornerRadius="10" Visibility="Visible">
+        <Border Name="brdSettings" Grid.Row="1" HorizontalAlignment="Left" Width="760" Height="Auto" Margin="5,5,5,5" CornerRadius="10" Visibility="Visible">
             <Border.Background>
                 <ImageBrush ImageSource="/Images/Backgrounds/LightWood.jpg" TileMode="Tile" />
             </Border.Background>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
 
-                <!-- Main Stackpanel -->
-                <StackPanel Grid.Column="0" Orientation="Vertical">
+                <!-- Left Stackpanel -->
+                <StackPanel Grid.Column="0" Orientation="Vertical" Margin="5,5,5,5">
                     
                     <!-- Midi port selector -->
                     <Label Content="Midi port" />
@@ -142,18 +143,29 @@
                     </Grid>
                     
                     <!-- Control selector -->
-                    <UniformGrid Columns="2" Rows="1">
+                    <UniformGrid Columns="2" Rows="2">
                         <Button Name="btnKeyboard" Style="{StaticResource DWoodLeft}" Click="btnKeyboard_Click">
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="4,0,0,0">
                                 <Border Name="indKeyboard" Style="{StaticResource Indicator}" />
-                                <Label Content="Keyboard" VerticalAlignment="Center" FontSize="18"/>
+                                <Label Content="Keys" VerticalAlignment="Center" FontSize="18"/>
                             </StackPanel>
                         </Button>
                         <Button Name="btnBreath" Style="{StaticResource DWoodLeft}" Click="btnBreath_Click">
-
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="4,0,0,0">
                                 <Border Name="indBreath" Style="{StaticResource Indicator}" />
-                                <Label Content="Breath" VerticalAlignment="Center" FontSize="18"/>
+                                <Label Content="NithBS" VerticalAlignment="Center" FontSize="18"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Name="btnTeeth" Style="{StaticResource DWoodLeft}" Click="btnTeeth_Click">
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="4,0,0,0">
+                                <Border Name="indTeeth" Style="{StaticResource Indicator}" />
+                                <Label Content="NithTPS" VerticalAlignment="Center" FontSize="18"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Name="btnHeadYaw" Style="{StaticResource DWoodLeft}" Click="btnHeadYaw_Click">
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="4,0,0,0">
+                                <Border Name="indHeadYaw" Style="{StaticResource Indicator}" />
+                                <Label Content="NithHT" VerticalAlignment="Center" FontSize="18"/>
                             </StackPanel>
                         </Button>
                     </UniformGrid>
@@ -209,8 +221,14 @@
                         <Button Grid.Column="2" Name="btnSpacingPlus" Content="⮞" Click="btnSpacingPlus_Click"  Style="{StaticResource DWood}" />
                     </Grid>
                     
+                    
+                    
+                </StackPanel>
+                
+                <!-- Right Stackpanel -->
+                <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5,5,5,5">
                     <!-- ============ Switchable settings -->
-                    <Label Content="" Height="14" />
+                    <Label Content="Interaction settings"/>
                     <UniformGrid Columns="2" Rows="3">
                         
                         <!-- Mod -->
@@ -264,7 +282,6 @@
                         </StackPanel>
 
                     </UniformGrid>
-                    
                 </StackPanel>
             </Grid>
         </Border>

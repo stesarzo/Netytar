@@ -1,4 +1,4 @@
-﻿using NeeqDMIs.Music;
+﻿using NITHdmis.Music;
 using Netytar.DMIbox;
 using System;
 

@@ -1,5 +1,5 @@
-﻿using NeeqDMIs.Eyetracking.Tobii;
-using NeeqDMIs.Music;
+﻿using NITHdmis.Eyetracking.Tobii;
+using NITHdmis.Music;
 
 namespace Netytar.DMIbox.TobiiBehaviors
 {

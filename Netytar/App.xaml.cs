@@ -1,4 +1,4 @@
-﻿using NeeqDMIs.ErrorLogging;
+﻿using NITHdmis.ErrorLogging;
 using System.Windows;
 using System.Windows.Threading;
 

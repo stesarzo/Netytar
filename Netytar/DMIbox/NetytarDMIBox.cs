@@ -1,10 +1,10 @@
-﻿using NeeqDMIs.ATmega;
-using NeeqDMIs.Eyetracking.Eyetribe;
-using NeeqDMIs.Eyetracking.Tobii;
-using NeeqDMIs.Keyboard;
-using NeeqDMIs.MIDI;
-using NeeqDMIs.Music;
-using NeeqDMIs.NithSensors;
+﻿using NITHdmis.ATmega;
+using NITHdmis.Eyetracking.Eyetribe;
+using NITHdmis.Eyetracking.Tobii;
+using NITHdmis.Keyboard;
+using NITHdmis.MIDI;
+using NITHdmis.Music;
+using NITHdmis.NithSensors;
 using System.Windows.Controls;
 
 namespace Netytar.DMIbox
@@ -326,7 +326,7 @@ namespace Netytar.DMIbox
             }
             try
             {
-                R.NithBSModule.Disconnect();
+                R.NithModule.Disconnect();
             }
             catch
             {

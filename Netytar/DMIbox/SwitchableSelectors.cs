@@ -16,9 +16,11 @@ namespace Netytar.DMIbox
     public enum _NetytarControlModes
     {
         Keyboard,
-        BreathSensor,
+        NeeqBS,
+        NeeqTPS,
         EyePos,
-        EyeVel
+        EyeVel,
+        NeeqHTYaw
     }
 
     public enum _ModulationControlModes

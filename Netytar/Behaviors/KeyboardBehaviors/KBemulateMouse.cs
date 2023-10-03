@@ -1,4 +1,4 @@
-﻿using NeeqDMIs.Keyboard;
+﻿using NITHdmis.Keyboard;
 using RawInputProcessor;
 
 namespace Netytar
@@ -11,8 +11,8 @@ namespace Netytar
         {
             if (e.VirtualKey == (ushort)keyAction)
             {
-                R.NDB.TobiiModule.MouseEmulator.EyetrackerToMouse = true;
-                R.NDB.TobiiModule.MouseEmulator.CursorVisible = false;
+                R.NDB.TobiiModule.MouseEmulator.Enabled = true;
+                R.NDB.TobiiModule.MouseEmulator.Enabled = false;
 
                 return 0;
             }

@@ -1,4 +1,4 @@
-﻿using NeeqDMIs.Music;
+﻿using NITHdmis.Music;
 using Netytar.DMIbox;
 using System;
 
@@ -20,7 +20,7 @@ namespace Netytar.Settings
             BlinkSelectScaleMode = _BlinkSelectScaleMode.On;
             BreathControlMode = _BreathControlModes.Dynamic;
             ModulationControlMode = _ModulationControlModes.Off;
-            NetytarControlMode = _NetytarControlModes.BreathSensor;
+            NetytarControlMode = _NetytarControlModes.NeeqBS;
             SlidePlayMode = _SlidePlayModes.On;
             SensorPort = 4;
             MIDIPort = 1;

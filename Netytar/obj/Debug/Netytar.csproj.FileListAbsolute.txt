@@ -93,14 +93,11 @@ C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\Netytar.exe
 C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\Netytar.pdb
 C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\EyeTribe.ClientSdk.dll
 C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\NAudio.dll
-C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\NeeqDMIs.dll
 C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\Newtonsoft.Json.dll
 C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\RawInputProcessor.dll
 C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\Tobii.Interaction.Model.dll
 C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\Tobii.Interaction.Net.dll
 C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\WpfAnimatedGif.dll
-C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\NeeqDMIs.pdb
-C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\NeeqDMIs.dll.config
 C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\NAudio.xml
 C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\Newtonsoft.Json.xml
 C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\WpfAnimatedGif.pdb
@@ -247,3 +244,6 @@ C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\System.Securi
 C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\System.Security.Principal.Windows.xml
 C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\obj\Debug\App.baml
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\NITHdmis.dll
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\NITHdmis.pdb
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\NITHdmis.dll.config

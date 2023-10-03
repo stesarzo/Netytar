@@ -1,5 +1,5 @@
-﻿using NeeqDMIs.Keyboard;
-using NeeqDMIs.Music;
+﻿using NITHdmis.Keyboard;
+using NITHdmis.Music;
 using RawInputProcessor;
 
 namespace Netytar.DMIbox.KeyboardBehaviors

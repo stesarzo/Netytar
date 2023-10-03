@@ -1,5 +1,5 @@
-﻿using NeeqDMIs.ErrorLogging;
-using NeeqDMIs.Music;
+﻿using NITHdmis.ErrorLogging;
+using NITHdmis.Music;
 using Netytar.DMIbox;
 using System;
 using System.Windows;
@@ -100,8 +100,6 @@ namespace Netytar
         {
             if (NetytarStarted)
             {
-                // VelocityBar.Height = (velocityBarMaxHeight * BreathSensorValue) / BreathMax;
-
                 if (SelectedScale.GetName().Equals(lastScale.GetName()) == false)
                 {
                     lastScale = SelectedScale;
@@ -176,7 +174,9 @@ namespace Netytar
             txtSpacing.Text = R.UserSettings.HorizontalSpacer.ToString();
 
             /// INDICATORS
-            indBreath.Background = R.UserSettings.NetytarControlMode == _NetytarControlModes.BreathSensor ? ActiveBrush : BlankBrush;
+            indBreath.Background = R.UserSettings.NetytarControlMode == _NetytarControlModes.NeeqBS ? ActiveBrush : BlankBrush;
+            indTeeth.Background = R.UserSettings.NetytarControlMode == _NetytarControlModes.NeeqTPS ? ActiveBrush : BlankBrush;
+            indHeadYaw.Background = R.UserSettings.NetytarControlMode == _NetytarControlModes.NeeqHTYaw ? ActiveBrush : BlankBrush;
             indKeyboard.Background = R.UserSettings.NetytarControlMode == _NetytarControlModes.Keyboard ? ActiveBrush : BlankBrush;
             indRootNoteColor.Background = R.ColorCode.FromAbsNote(R.UserSettings.RootNote);
             indScaleMajor.Background = (R.UserSettings.ScaleCode == ScaleCodes.maj) ? ActiveBrush : BlankBrush;
@@ -188,7 +188,7 @@ namespace Netytar
             indSlidePlay.Background = R.UserSettings.SlidePlayMode == _SlidePlayModes.On ? ActiveBrush : BlankBrush;
             indToggleCursor.Background = R.NDB.CursorHidden ? ActiveBrush: BlankBrush;
             indToggleAutoScroll.Background = R.NDB.AutoScroller.Enabled ? ActiveBrush : BlankBrush;
-            indToggleEyeTracker.Background = R.NDB.TobiiModule.MouseEmulator.EyetrackerToMouse ? ActiveBrush : BlankBrush;
+            indToggleEyeTracker.Background = R.NDB.TobiiModule.MouseEmulator.Enabled ? ActiveBrush : BlankBrush;
             indSettings.Background = IsSettingsShown ? ActiveBrush : BlankBrush;
             indNoteNames.Background = R.NDB.NetytarSurface.NoteNamesVisualized ? ActiveBrush : BlankBrush;
 
@@ -270,19 +270,6 @@ namespace Netytar
             }
         }
 
-        private void btnCtrlBreath_Click(object sender, RoutedEventArgs e)
-        {
-            if (NetytarStarted)
-            {
-                R.UserSettings.NetytarControlMode = _NetytarControlModes.BreathSensor;
-                R.NDB.ResetModulationAndPressure();
-
-                BreathSensorValue = 0;
-
-                UpdateGUIVisuals();
-            }
-        }
-
         private void BtnSensorPortPlus_Click(object sender, RoutedEventArgs e)
         {
             if (NetytarStarted)
@@ -296,7 +283,7 @@ namespace Netytar
         {
             txtSensorPort.Text = "COM" + SensorPort.ToString();
 
-            if (R.NithBSModule.Connect(SensorPort))
+            if (R.NithModule.Connect(SensorPort))
             {
                 txtSensorPort.Foreground = ActiveBrush;
             }
@@ -486,7 +473,7 @@ namespace Netytar
         {
             if (NetytarStarted)
             {
-                R.NDB.TobiiModule.MouseEmulator.EyetrackerToMouse = !R.NDB.TobiiModule.MouseEmulator.EyetrackerToMouse;
+                R.NDB.TobiiModule.MouseEmulator.Enabled = !R.NDB.TobiiModule.MouseEmulator.Enabled;
             }
 
             UpdateGUIVisuals();
@@ -631,7 +618,16 @@ namespace Netytar
         {
             if (NetytarStarted)
             {
-                R.UserSettings.NetytarControlMode = _NetytarControlModes.BreathSensor;
+                R.UserSettings.NetytarControlMode = _NetytarControlModes.NeeqBS;
+                UpdateGUIVisuals();
+            }
+        }
+
+        private void btnTeeth_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                R.UserSettings.NetytarControlMode = _NetytarControlModes.NeeqTPS;
                 UpdateGUIVisuals();
             }
         }
@@ -695,6 +691,15 @@ namespace Netytar
             {
                 R.UserSettings.RootNote = R.UserSettings.RootNote.Previous();
                 R.NDB.NetytarSurface.Scale = new Scale(R.UserSettings.RootNote, R.UserSettings.ScaleCode);
+                UpdateGUIVisuals();
+            }
+        }
+
+        private void btnHeadYaw_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                R.UserSettings.NetytarControlMode = _NetytarControlModes.NeeqHTYaw;
                 UpdateGUIVisuals();
             }
         }

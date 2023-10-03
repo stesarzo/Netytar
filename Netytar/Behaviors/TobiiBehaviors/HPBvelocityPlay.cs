@@ -1,5 +1,5 @@
-﻿using NeeqDMIs.Eyetracking.PointFilters;
-using NeeqDMIs.Eyetracking.Tobii;
+﻿using NITHdmis.Eyetracking.PointFilters;
+using NITHdmis.Eyetracking.Tobii;
 using System;
 using System.Drawing;
 using System.Windows;

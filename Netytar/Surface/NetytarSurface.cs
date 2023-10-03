@@ -1,5 +1,5 @@
 ﻿using Eyerpheus.Controllers.Graphics;
-using NeeqDMIs.Music;
+using NITHdmis.Music;
 using Netytar.DMIbox;
 using System;
 using System.Collections.Generic;

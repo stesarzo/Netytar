@@ -1,4 +1,4 @@
-﻿using NeeqDMIs.Music;
+﻿using NITHdmis.Music;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;

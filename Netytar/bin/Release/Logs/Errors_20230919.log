@@ -1,0 +1,27 @@
+EXCEPTION: 19/09/2023 16:33:32
+========================================
+Non è stato possibile caricare il file o l'assembly 'NAudio.Midi, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41' o una delle relative dipendenze. La definizione di manifesto dell'assembly specificato non corrisponde al riferimento all'assembly. (Eccezione da HRESULT: 0x80131040)
+   in NITHdmis.MIDI.MidiModuleNAudio.ResetMidiOut()
+   in Netytar.DMIbox.NetytarSetup.Setup() in C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\DMIbox\NetytarSetup.cs:riga 31
+   in Netytar.MainWindow.StartNetytar() in C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\MainWindow.xaml.cs:riga 152
+   in Netytar.MainWindow.Window_Loaded(Object sender, RoutedEventArgs e) in C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\MainWindow.xaml.cs:riga 524
+   in System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   in System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   in System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   in System.Windows.UIElement.RaiseEvent(RoutedEventArgs e)
+   in System.Windows.BroadcastEventHelper.BroadcastEvent(DependencyObject root, RoutedEvent routedEvent)
+   in System.Windows.BroadcastEventHelper.BroadcastLoadedEvent(Object root)
+   in MS.Internal.LoadedOrUnloadedOperation.DoWork()
+   in System.Windows.Media.MediaContext.FireLoadedPendingCallbacks()
+   in System.Windows.Media.MediaContext.FireInvokeOnRenderCallbacks()
+   in System.Windows.Media.MediaContext.RenderMessageHandlerCore(Object resizedCompositionTarget)
+   in System.Windows.Media.MediaContext.RenderMessageHandler(Object resizedCompositionTarget)
+   in System.Windows.Media.MediaContext.Resize(ICompositionTarget resizedCompositionTarget)
+   in System.Windows.Interop.HwndTarget.OnResize()
+   in System.Windows.Interop.HwndTarget.HandleMessage(WindowMessage msg, IntPtr wparam, IntPtr lparam)
+   in System.Windows.Interop.HwndSource.HwndTargetFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   in MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   in MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   in System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   in System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+

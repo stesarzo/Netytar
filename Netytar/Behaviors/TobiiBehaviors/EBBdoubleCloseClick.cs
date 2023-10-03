@@ -1,4 +1,4 @@
-﻿using NeeqDMIs.Eyetracking.Tobii;
+﻿using NITHdmis.Eyetracking.Tobii;
 
 namespace Netytar.Behaviors.TobiiBehaviors
 {
@@ -11,7 +11,7 @@ namespace Netytar.Behaviors.TobiiBehaviors
         public override void Event_doubleClose()
         {
             //MessageBox.Show(R.NDB.MainWindow.LastSettingsGazedButton.ToString());
-            if (R.NetytarMainWindow.LastSettingsGazedButton != null && R.NDB.TobiiModule.MouseEmulator.EyetrackerToMouse)
+            if (R.NetytarMainWindow.LastSettingsGazedButton != null && R.NDB.TobiiModule.MouseEmulator.Enabled)
             {
                 //MessageBox.Show("Im In!");
                 R.RaiseClickEvent = true;

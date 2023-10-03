@@ -1,9 +1,7 @@
-﻿using MicroLibrary;
-using NeeqDMIs.Eyetracking.PointFilters;
+﻿using NITHdmis.Eyetracking.PointFilters;
 using System;
 using System.Drawing;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Threading;
 

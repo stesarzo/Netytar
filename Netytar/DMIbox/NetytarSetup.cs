@@ -1,16 +1,14 @@
-﻿using NeeqDMIs.ATmega;
-using NeeqDMIs.Eyetracking.Eyetribe;
-using NeeqDMIs.Eyetracking.PointFilters;
-using NeeqDMIs.Eyetracking.Tobii;
-using NeeqDMIs.Eyetracking.Utils;
-using NeeqDMIs.Keyboard;
-using NeeqDMIs.MIDI;
-using NeeqDMIs.Music;
-using NeeqDMIs.NithSensors;
-using Netytar.Behaviors.TobiiBehaviors;
+﻿using Netytar.Behaviors.TobiiBehaviors;
 using Netytar.DMIbox.KeyboardBehaviors;
 using Netytar.DMIbox.NithBSBehaviors;
 using Netytar.DMIbox.TobiiBehaviors;
+using NITHdmis.Eyetracking.Eyetribe;
+using NITHdmis.Eyetracking.PointFilters;
+using NITHdmis.Eyetracking.Tobii;
+using NITHdmis.Keyboard;
+using NITHdmis.MIDI;
+using NITHdmis.Music;
+using NITHdmis.NithSensors;
 using RawInputProcessor;
 using System;
 using System.Collections.Generic;
@@ -54,8 +52,8 @@ namespace Netytar.DMIbox
             }
 
             // NITHBS SENSOR INIT
-            R.NithBSModule = new NithModule();
-            R.NithBSModule.ExpectedArguments = new List<NithArguments> { NithArguments.press };
+            R.NithModule = new NithModule();
+            R.NithModule.ExpectedArguments = new List<NithArguments> { NithArguments.press };
 
             // BEHAVIORS
             //Rack.DMIBox.KeyboardModule.KeyboardBehaviors.Add(new KBemulateMouse());
@@ -70,13 +68,17 @@ namespace Netytar.DMIbox
             R.NDB.TobiiModule.BlinkBehaviors.Add(new EBBrepeatNote());
             R.NDB.TobiiModule.BlinkBehaviors.Add(new EBBdoubleCloseClick());
 
-            R.NithBSModule.SensorBehaviors.Add(new NSBnoteDynamics(8, 1, 8));
+            R.NithModule.SensorBehaviors.Add(new PressureBasedBehavior(_NetytarControlModes.NeeqBS, 0.125f, 1, 8));
+            R.NithModule.SensorBehaviors.Add(new PressureBasedBehavior(_NetytarControlModes.NeeqTPS, 1f, 1, 1));
+
             //R.NithBSModule.SensorBehaviors.Add(new SBbreathSensor(20, 28, 1.5f)); // 15 20
             //Rack.DMIBox.SensorReader.Behaviors.Add(new SBaccelerometerTest());
             //R.NDB.SensorReader.Behaviors.Add(new SBreadSerial());
 
             // SURFACE INIT
-            R.NDB.AutoScroller = new AutoScroller_ButtonScroller(R.NetytarMainWindow.scrlNetytar, 0, 130, new PointFilterMAExpDecaying(0.07f)); // OLD was 100, 0.1f
+            // R.NDB.AutoScroller = new Autoscroller_ButtonFollower(R.NetytarMainWindow.scrlNetytar, 0, 130, new PointFilterMAExpDecaying(0.07f)); // OLD was 100, 0.1f
+            R.NDB.AutoScroller = new AutoScroller(R.NetytarMainWindow.scrlNetytar, 0, 100, new PointFilterMAExpDecaying(0.07f)); // OLD was 100, 0.1f
+
             R.NDB.NetytarSurface = new NetytarSurface(R.NetytarMainWindow.canvasNetytar, R.DrawMode);
 
             R.NDB.NetytarSurface.DrawButtons();

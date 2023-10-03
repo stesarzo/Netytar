@@ -1,6 +1,7 @@
-﻿using NeeqDMIs.NithSensors;
+﻿using NITHdmis.NithSensors;
 using Netytar.DMIbox;
 using Netytar.Settings;
+using NITHdmis.Headtracking.NeeqHT;
 
 namespace Netytar
 {
@@ -13,9 +14,11 @@ namespace Netytar
         public static NetytarSurfaceLineModes DrawMode { get; set; } = NetytarSurfaceLineModes.OnlyScaleLines;
         public static NetytarDMIBox NDB { get; set; } = new NetytarDMIBox();
         public static MainWindow NetytarMainWindow { get; set; }
-        public static NithModule NithBSModule { get; set; } = new NithModule();
+        public static NithModule NithModule { get; set; } = new NithModule();
         public static SavingSystem SavingSystem { get; set; } = new SavingSystem("Settings");
         public static bool RaiseClickEvent { get; internal set; } = false;
         public static NetytarSettings UserSettings { get; set; } = new DefaultSettings();
+
+        public static HeadtrackerCenteringHelper HThelper { get; set; } = new HeadtrackerCenteringHelper();
     }
 }
