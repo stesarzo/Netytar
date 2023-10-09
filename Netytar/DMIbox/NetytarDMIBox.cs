@@ -16,12 +16,6 @@ namespace Netytar.DMIbox
     {
         private const _BreathControlModes DEFAULT_BREATHCONTROLMODE = _BreathControlModes.Dynamic;
 
-        private const _ModulationControlModes DEFAULT_MODULATIONCONTROLMODE = _ModulationControlModes.On;
-
-        private const _NetytarControlModes DEFAULT_NETYTARCONTROLMODE = _NetytarControlModes.Keyboard;
-
-        private const _SharpNotesModes DEFAULT_SHARPNOTESMODE = _SharpNotesModes.On;
-
         private bool hasAButtonGaze = false;
 
         private Button lastGazedButton = new Button();

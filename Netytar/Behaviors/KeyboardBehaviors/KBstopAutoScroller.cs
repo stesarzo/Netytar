@@ -1,6 +1,4 @@
-﻿using NITHdmis.Eyetracking.PointFilters;
-using NITHdmis.Eyetracking.Utils;
-using NITHdmis.Keyboard;
+﻿using NITHdmis.Keyboard;
 using RawInputProcessor;
 
 namespace Netytar
@@ -11,7 +9,7 @@ namespace Netytar
 
         public int ReceiveEvent(RawInputEventArgs e)
         {
-            if (e.VirtualKey == (ushort)keyAction)
+            if (e.VirtualKey == (ushort)keyAction && e.KeyPressState == KeyPressState.Down)
             {
                 SetStuff();
 

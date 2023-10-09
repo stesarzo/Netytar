@@ -247,3 +247,9 @@ C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\obj\Debug\App.baml
 C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\NITHdmis.dll
 C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\NITHdmis.pdb
 C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\NITHdmis.dll.config
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\NAudio.Asio.xml
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\NAudio.Core.xml
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\NAudio.Midi.xml
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\NAudio.Wasapi.xml
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\NAudio.WinForms.xml
+C:\Users\neequ\OneDrive\Documenti\GitHub\Netytar\Netytar\bin\Debug\NAudio.WinMM.xml

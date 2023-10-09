@@ -137,7 +137,7 @@
     <Compile Include="Behaviors\KeyboardBehaviors\KBautoScroller.cs" />
     <Compile Include="Behaviors\KeyboardBehaviors\KBstopAutoScroller.cs" />
     <Compile Include="Behaviors\KeyboardBehaviors\KBstopEmulateMouse.cs" />
-    <Compile Include="Behaviors\NITHheadBehaviors\HTyawPlay.cs" />
+    <Compile Include="Behaviors\NITHheadBehaviors\HByawPlay.cs" />
     <Compile Include="Behaviors\NITHpressureBehaviors\PressureBasedBehavior.cs" />
     <Compile Include="Behaviors\TobiiBehaviors\EBBdoubleCloseClick.cs" />
     <Compile Include="Settings\DefaultSettings.cs" />
@@ -176,9 +176,9 @@
     <Compile Include="DMIbox\NetytarDMIBox.cs" />
     <Compile Include="DMIbox\NetytarSetup.cs" />
     <Compile Include="DMIbox\R.cs" />
-    <Compile Include="Behaviors\NITHpressureBehaviors\SBaccelerometerTest.cs" />
-    <Compile Include="Behaviors\NITHpressureBehaviors\SBbreathSensor.cs" />
-    <Compile Include="Behaviors\NITHpressureBehaviors\SBreadSerial.cs" />
+    <Compile Include="Behaviors\NITHpressureBehaviors\old\SBaccelerometerTest.cs" />
+    <Compile Include="Behaviors\NITHpressureBehaviors\old\SBbreathSensor.cs" />
+    <Compile Include="Behaviors\NITHpressureBehaviors\old\SBreadSerial.cs" />
     <Compile Include="Behaviors\TobiiBehaviors\EBBactivateButton.cs" />
     <Compile Include="Behaviors\TobiiBehaviors\EBBrepeatNote.cs" />
     <Compile Include="Behaviors\TobiiBehaviors\EBBselectScale.cs" />
