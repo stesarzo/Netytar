@@ -20,5 +20,11 @@ namespace Netytar
         public static NetytarSettings UserSettings { get; set; } = new DefaultSettings();
 
         public static HeadtrackerCenteringHelper HThelper { get; set; } = new HeadtrackerCenteringHelper();
+
+        public static bool MinSet { get; set; } = false;
+        public static bool MaxSet { get; set; } = false;
+
+        public static double CalibrateMinValue { get; set; } = 0;
+        public static double CalibrateMaxValue { get; set; } = 0;
     }
 }

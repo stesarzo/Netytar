@@ -7,6 +7,9 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
 using Tobii.Interaction.Wpf;
+using NITHdmis.NithSensors;
+using System.Drawing.Drawing2D;
+using Netytar.DMIbox.NithBSBehaviors;
 
 namespace Netytar
 {
@@ -29,6 +32,7 @@ namespace Netytar
         public Button LastSettingsGazedButton { get; set; } = null;
 
         private Brush LastGazedBrush = null;
+        private DispatcherTimer timer;
 
         public MainWindow()
         {
@@ -630,6 +634,9 @@ namespace Netytar
                 R.UserSettings.NetytarControlMode = _NetytarControlModes.NeeqTPS;
                 UpdateGUIVisuals();
             }
+
+            EnableCalibration.Visibility = Visibility.Visible;
+            CalibrationSensor.Visibility = Visibility.Visible;
         }
 
         private void btnNoteNames_Click(object sender, RoutedEventArgs e)
@@ -702,6 +709,46 @@ namespace Netytar
                 R.UserSettings.NetytarControlMode = _NetytarControlModes.NeeqHTYaw;
                 UpdateGUIVisuals();
             }
+        }
+
+        private void btnCalibrateMin_Click(object sender, RoutedEventArgs e)
+        {
+            R.CalibrateMinValue = R.NDB.BreathValue;
+            R.MinSet = true;
+            CalibrateMin_txt.Text = R.CalibrateMinValue.ToString();
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(5); // Imposta l'intervallo di tempo in secondi
+            timer.Tick += Timer_TickMax;
+            timer.Start();
+            Instruction.Text = "Mettere il sensore in bocca, \n esercitare la massima pressione possibile,\n premere il pulsante quando appare. \n Cerca di rimanere stabile durante la calibraizone";
+        }
+
+        private void btnCalibrateMax_Click(object sender, RoutedEventArgs e)
+        {
+            R.CalibrateMaxValue = R.NDB.BreathValue;
+            R.MaxSet = true;
+            CalibrateMax_txt.Text = R.CalibrateMaxValue.ToString();
+        }
+
+        private void btnEnableCalibration_Click(object sender, RoutedEventArgs e)
+        {
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(5); // Imposta l'intervallo di tempo in secondi
+            timer.Tick += Timer_TickMin;
+            timer.Start();
+            Instruction.Text = "Mettere il sensore in bocca, \n esercitare la minima pressione possibile,\n premere il pulsante quando appare. \n Cerca di rimanere stabile durante la calibraizone";
+        }
+
+        private void Timer_TickMin(object sender, EventArgs e)
+        {
+            CalibrateMin.Visibility = Visibility.Visible; // Abilita il pulsante
+            timer.Stop(); // Ferma il timer (opzionale)
+        }
+
+        private void Timer_TickMax(object sender, EventArgs e)
+        {
+            CalibrateMax.Visibility = Visibility.Visible; // Abilita il pulsante
+            timer.Stop(); // Ferma il timer (opzionale)
         }
     }
 }

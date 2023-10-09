@@ -221,8 +221,14 @@
                         <Button Grid.Column="2" Name="btnSpacingPlus" Content="⮞" Click="btnSpacingPlus_Click"  Style="{StaticResource DWood}" />
                     </Grid>
                     
-                    
-                    
+                    <!-- Btn enable calibration -->
+                    <Label x:Name="CalibrationSensor"  Content="Calibration Sensor" Visibility="Hidden"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width = "1*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Name="EnableCalibration" Content="Calibrate " Click="btnEnableCalibration_Click"  Style="{StaticResource DWood}" Visibility="Hidden"/>
+                    </Grid>
                 </StackPanel>
                 
                 <!-- Right Stackpanel -->
@@ -282,6 +288,43 @@
                         </StackPanel>
 
                     </UniformGrid>
+                    
+                    <!-- Sensor Press Calibrate -->
+                    <Label Content="Calibration Pressure Sensor" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width = "1*" />
+                            <ColumnDefinition Width = "1*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Name="CalibrateMin" Content="Min" Click="btnCalibrateMin_Click"  Style="{StaticResource DWood}" Visibility="Hidden" />
+                        <Border Grid.Column="1" Style="{StaticResource LCDBorder}">
+                            <TextBlock Name="CalibrateMin_txt" Text="-" Style="{StaticResource LCDText}"/>
+
+                        </Border>
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width = "1*" />
+                            <ColumnDefinition Width = "1*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Name="CalibrateMax" Content="Max" Click="btnCalibrateMax_Click"  Style="{StaticResource DWood}" Visibility="Hidden" />
+                        <Border Grid.Column="1" Style="{StaticResource LCDBorder}">
+                            <TextBlock Name="CalibrateMax_txt" Text="-" Style="{StaticResource LCDText}">
+                            </TextBlock>
+                        </Border>
+                    </Grid>
+                    
+                    <Label Content="Instruction for calibration" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width = "1*" />
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="1" Style="{StaticResource LCDBorder}">
+                            <TextBlock Name="Instruction" Text="-" Style="{StaticResource LCDText}" Height="100" FontSize="18" VerticalAlignment="Center">
+                            </TextBlock>
+                        </Border>
+                    </Grid>
                 </StackPanel>
             </Grid>
         </Border>
