@@ -1,2 +1,2 @@
 VerticalSpacer,HorizontalSpacer,OccluderOffset,EllipseRadius,LineThickness,HighlightStrokeDim,HighlightRadius,SharpNotesMode,BlinkSelectScaleMode,BreathControlMode,NetytarControlMode,ModulationControlMode,PitchBendControlMode,TPSPressureControlMode,SlidePlayMode,SensorPort,MIDIPort,RootNote,ScaleCode,NoteNamesVisualized,TPS_activateTeeth,TPS_SensorPort,TPS_Pressure,TPS_CalibationMax,TPS_CalibrationMin,BS_activateBreath,BS_SensorPort,BS_Pressure
--100,200,35,23,3,5,65,Off,On,Dynamic,NeeqHTYaw,Off,Off,On,Off,1,1,C,maj,True,True,3,0,0,0,False,3,0
+-100,200,35,23,3,5,65,Off,On,Dynamic,NeeqHTYaw,Off,Off,On,On,1,1,C,maj,True,True,4,0,0,0,True,3,0

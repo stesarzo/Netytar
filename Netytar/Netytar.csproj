@@ -141,11 +141,11 @@
     <Compile Include="Behaviors\KeyboardBehaviors\KBstopAutoScroller.cs" />
     <Compile Include="Behaviors\KeyboardBehaviors\KBstopEmulateMouse.cs" />
     <Compile Include="Behaviors\NITHheadBehaviors\HByawPlay.cs" />
-    <Compile Include="Behaviors\NITHpressureBehaviors\BreathBehavior.cs" />
+    <Compile Include="Behaviors\NITHpressureBehaviors\BSBehavior.cs" />
     <Compile Include="Behaviors\NITHpressureBehaviors\TeethPressBehavior.cs" />
     <Compile Include="Behaviors\NITHpressureBehaviors\PressureBasedBehavior.cs" />
     <Compile Include="Behaviors\TobiiBehaviors\EBBdoubleCloseClick.cs" />
-    <Compile Include="Behaviors\NITHpressureBehaviors\TeethPressureCalibrationHelper.cs" />
+    <Compile Include="DMIbox\TeethPressureCalibrationHelper.cs" />
     <Compile Include="Settings\SavingCalibration.cs" />
     <Compile Include="Settings\DefaultSettings.cs" />
     <Compile Include="Settings\NetytarSettings.cs" />

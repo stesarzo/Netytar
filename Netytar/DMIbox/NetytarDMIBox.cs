@@ -202,7 +202,7 @@ namespace Netytar.DMIbox
                     }
                     SetTPSPressure();
                 }
-                if (R.UserSettings.TPSPressureControlMode == _PressureControlModes.On)
+                else if (R.UserSettings.TPSPressureControlMode == _PressureControlModes.Off)
                 {
                     TPSpressure = 0;
                     SetTPSPressure();
