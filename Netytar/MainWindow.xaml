@@ -18,7 +18,7 @@
             <RowDefinition Height="70" />
             <RowDefinition Height="20*" />
         </Grid.RowDefinitions>
-        
+
         <!-- HEADBAR -->
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
@@ -27,7 +27,7 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0" Orientation="Horizontal" FlowDirection="LeftToRight">
-                
+
                 <Label Content="Netytar" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Magneto" FontSize="28" Foreground="White" Width="200"/>
                 <Border Style="{StaticResource LCDBorder}" Height="50" Width="100">
                     <TextBlock Name="txtNoteName" Text="n" Style="{StaticResource LCDText}">
@@ -48,11 +48,11 @@
                     <TextBlock Name="txtTestIndicator" Text="val" Style="{StaticResource LCDText}" FontSize="7">
                     </TextBlock>
                 </Border>
-                
+
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft" Grid.ColumnSpan="1">
                 <Button Name="btnExit" Style="{StaticResource RWood}" Click="BtnExit_Click" HorizontalContentAlignment="Center">
-                        <Image Source="/Images/Icons/Cross.png" Margin="10,10,10,10" />
+                    <Image Source="/Images/Icons/Cross.png" Margin="10,10,10,10" />
                 </Button>
                 <Button Name="btnSettings" Style="{StaticResource MWood}" Click="btnSettings_Click" HorizontalContentAlignment="Center">
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="4,0,0,0" FlowDirection="LeftToRight">
@@ -80,7 +80,7 @@
                 </Button>
             </StackPanel>
         </Grid>
-        
+
         <!-- LAYOUT -->
         <TabControl Grid.Row="1" x:Name="tabSolo" BorderBrush="Transparent" Background="Black" Grid.ColumnSpan="2">
             <TabItem x:Name="tabNetytar" Header="Netytar" Visibility="Collapsed" BorderBrush="Transparent">
@@ -95,8 +95,8 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        
-         <!-- SETTINGS panel -->
+
+        <!-- SETTINGS panel -->
         <Border Name="brdSettings" Grid.Row="1" HorizontalAlignment="Left" Width="760" Height="Auto" Margin="5,5,5,5" CornerRadius="10" Visibility="Visible">
             <Border.Background>
                 <ImageBrush ImageSource="/Images/Backgrounds/LightWood.jpg" TileMode="Tile" />
@@ -109,7 +109,7 @@
 
                 <!-- Left Stackpanel -->
                 <StackPanel Grid.Column="0" Orientation="Vertical" Margin="5,5,5,5">
-                    
+
                     <!-- Midi port selector -->
                     <Label Content="Midi port" />
                     <Grid>
@@ -125,7 +125,7 @@
                         </Border>
                         <Button Grid.Column="2" x:Name="btnMIDIchPlus" Content="⮞" Click="BtnMIDIchPlus_Click" Style="{StaticResource DWood}" />
                     </Grid>
-                    
+
                     <!-- Com port selector -->
                     <Label Content="Sensor port" />
                     <Grid>
@@ -141,7 +141,7 @@
                         </Border>
                         <Button Grid.Column="2" Name="btnSensorPortPlus" Content="⮞" Click="BtnSensorPortPlus_Click" Style="{StaticResource DWood}" HorizontalAlignment="Left" Margin="5,5,0,5" Width="115" />
                     </Grid>
-                    
+
                     <!-- Control selector -->
                     <UniformGrid Columns="2" Rows="2">
                         <Button Name="btnKeyboard" Style="{StaticResource DWoodLeft}" Click="btnKeyboard_Click">
@@ -150,13 +150,13 @@
                                 <Label Content="Keys" VerticalAlignment="Center" FontSize="18"/>
                             </StackPanel>
                         </Button>
-                        <Button Name="btnBreath" Style="{StaticResource DWoodLeft}" Click="btnBreath_Click">
+                        <Button Name="btnBreath" Style="{StaticResource DWoodLeft}" Click="btnBreath_Click" MouseDoubleClick="btnBreath_MouseDoubleClick">
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="4,0,0,0">
                                 <Border Name="indBreath" Style="{StaticResource Indicator}" />
                                 <Label Content="NithBS" VerticalAlignment="Center" FontSize="18"/>
                             </StackPanel>
                         </Button>
-                        <Button Name="btnTeeth" Style="{StaticResource DWoodLeft}" Click="btnTeeth_Click">
+                        <Button Name="btnTeeth" Style="{StaticResource DWoodLeft}" Click="btnTeeth_Click"  MouseDoubleClick="myButton_MouseDoubleClick" >
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="4,0,0,0">
                                 <Border Name="indTeeth" Style="{StaticResource Indicator}" />
                                 <Label Content="NithTPS" VerticalAlignment="Center" FontSize="18"/>
@@ -169,7 +169,7 @@
                             </StackPanel>
                         </Button>
                     </UniformGrid>
-                    
+
                     <!-- Root note selector -->
                     <Label Content="Scale selection" />
                     <Grid>
@@ -187,7 +187,7 @@
                         </Border>
                         <Button Grid.Column="2" Name="btnRootNotePlus" Content="⮞" Click="btnRootNotePlus_Click" Style="{StaticResource DWood}" />
                     </Grid>
-                    
+
                     <!-- Scale type selector -->
                     <UniformGrid Columns="2" Rows="1">
                         <Button Name="btnScaleMajor" Style="{StaticResource DWoodLeft}" Click="btnScaleMajor_Click">
@@ -204,7 +204,7 @@
                             </StackPanel>
                         </Button>
                     </UniformGrid>
-                    
+
                     <!-- Keys spacing -->
                     <Label Content="Keys spacing" />
                     <Grid>
@@ -220,31 +220,18 @@
                         </Border>
                         <Button Grid.Column="2" Name="btnSpacingPlus" Content="⮞" Click="btnSpacingPlus_Click"  Style="{StaticResource DWood}" />
                     </Grid>
-                    
-                    <!-- Btn enable calibration -->
-                    <Label x:Name="CalibrationSensor"  Content="Calibration Sensor" Visibility="Hidden"/>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width = "1*" />
-                        </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Name="EnableCalibration" Content="Calibrate " Click="btnEnableCalibration_Click"  Style="{StaticResource DWood}" Visibility="Hidden"/>
-                    </Grid>
+
+
                 </StackPanel>
-                
+
                 <!-- Right Stackpanel -->
                 <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5,5,5,5">
                     <!-- ============ Switchable settings -->
                     <Label Content="Interaction settings"/>
                     <UniformGrid Columns="2" Rows="3">
-                        
-                        <!-- Mod -->
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                            <Button Name="btnMod" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnMod_Click">
-                                <Border Name="indMod" Style="{StaticResource Indicator}" />
-                            </Button>
-                            <Label VerticalAlignment="Center" Content="Modul." />
-                        </StackPanel>
-                        
+
+
+
                         <!-- Breath switch -->
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <Button Name="btnBSwitch" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnBSwitch_Click">
@@ -252,7 +239,7 @@
                             </Button>
                             <Label VerticalAlignment="Center" Content="B. switch" />
                         </StackPanel>
-                        
+
                         <!-- Sharp notes -->
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <Button Name="btnSharpNotes" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnSharpNotes_Click">
@@ -260,9 +247,9 @@
                             </Button>
                             <Label VerticalAlignment="Center" Content="Accid." />
                         </StackPanel>
-                        
-                        
-                        
+
+
+
                         <!-- Slide play -->
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <Button Name="btnSlidePlay" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnSlidePlay_Click">
@@ -270,7 +257,7 @@
                             </Button>
                             <Label VerticalAlignment="Center" Content="Legato" />
                         </StackPanel>
-                        
+
                         <!-- Note names -->
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <Button Name="btnNoteNames" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnNoteNames_Click">
@@ -278,7 +265,7 @@
                             </Button>
                             <Label VerticalAlignment="Center" Content="Names" />
                         </StackPanel>
-                        
+
                         <!-- Blink play (HIDDEN) -->
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <Button Name="btnBlinkPlay" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnBlinkPlay_Click">
@@ -287,56 +274,189 @@
                             <Label VerticalAlignment="Center" Content="Blink p." />
                         </StackPanel>
 
+
+                        <!-- Blink play (HIDDEN) -->
+
+
                     </UniformGrid>
-                    
-                    <!-- Sensor Press Calibrate -->
-                    <Label Content="Calibration Pressure Sensor" />
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width = "1*" />
-                            <ColumnDefinition Width = "1*" />
-                        </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Name="CalibrateMin" Content="Min" Click="btnCalibrateMin_Click"  Style="{StaticResource DWood}" Visibility="Hidden" />
-                        <Border Grid.Column="1" Style="{StaticResource LCDBorder}">
-                            <TextBlock Name="CalibrateMin_txt" Text="-" Style="{StaticResource LCDText}"/>
 
-                        </Border>
-                    </Grid>
 
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width = "1*" />
-                            <ColumnDefinition Width = "1*" />
-                        </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Name="CalibrateMax" Content="Max" Click="btnCalibrateMax_Click"  Style="{StaticResource DWood}" Visibility="Hidden" />
-                        <Border Grid.Column="1" Style="{StaticResource LCDBorder}">
-                            <TextBlock Name="CalibrateMax_txt" Text="-" Style="{StaticResource LCDText}">
-                            </TextBlock>
-                        </Border>
-                    </Grid>
-                    
-                    <Label Content="Instruction for calibration" />
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width = "1*" />
-                        </Grid.ColumnDefinitions>
-                        <Border Grid.Column="1" Style="{StaticResource LCDBorder}">
-                            <TextBlock Name="Instruction" Text="-" Style="{StaticResource LCDText}" Height="100" FontSize="18" VerticalAlignment="Center">
-                            </TextBlock>
-                        </Border>
-                    </Grid>
                 </StackPanel>
             </Grid>
         </Border>
-       
-        
-        <!-- OLD ___________________________________________ OLD __________________ -->
+
+        <Border Name="brdPress" Grid.Row="1" HorizontalAlignment="Left" Width="400" Height="Auto" CornerRadius="10" Margin="774,5,0,5" Visibility="Hidden">
+            <Border.Background>
+                <ImageBrush ImageSource="/Images/Backgrounds/LightWood.jpg" TileMode="Tile" />
+            </Border.Background>
+
+            <!-- Custom stackpanel -->
+            <StackPanel Orientation="Vertical" Margin="5,5,5,5">
+                <Label x:Name="SensorName"  Content="-" Visibility="Visible"/>
+
+                <!-- Com port selector -->
+                <Label Content="Sensor port" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width = "1*" />
+                        <ColumnDefinition Width = "1*" />
+                        <ColumnDefinition Width = "1*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Name="btnSensorPressPortMinus" Content="⮜" Click="BtnSensorPortTPSMinus_Click" Style="{StaticResource DWood}" />
+                    <Border Grid.Column="1" Style="{StaticResource LCDBorder}">
+                        <TextBlock Name="txtSensorPressPort" Text="COM" Style="{StaticResource LCDText}">
+                        </TextBlock>
+                    </Border>
+                    <Button Grid.Column="2" Name="btnSensorPressPortPlus" Content="⮞" Click="BtnSensorPortTPSPlus_Click" Style="{StaticResource DWood}" HorizontalAlignment="Left" Margin="5,5,0,5" Width="115" />
+                </Grid>
+                <Label x:Name="CalibrationSensor"  Content="Calibration Sensor" Visibility="Visible"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width = "1*" />
+                        <ColumnDefinition Width = "1*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Name="EnableCalibration" Content="Calibrate " Click="btnEnableCalibration_Click"  Style="{StaticResource DWood}" Visibility="Visible"/>
+                    <Border Grid.Column="1" Style="{StaticResource LCDBorder}">
+                        <TextBlock Name="ValueSensor_txt" Text="-" Style="{StaticResource LCDText}"/>
+                    </Border>
+                </Grid>
+                <!-- Sensor Press Calibrate -->
+                <Label x:Name="Space"  Content="" Visibility="Visible"/>
+                <Label Content="Calibration Pressure Sensor" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width = "1*" />
+                        <ColumnDefinition Width = "1*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Name="CalibrateMin" Content="Min" Click="btnCalibrateMin_Click"  Style="{StaticResource DWood}" Visibility="Hidden" />
+                    <Border Grid.Column="1" Style="{StaticResource LCDBorder}">
+                        <TextBlock Name="CalibrateMin_txt" Text="-" Style="{StaticResource LCDText}"/>
+
+                    </Border>
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width = "1*" />
+                        <ColumnDefinition Width = "1*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Name="CalibrateMax" Content="Max" Click="btnCalibrateMax_Click"  Style="{StaticResource DWood}" Visibility="Hidden" />
+                    <Border Grid.Column="1" Style="{StaticResource LCDBorder}">
+                        <TextBlock Name="CalibrateMax_txt" Text="-" Style="{StaticResource LCDText}">
+                        </TextBlock>
+                    </Border>
+                </Grid>
+
+                <Label Content="Instruction for calibration" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width = "1*" />
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="1" Style="{StaticResource LCDBorder}" Height="100">
+                        <TextBlock Name="Instruction" Text="-" Style="{StaticResource LCDText}" Height="80" Margin="10,0,10,0" FontSize="16">
+                        </TextBlock>
+                    </Border>
+
+                </Grid>
+                <UniformGrid Columns="2" Rows="3">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Button Name="btnPitchBend" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnPitchBend_Click">
+                            <Border Name="indPitchBenad" Style="{StaticResource Indicator}" />
+                        </Button>
+                        <Label VerticalAlignment="Center" Content="Pitch B." />
+
+                    </StackPanel>
+                    <Border Grid.Column="1" Style="{StaticResource LCDBorder}">
+                        <TextBlock Name="Pitchbend_txt" Text="-" Style="{StaticResource LCDText}"/>
+                    </Border>
+                    <!-- Mod -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Button Name="btnMod" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnMod_Click">
+                            <Border Name="indMod" Style="{StaticResource Indicator}" />
+                        </Button>
+                        <Label VerticalAlignment="Center" Content="Modul." />
+                    </StackPanel>
+
+                    <!-- Press -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Button Name="btnPress" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnPress_Click">
+                            <Border Name="indPress" Style="{StaticResource Indicator}" />
+                        </Button>
+                        <Label VerticalAlignment="Center" Content="Press." />
+                    </StackPanel>
+
+                </UniformGrid>
+
+            </StackPanel>
+        </Border>
+
+        <Border Name="brdBS" Grid.Row="1" HorizontalAlignment="Left" Width="400" Height="Auto" CornerRadius="10" Margin="774,5,0,5" Visibility="Visible">
+            <Border.Background>
+                <ImageBrush ImageSource="/Images/Backgrounds/LightWood.jpg" TileMode="Tile" />
+            </Border.Background>
+
+            <!-- Custom stackpanel -->
+            <StackPanel Orientation="Vertical" Margin="5,5,5,5">
+                <Label x:Name="NithBS"  Content="Nith BS" Visibility="Visible"/>
+
+                <!-- Com port selector -->
+                <Label Content="Sensor port" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width = "1*" />
+                        <ColumnDefinition Width = "1*" />
+                        <ColumnDefinition Width = "1*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Name="btnSensorBSPortMinus" Content="⮜" Click="BtnSensorBSPortMinus_Click" Style="{StaticResource DWood}" />
+                    <Border Grid.Column="1" Style="{StaticResource LCDBorder}">
+                        <TextBlock Name="txtSensorBSPort" Text="COM" Style="{StaticResource LCDText}">
+                        </TextBlock>
+                    </Border>
+                    <Button Grid.Column="2" Name="btnSensorBSPortPlus" Content="⮞" Click="BtnSensorBSPortPlus_Click" Style="{StaticResource DWood}" HorizontalAlignment="Left" Margin="5,5,0,5" Width="115" />
+                </Grid>
 
 
-                <!--  MODULATION AND SWITCHES  -->
-        
+                <UniformGrid Columns="2" Rows="3">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Button Name="btnPitchBendBS" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnPitchBend_Click">
+                            <Border Name="indPitchBenadBS" Style="{StaticResource Indicator}" />
+                        </Button>
+                        <Label VerticalAlignment="Center" Content="Pitch B." />
+
+                    </StackPanel>
+                    <Border Grid.Column="1" Style="{StaticResource LCDBorder}">
+                        <TextBlock Name="PitchbendBS_txt" Text="-" Style="{StaticResource LCDText}"/>
+                    </Border>
+                    <!-- Mod -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Button Name="btnModBS" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnMod_Click">
+                            <Border Name="indModBS" Style="{StaticResource Indicator}" />
+                        </Button>
+                        <Label VerticalAlignment="Center" Content="Modul." />
+                    </StackPanel>
+
+                    <!-- Press -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Button Name="btnPressBS" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnPress_Click">
+                            <Border Name="indPressBS" Style="{StaticResource Indicator}" />
+                        </Button>
+                        <Label VerticalAlignment="Center" Content="Press." />
+                    </StackPanel>
+                </UniformGrid>
+            </StackPanel>
+
+
+
+
+
+
+            <!-- OLD ___________________________________________ OLD __________________ -->
+
+
+            <!--  MODULATION AND SWITCHES  -->
+        </Border>
     </Grid>
 
 
-    
+
 </Window>

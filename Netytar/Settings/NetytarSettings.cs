@@ -1,6 +1,8 @@
 ﻿using NITHdmis.Music;
 using Netytar.DMIbox;
 using System;
+using System.Windows.Forms;
+using Netytar.DMIbox.NithBSBehaviors;
 
 namespace Netytar.Settings
 {
@@ -12,7 +14,7 @@ namespace Netytar.Settings
 
         }
 
-        public NetytarSettings(int verticalSpacer, int horizontalSpacer, int occluderOffset, int ellipseRadius, int lineThickness, int highlightStrokeDim, int highlightRadius, _SharpNotesModes sharpNotesMode, _BlinkSelectScaleMode blinkSelectScaleMode, _BreathControlModes breathControlMode, _NetytarControlModes netytarControlMode, _ModulationControlModes modulationControlMode, _SlidePlayModes slidePlayMode, int sensorPort, int mIDIPort, AbsNotes rootNote, ScaleCodes scaleCode, bool noteNamesVisualized)
+        public NetytarSettings(int verticalSpacer, int horizontalSpacer, int occluderOffset, int ellipseRadius, int lineThickness, int highlightStrokeDim, int highlightRadius, _SharpNotesModes sharpNotesMode, _BlinkSelectScaleMode blinkSelectScaleMode, _BreathControlModes breathControlMode, _NetytarControlModes netytarControlMode, _ModulationControlModes modulationControlMode, _PitchBendControlModes pitchbendControlMode, _SlidePlayModes slidePlayMode, int sensorPort, int mIDIPort, AbsNotes rootNote, ScaleCodes scaleCode, bool noteNamesVisualized, bool tps_activateTeeth, int tps_SensorPort, int tps_Pressure, int tps_CalibationMax, int tps_CalibrationMin, bool bs_activatebs, int bs_SensorPort, int bs_pressure, _PressureControlModes pressurecontrolmode)
         {
             VerticalSpacer = verticalSpacer;
             HorizontalSpacer = horizontalSpacer;
@@ -26,12 +28,26 @@ namespace Netytar.Settings
             BreathControlMode = breathControlMode;
             NetytarControlMode = netytarControlMode;
             ModulationControlMode = modulationControlMode;
+            PitchBendControlMode = pitchbendControlMode;
             SlidePlayMode = slidePlayMode;
             SensorPort = sensorPort;
             MIDIPort = mIDIPort;
             RootNote = rootNote;
             ScaleCode = scaleCode;
             NoteNamesVisualized = noteNamesVisualized;
+            TPS_activateTeeth = tps_activateTeeth;
+            TPS_SensorPort = tps_SensorPort;
+            TPS_Pressure = tps_Pressure;
+            TPS_CalibationMax = tps_CalibationMax;
+            TPS_CalibrationMin = tps_CalibrationMin;
+            BS_activateBreath = bs_activatebs;
+            BS_SensorPort = bs_SensorPort;
+            BS_Pressure = bs_pressure;
+            TPSPressureControlMode = pressurecontrolmode;
+
+
+
+
         }
 
         public int VerticalSpacer { get; set; }
@@ -46,11 +62,31 @@ namespace Netytar.Settings
         public _BreathControlModes BreathControlMode { get; set; }
         public _NetytarControlModes NetytarControlMode { get; set; }
         public _ModulationControlModes ModulationControlMode { get; set; }
+        public _PitchBendControlModes PitchBendControlMode { get; set; }
+
+        public _PressureControlModes TPSPressureControlMode { get; set; }
         public _SlidePlayModes SlidePlayMode { get; set; }
         public int SensorPort { get; set; }
         public int MIDIPort { get; set; }
         public AbsNotes RootNote { get; set; }
         public ScaleCodes ScaleCode { get; set; }
         public bool NoteNamesVisualized { get; set; }
+
+       
+        public bool TPS_activateTeeth { get; set;  }
+        public int TPS_SensorPort { get; set; }
+        public int TPS_Pressure { get; set; }
+        public int TPS_CalibationMax { get; set; }
+        public int TPS_CalibrationMin { get; set; }
+
+        public bool BS_activateBreath { get; set; }
+        public int BS_SensorPort { get; set; }
+        public int BS_Pressure { get; set; }
+        //public int BS_CalibationMax { get; set; }
+        //public int BS_CalibrationMin { get; set; }
+
+
     }
+
+
 }

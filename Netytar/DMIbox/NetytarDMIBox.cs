@@ -15,6 +15,7 @@ namespace Netytar.DMIbox
     public class NetytarDMIBox
     {
         private const _BreathControlModes DEFAULT_BREATHCONTROLMODE = _BreathControlModes.Dynamic;
+       private const _PressureControlModes DEFAULT_PRESSURECONTROLMODE = _PressureControlModes.On;
 
         private bool hasAButtonGaze = false;
 
@@ -45,9 +46,13 @@ namespace Netytar.DMIbox
         #region Switchable
 
         private _BreathControlModes breathControlMode = DEFAULT_BREATHCONTROLMODE;
+        private _PressureControlModes pressureControlModes = DEFAULT_PRESSURECONTROLMODE;
 
         public _BreathControlModes BreathControlMode
         { get => breathControlMode; set { breathControlMode = value; ResetModulationAndPressure(); } }
+
+        public _PressureControlModes PressureControlMode
+        { get => PressureControlMode; set { PressureControlMode = value; ResetModulationAndPressure(); } }
 
         #endregion Switchable
 
@@ -55,8 +60,10 @@ namespace Netytar.DMIbox
 
         private bool blow = false;
         private int modulation = 0;
+        private int pitchbend = 0;
         private MidiNotes nextNote = MidiNotes.C5;
         private int pressure = 127;
+        private int TPSpressure = 127;
         private MidiNotes selectedNote = MidiNotes.C5;
         private int velocity = 127;
 
@@ -134,6 +141,9 @@ namespace Netytar.DMIbox
             }
         }
 
+        public string pressureSensor ;
+        public string BsSensor;
+
         public int Pressure
         {
             get { return pressure; }
@@ -166,6 +176,74 @@ namespace Netytar.DMIbox
                 }
             }
         }
+
+        public int TPSPressure
+        {
+            get { return TPSpressure; }
+            set
+            {
+                if (R.UserSettings.TPSPressureControlMode==_PressureControlModes.On)
+                {
+                    if (value < 50 && value > 1)
+                    {
+                        TPSpressure = 50;
+                    }
+                    else if (value > 127)
+                    {
+                        TPSpressure = 127;
+                    }
+                    else if (value == 0)
+                    {
+                        TPSpressure = 0;
+                    }
+                    else
+                    {
+                        TPSpressure = value;
+                    }
+                    SetTPSPressure();
+                }
+                if (R.UserSettings.TPSPressureControlMode == _PressureControlModes.On)
+                {
+                    TPSpressure = 0;
+                    SetTPSPressure();
+                }
+            }
+        }
+
+        public int PitchBend //aggiunto
+        {
+            get { return pitchbend; }
+            set
+            {
+                if (R.UserSettings.PitchBendControlMode == _PitchBendControlModes.On)
+                {
+                    if (value < 50 && value > 1)
+                    {
+                        pitchbend = 50;
+                    }
+                    else if (value > 16383)
+                    {
+                        pitchbend = 16383;
+                    }
+                    else if (value == 0)
+                    {
+                        pitchbend = 0;
+                    }
+                    else
+                    {
+                        pitchbend = value;
+                    }
+                    SetPitchBend();
+                }
+                else if (R.UserSettings.PitchBendControlMode == _PitchBendControlModes.Off)
+                {
+                    pitchbend = 0;
+                    SetPitchNoBend();
+                }
+            }
+        }
+
+
 
         public MidiNotes SelectedNote
         {
@@ -237,6 +315,22 @@ namespace Netytar.DMIbox
         private void SetPressure()
         {
             MidiModule.SetPressure(pressure);
+        }
+
+
+        private void SetPitchBend()
+        {
+            MidiModule.SetPitchBend(PitchBend);
+        }
+
+        private void SetTPSPressure()
+        {
+            MidiModule.SetPressure(TPSpressure);
+        }
+
+        private void SetPitchNoBend()
+        {
+            MidiModule.SetPitchNoBend();
         }
 
         private void StopSelectedNote()

@@ -16,13 +16,17 @@ namespace Netytar.DMIbox
     public enum _NetytarControlModes
     {
         Keyboard,
-        NeeqBS,
-        NeeqTPS,
+        //NeeqBS,
+        //NeeqTPS,
         EyePos,
         EyeVel,
         NeeqHTYaw
     }
-
+    public enum _PressureControlModes
+    {
+        On,
+        Off
+    }
     public enum _ModulationControlModes
     {
         On,
@@ -33,6 +37,11 @@ namespace Netytar.DMIbox
     {
         Dynamic,
         Switch
+    }
+    public enum _PitchBendControlModes
+    {
+        On,
+        Off
     }
 
     public enum _SharpNotesModes
@@ -53,3 +62,4 @@ namespace Netytar.DMIbox
         Off
     }
 }
+ 

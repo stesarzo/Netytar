@@ -6,10 +6,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
+using System;
+using System.IO;
 using Tobii.Interaction.Wpf;
 using NITHdmis.NithSensors;
 using System.Drawing.Drawing2D;
 using Netytar.DMIbox.NithBSBehaviors;
+using System.Windows.Input;
 
 namespace Netytar
 {
@@ -34,6 +37,9 @@ namespace Netytar
         private Brush LastGazedBrush = null;
         private DispatcherTimer timer;
 
+        private DispatcherTimer TimerClick;
+        private bool isLongClick = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -47,6 +53,7 @@ namespace Netytar
             updater.Interval = new TimeSpan(1000);
             updater.Tick += UpdateTimedVisuals;
             updater.Start();
+
         }
 
         public int BreathSensorValue { get; set; } = 0;
@@ -61,6 +68,30 @@ namespace Netytar
                 if (value > 0)
                 {
                     R.UserSettings.SensorPort = value;
+                }
+            }
+        }
+
+        public int TPS_SenorPort
+        {
+            get { return R.UserSettings.TPS_SensorPort; }
+            set
+            {
+                if (value > 0)
+                {
+                    R.UserSettings.TPS_SensorPort = value;
+                }
+            }
+        }
+
+        public int BS_SenorPort
+        {
+            get { return R.UserSettings.BS_SensorPort; }
+            set
+            {
+                if (value > 0)
+                {
+                    R.UserSettings.BS_SensorPort = value;
                 }
             }
         }
@@ -143,6 +174,8 @@ namespace Netytar
 
                 //txtTest.Text = Rack.DMIBox.TestString;
             }
+            ValueSensor_txt.Text = R.NDB.pressureSensor;
+            Pitchbend_txt.Text = R.NDB.PitchBend.ToString();
         }
 
         private void StartNetytar()
@@ -162,6 +195,8 @@ namespace Netytar
 
             // Hide Settings
             brdSettings.Visibility = Visibility.Hidden;
+            brdPress.Visibility = Visibility.Hidden;
+            brdBS.Visibility = Visibility.Hidden;
             
             // LEAVE AT THE END!
             NetytarStarted = true;
@@ -174,18 +209,22 @@ namespace Netytar
             // TEXT
             txtMIDIch.Text = "MP" + R.UserSettings.MIDIPort.ToString();
             txtSensorPort.Text = "COM" + R.UserSettings.SensorPort.ToString();
+            txtSensorPressPort.Text = "COM" + R.UserSettings.TPS_SensorPort.ToString();
+            txtSensorBSPort.Text = "COM" + R.UserSettings.BS_SensorPort.ToString();
             txtRootNote.Text = R.UserSettings.RootNote.ToString();
             txtSpacing.Text = R.UserSettings.HorizontalSpacer.ToString();
 
             /// INDICATORS
-            indBreath.Background = R.UserSettings.NetytarControlMode == _NetytarControlModes.NeeqBS ? ActiveBrush : BlankBrush;
-            indTeeth.Background = R.UserSettings.NetytarControlMode == _NetytarControlModes.NeeqTPS ? ActiveBrush : BlankBrush;
+            indBreath.Background = R.UserSettings.BS_activateBreath == true ? ActiveBrush : BlankBrush;
+            indTeeth.Background = R.UserSettings.TPS_activateTeeth == true ? ActiveBrush : BlankBrush;
             indHeadYaw.Background = R.UserSettings.NetytarControlMode == _NetytarControlModes.NeeqHTYaw ? ActiveBrush : BlankBrush;
             indKeyboard.Background = R.UserSettings.NetytarControlMode == _NetytarControlModes.Keyboard ? ActiveBrush : BlankBrush;
             indRootNoteColor.Background = R.ColorCode.FromAbsNote(R.UserSettings.RootNote);
             indScaleMajor.Background = (R.UserSettings.ScaleCode == ScaleCodes.maj) ? ActiveBrush : BlankBrush;
             indScaleMinor.Background = (R.UserSettings.ScaleCode == ScaleCodes.min) ? ActiveBrush : BlankBrush;
             indMod.Background = R.UserSettings.ModulationControlMode == _ModulationControlModes.On ? ActiveBrush: BlankBrush;
+            indPress.Background = R.UserSettings.TPSPressureControlMode == _PressureControlModes.On ? ActiveBrush : BlankBrush;
+            indPitchBenad.Background = R.UserSettings.PitchBendControlMode == _PitchBendControlModes.On ? ActiveBrush : BlankBrush;
             indBSwitch.Background = R.UserSettings.BreathControlMode == _BreathControlModes.Switch ? ActiveBrush : BlankBrush;
             indSharpNotes.Background = R.UserSettings.SharpNotesMode == _SharpNotesModes.On ? ActiveBrush : BlankBrush;
             //indBlinkPlay.Background = R.UserSettings.Bli
@@ -199,6 +238,16 @@ namespace Netytar
             /* MIDI */
             txtMIDIch.Text = "MP" + R.NDB.MidiModule.OutDevice.ToString();
             CheckMidiPort();
+
+            if (R.UserSettings.TPS_activateTeeth == true || R.UserSettings.BS_activateBreath==true)
+            {
+                txtSensorPort.Visibility = Visibility.Hidden;
+               
+            }
+            else if(R.UserSettings.TPS_activateTeeth == false || R.UserSettings.BS_activateBreath == false)
+            {
+                txtSensorPort.Visibility = Visibility.Visible;
+            }
         }
 
         private void CheckMidiPort()
@@ -367,6 +416,16 @@ namespace Netytar
             }
         }
 
+
+        private void btnPitchBend_Click(object sender, RoutedEventArgs e) //aggiunto per pitch bend 
+        {
+            if (NetytarStarted)
+            {
+                R.UserSettings.PitchBendControlMode = R.UserSettings.PitchBendControlMode == _PitchBendControlModes.On ? _PitchBendControlModes.Off : _PitchBendControlModes.On;
+                UpdateGUIVisuals();
+            }
+        }
+
         private void btnBreathControlSwitch_Click(object sender, RoutedEventArgs e)
         {
             if (NetytarStarted)
@@ -506,6 +565,7 @@ namespace Netytar
                 case true:
                     IsSettingsShown = false;
                     brdSettings.Visibility = Visibility.Hidden;
+                    brdPress.Visibility = Visibility.Hidden;
                     break;
             }
 
@@ -616,27 +676,44 @@ namespace Netytar
                 R.UserSettings.NetytarControlMode = _NetytarControlModes.Keyboard;
                 UpdateGUIVisuals();
             }
+            brdPress.Visibility=Visibility.Hidden;
         }
 
         private void btnBreath_Click(object sender, RoutedEventArgs e)
         {
             if (NetytarStarted)
             {
-                R.UserSettings.NetytarControlMode = _NetytarControlModes.NeeqBS;
+                if (R.UserSettings.BS_activateBreath == true)
+                {
+                    R.UserSettings.BS_activateBreath = false;
+                }
+                else if (R.UserSettings.BS_activateBreath == false)
+                {
+                    R.UserSettings.BS_activateBreath = true;
+                }
+                //R.UserSettings.TPS_activateTeeth=true;
                 UpdateGUIVisuals();
             }
+
+            SensorName.Content = "Breath TPS";
         }
 
         private void btnTeeth_Click(object sender, RoutedEventArgs e)
         {
             if (NetytarStarted)
             {
-                R.UserSettings.NetytarControlMode = _NetytarControlModes.NeeqTPS;
+                if (R.UserSettings.TPS_activateTeeth == true)
+                {
+                    R.UserSettings.TPS_activateTeeth = false;
+                }
+                else if (R.UserSettings.TPS_activateTeeth==false)
+                {
+                    R.UserSettings.TPS_activateTeeth = true;
+                }
+                //R.UserSettings.TPS_activateTeeth=true;
                 UpdateGUIVisuals();
             }
-
-            EnableCalibration.Visibility = Visibility.Visible;
-            CalibrationSensor.Visibility = Visibility.Visible;
+            SensorName.Content = "Nith TPS";
         }
 
         private void btnNoteNames_Click(object sender, RoutedEventArgs e)
@@ -709,13 +786,14 @@ namespace Netytar
                 R.UserSettings.NetytarControlMode = _NetytarControlModes.NeeqHTYaw;
                 UpdateGUIVisuals();
             }
+            brdPress.Visibility = Visibility.Hidden;
         }
 
         private void btnCalibrateMin_Click(object sender, RoutedEventArgs e)
         {
-            R.CalibrateMinValue = R.NDB.BreathValue;
-            R.MinSet = true;
-            CalibrateMin_txt.Text = R.CalibrateMinValue.ToString();
+            R.TPhelper.CalibrateMinValue = R.NDB.BreathValue;
+            R.TPhelper.MinSet = true;
+            CalibrateMin_txt.Text = R.TPhelper.CalibrateMinValue.ToString();
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(5); // Imposta l'intervallo di tempo in secondi
             timer.Tick += Timer_TickMax;
@@ -725,9 +803,10 @@ namespace Netytar
 
         private void btnCalibrateMax_Click(object sender, RoutedEventArgs e)
         {
-            R.CalibrateMaxValue = R.NDB.BreathValue;
-            R.MaxSet = true;
-            CalibrateMax_txt.Text = R.CalibrateMaxValue.ToString();
+           R.TPhelper.CalibrateMaxValue = int.Parse(R.NDB.pressureSensor);
+            R.TPhelper.MaxSet = true;
+            CalibrateMax_txt.Text = R.TPhelper.CalibrateMaxValue.ToString();
+            R.SavingCalibration.SaveCalibration(R.TPhelper.CalibrateMinValue.ToString(), R.TPhelper.CalibrateMaxValue.ToString());
         }
 
         private void btnEnableCalibration_Click(object sender, RoutedEventArgs e)
@@ -737,6 +816,8 @@ namespace Netytar
             timer.Tick += Timer_TickMin;
             timer.Start();
             Instruction.Text = "Mettere il sensore in bocca, \n esercitare la minima pressione possibile,\n premere il pulsante quando appare. \n Cerca di rimanere stabile durante la calibraizone";
+            //R.TPhelper.CalibrateMaxValue = 1024;
+            //R.TPhelper.CalibrateMaxValue = 0;
         }
 
         private void Timer_TickMin(object sender, EventArgs e)
@@ -749,6 +830,104 @@ namespace Netytar
         {
             CalibrateMax.Visibility = Visibility.Visible; // Abilita il pulsante
             timer.Stop(); // Ferma il timer (opzionale)
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            brdPress.Visibility = Visibility.Hidden;
+        }
+
+
+
+    
+
+        private void btnPress_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                R.UserSettings.TPSPressureControlMode = R.UserSettings.TPSPressureControlMode == _PressureControlModes.On ? _PressureControlModes.Off : _PressureControlModes.On;
+                UpdateGUIVisuals();
+            }
+        }
+
+
+      
+
+        private void myButton_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            brdPress.Visibility = Visibility.Visible;
+            brdBS.Visibility = Visibility.Hidden;
+        }
+
+        private void BtnSensorPortTPSMinus_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                TPS_SenorPort--;
+                UpdateSensorTPSConnection();
+            }
+        }
+
+        private void BtnSensorPortTPSPlus_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                TPS_SenorPort++;
+                UpdateSensorTPSConnection();
+            }
+        }
+
+        private void UpdateSensorTPSConnection()
+        {
+            txtSensorPressPort.Text = "COM" + TPS_SenorPort.ToString();
+
+            if (R.NithModuleTPS.Connect(TPS_SenorPort))
+            {
+                txtSensorPressPort.Foreground = ActiveBrush;
+            }
+            else
+            {
+                txtSensorPressPort.Foreground = WarningBrush;
+            }
+        }
+
+        private void btnBreath_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            brdPress.Visibility = Visibility.Hidden;
+            brdBS.Visibility = Visibility.Visible;
+
+        }
+
+        private void BtnSensorBSPortMinus_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                BS_SenorPort--;
+                UpdateSensorBSConnection();
+            }
+        }
+
+        private void BtnSensorBSPortPlus_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                BS_SenorPort++;
+                UpdateSensorBSConnection();
+            }
+        }
+
+        private void UpdateSensorBSConnection() 
+        {
+            txtSensorBSPort.Text = "COM" + BS_SenorPort.ToString();
+
+            if (R.NithModuleBS.Connect(BS_SenorPort))
+            {
+                txtSensorBSPort.Foreground = ActiveBrush;
+            }
+            else
+            {
+                txtSensorBSPort.Foreground = WarningBrush;
+            }
         }
     }
 }

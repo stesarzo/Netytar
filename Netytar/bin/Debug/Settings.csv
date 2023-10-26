@@ -1,6 +1,2 @@
-VerticalSpacer,HorizontalSpacer,OccluderOffset,EllipseRadius,LineThickness,HighlightStrokeDim,HighlightRadius,SharpNotesMode,BlinkSelectScaleMode,BreathControlMode,NetytarControlMode,ModulationControlMode,SlidePlayMode,SensorPort,MIDIPort,RootNote,ScaleCode,NoteNamesVisualized
-<<<<<<< Updated upstream
--85,170,35,23,3,5,65,On,On,Dynamic,NeeqHTYaw,Off,On,7,1,C,maj,True
-=======
--90,180,35,23,3,5,65,On,On,Dynamic,NeeqTPS,Off,On,3,1,C,maj,True
->>>>>>> Stashed changes
+VerticalSpacer,HorizontalSpacer,OccluderOffset,EllipseRadius,LineThickness,HighlightStrokeDim,HighlightRadius,SharpNotesMode,BlinkSelectScaleMode,BreathControlMode,NetytarControlMode,ModulationControlMode,PitchBendControlMode,TPSPressureControlMode,SlidePlayMode,SensorPort,MIDIPort,RootNote,ScaleCode,NoteNamesVisualized,TPS_activateTeeth,TPS_SensorPort,TPS_Pressure,TPS_CalibationMax,TPS_CalibrationMin,BS_activateBreath,BS_SensorPort,BS_Pressure
+-100,200,35,23,3,5,65,Off,On,Dynamic,NeeqHTYaw,Off,Off,On,Off,1,1,C,maj,True,True,3,0,0,0,False,3,0

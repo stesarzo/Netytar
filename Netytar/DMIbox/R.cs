@@ -2,6 +2,8 @@
 using Netytar.DMIbox;
 using Netytar.Settings;
 using NITHdmis.Headtracking.NeeqHT;
+using Netytar.Behaviors;
+using Netytar.DMIbox.NithBSBehaviors;
 
 namespace Netytar
 {
@@ -15,16 +17,16 @@ namespace Netytar
         public static NetytarDMIBox NDB { get; set; } = new NetytarDMIBox();
         public static MainWindow NetytarMainWindow { get; set; }
         public static NithModule NithModule { get; set; } = new NithModule();
+        public static NithModule NithModuleBS { get; set; } = new NithModule();
+        public static NithModule NithModuleTPS { get; set; } = new NithModule();
         public static SavingSystem SavingSystem { get; set; } = new SavingSystem("Settings");
         public static bool RaiseClickEvent { get; internal set; } = false;
         public static NetytarSettings UserSettings { get; set; } = new DefaultSettings();
 
         public static HeadtrackerCenteringHelper HThelper { get; set; } = new HeadtrackerCenteringHelper();
 
-        public static bool MinSet { get; set; } = false;
-        public static bool MaxSet { get; set; } = false;
+        public static TeethPressureCalibrationHelper TPhelper { get; set; } = new TeethPressureCalibrationHelper();
 
-        public static double CalibrateMinValue { get; set; } = 0;
-        public static double CalibrateMaxValue { get; set; } = 0;
+        public static SavingCalibration SavingCalibration { get; set; } = new SavingCalibration();
     }
-}
+} 
