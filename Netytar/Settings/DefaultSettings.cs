@@ -21,8 +21,7 @@ namespace Netytar.Settings
             BlinkSelectScaleMode = _BlinkSelectScaleMode.On;
             BreathControlMode = _BreathControlModes.Dynamic;
             ModulationControlMode = _ModulationControlModes.Off;
-            TPSPressureControlMode = _PressureControlModes.Off;
-            NetytarControlMode = _NetytarControlModes.Keyboard;
+            PressureControlMode = _PressureControlModes.Off;
             SlidePlayMode = _SlidePlayModes.On;
             SensorPort = 4;
             MIDIPort = 1;
@@ -37,6 +36,7 @@ namespace Netytar.Settings
             BS_activateBreath = false;
             BS_Pressure = 0;
             BS_SensorPort = 0;
+            keyBoardMode = Keyboard.On;
         }
     }
 }

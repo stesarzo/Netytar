@@ -59,7 +59,7 @@ namespace Netytar.DMIbox.TobiiBehaviors
         public void ReceiveHeadPoseData(HeadPoseData data)
         {
 
-            if (R.UserSettings.NetytarControlMode == _NetytarControlModes.EyeVel)
+            if (R.UserSettings.NetytarControlMode == ControlModes.NithHT)
             {
    
                 if (data.HasHeadPosition)

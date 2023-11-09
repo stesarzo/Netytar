@@ -14,7 +14,7 @@ namespace Netytar.Settings
 
         }
 
-        public NetytarSettings(int verticalSpacer, int horizontalSpacer, int occluderOffset, int ellipseRadius, int lineThickness, int highlightStrokeDim, int highlightRadius, _SharpNotesModes sharpNotesMode, _BlinkSelectScaleMode blinkSelectScaleMode, _BreathControlModes breathControlMode, _NetytarControlModes netytarControlMode, _ModulationControlModes modulationControlMode, _PitchBendControlModes pitchbendControlMode, _SlidePlayModes slidePlayMode, int sensorPort, int mIDIPort, AbsNotes rootNote, ScaleCodes scaleCode, bool noteNamesVisualized, bool tps_activateTeeth, int tps_SensorPort, int tps_Pressure, int tps_CalibationMax, int tps_CalibrationMin, bool bs_activatebs, int bs_SensorPort, int bs_pressure, _PressureControlModes pressurecontrolmode)
+        public NetytarSettings(int verticalSpacer, int horizontalSpacer, int occluderOffset, int ellipseRadius, int lineThickness, int highlightStrokeDim, int highlightRadius, _SharpNotesModes sharpNotesMode, _BlinkSelectScaleMode blinkSelectScaleMode, _BreathControlModes breathControlMode, ControlModes netytarControlMode, _ModulationControlModes modulationControlMode, _PitchBendControlModes pitchbendControlMode, _SlidePlayModes slidePlayMode, int sensorPort, int mIDIPort, AbsNotes rootNote, ScaleCodes scaleCode, bool noteNamesVisualized, bool tps_activateTeeth, int tps_SensorPort, int tps_Pressure, int tps_CalibationMax, int tps_CalibrationMin, bool bs_activatebs, int bs_SensorPort, int bs_pressure, _PressureControlModes pressurecontrolmode, bool ht_activateht, ControlModes pressurebind, ControlModes modulationbind, ControlModes pitchcbendbind, Keyboard keybordmode)
         {
             VerticalSpacer = verticalSpacer;
             HorizontalSpacer = horizontalSpacer;
@@ -43,8 +43,12 @@ namespace Netytar.Settings
             BS_activateBreath = bs_activatebs;
             BS_SensorPort = bs_SensorPort;
             BS_Pressure = bs_pressure;
-            TPSPressureControlMode = pressurecontrolmode;
-
+            PressureControlMode = pressurecontrolmode;
+            HT_activateHT = ht_activateht;
+            PressureBind = pressurebind;
+            ModulationBind = modulationbind;
+            PitchBendBind = pitchcbendbind;
+            keyBoardMode = keybordmode;
 
 
 
@@ -60,11 +64,11 @@ namespace Netytar.Settings
         public _SharpNotesModes SharpNotesMode { get; set; }
         public _BlinkSelectScaleMode BlinkSelectScaleMode { get; set; }
         public _BreathControlModes BreathControlMode { get; set; }
-        public _NetytarControlModes NetytarControlMode { get; set; }
+        public ControlModes NetytarControlMode { get; set; }
         public _ModulationControlModes ModulationControlMode { get; set; }
         public _PitchBendControlModes PitchBendControlMode { get; set; }
 
-        public _PressureControlModes TPSPressureControlMode { get; set; }
+        public _PressureControlModes PressureControlMode { get; set; }
         public _SlidePlayModes SlidePlayMode { get; set; }
         public int SensorPort { get; set; }
         public int MIDIPort { get; set; }
@@ -72,8 +76,8 @@ namespace Netytar.Settings
         public ScaleCodes ScaleCode { get; set; }
         public bool NoteNamesVisualized { get; set; }
 
-       
-        public bool TPS_activateTeeth { get; set;  }
+
+        public bool TPS_activateTeeth { get; set; }
         public int TPS_SensorPort { get; set; }
         public int TPS_Pressure { get; set; }
         public int TPS_CalibationMax { get; set; }
@@ -82,6 +86,26 @@ namespace Netytar.Settings
         public bool BS_activateBreath { get; set; }
         public int BS_SensorPort { get; set; }
         public int BS_Pressure { get; set; }
+
+        public bool HT_activateHT { get; set; }
+
+
+        // user settings
+        public ControlModes PressureBind { get; set; }
+
+        public ControlModes ModulationBind { get; set; }
+
+        public ControlModes PitchBendBind { get; set; }
+
+        public Keyboard keyBoardMode {get;set;} 
+
+
+
+
+
+
+
+
         //public int BS_CalibationMax { get; set; }
         //public int BS_CalibrationMin { get; set; }
 

@@ -19,7 +19,7 @@ namespace Netytar.DMIbox.NithBSBehaviors
         private float modulationDivider; // Divisore per gestire la modulation
         private float pitchbendMultiplier;
         private float sensitivity; // Sensibilità generale, un valore che va semplicemente a moltiplicare l'input
-        private _NetytarControlModes associatedControlMode; // Control mode associato
+        private ControlModes associatedControlMode; // Control mode associato
         //private SegmentMapper CalibrateMaps;
 
         // Doppia soglia per gestire i Note On/Note Off. Se la pressure sale oltre a 5 -> note on. Se scende sotto a 1 -> Note Off
@@ -32,7 +32,7 @@ namespace Netytar.DMIbox.NithBSBehaviors
         /// <param name="modulationMultiplier"></param>
         /// <param name="pressureMultiplier">Channel pressure will be multiplied by this constant</param>
         /// <param name="sensitivity">Applies a pre-conversion multiplication constant to the input</param>
-        public PressureBasedBehavior(_NetytarControlModes associatedControlMode, float modulationMultiplier = 0.125f, float pressureMultiplier = 1f, float sensitivity = 1f, float pitchbendMultiplier=1f)
+        public PressureBasedBehavior(ControlModes associatedControlMode, float modulationMultiplier = 0.125f, float pressureMultiplier = 1f, float sensitivity = 1f, float pitchbendMultiplier=1f)
         {
             this.modulationDivider = modulationMultiplier;
             this.pressureMultiplier = pressureMultiplier;

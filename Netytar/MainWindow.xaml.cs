@@ -176,6 +176,7 @@ namespace Netytar
             }
             ValueSensor_txt.Text = R.NDB.pressureSensor;
             Pitchbend_txt.Text = R.NDB.PitchBend.ToString();
+            PitchbendBS_txt.Text = R.NDB.PitchBend.ToString();
         }
 
         private void StartNetytar()
@@ -200,15 +201,15 @@ namespace Netytar
             
             // LEAVE AT THE END!
             NetytarStarted = true;
-            UpdateSensorConnection();
             UpdateGUIVisuals();
+            UpdateSensorBSConnection();
+            UpdateSensorTPSConnection();
         }
 
         private void UpdateGUIVisuals()
         {
             // TEXT
             txtMIDIch.Text = "MP" + R.UserSettings.MIDIPort.ToString();
-            txtSensorPort.Text = "COM" + R.UserSettings.SensorPort.ToString();
             txtSensorPressPort.Text = "COM" + R.UserSettings.TPS_SensorPort.ToString();
             txtSensorBSPort.Text = "COM" + R.UserSettings.BS_SensorPort.ToString();
             txtRootNote.Text = R.UserSettings.RootNote.ToString();
@@ -217,17 +218,21 @@ namespace Netytar
             /// INDICATORS
             indBreath.Background = R.UserSettings.BS_activateBreath == true ? ActiveBrush : BlankBrush;
             indTeeth.Background = R.UserSettings.TPS_activateTeeth == true ? ActiveBrush : BlankBrush;
-            indHeadYaw.Background = R.UserSettings.NetytarControlMode == _NetytarControlModes.NeeqHTYaw ? ActiveBrush : BlankBrush;
-            indKeyboard.Background = R.UserSettings.NetytarControlMode == _NetytarControlModes.Keyboard ? ActiveBrush : BlankBrush;
+            indHeadYaw.Background = R.UserSettings.HT_activateHT == true ? ActiveBrush : BlankBrush;
+            //indKeyboard.Background = R.UserSettings.NetytarControlMode == _NetytarControlModes.Keyboard ? ActiveBrush : BlankBrush;
             indRootNoteColor.Background = R.ColorCode.FromAbsNote(R.UserSettings.RootNote);
             indScaleMajor.Background = (R.UserSettings.ScaleCode == ScaleCodes.maj) ? ActiveBrush : BlankBrush;
             indScaleMinor.Background = (R.UserSettings.ScaleCode == ScaleCodes.min) ? ActiveBrush : BlankBrush;
-            indMod.Background = R.UserSettings.ModulationControlMode == _ModulationControlModes.On ? ActiveBrush: BlankBrush;
-            indPress.Background = R.UserSettings.TPSPressureControlMode == _PressureControlModes.On ? ActiveBrush : BlankBrush;
-            indPitchBenad.Background = R.UserSettings.PitchBendControlMode == _PitchBendControlModes.On ? ActiveBrush : BlankBrush;
+            indMod.Background = R.UserSettings.ModulationBind == ControlModes.NithTPS ? ActiveBrush: BlankBrush;
+            indPress.Background = R.UserSettings.PressureBind == ControlModes.NithTPS ? ActiveBrush : BlankBrush;
+            indPitchBenad.Background = R.UserSettings.PitchBendBind == ControlModes.NithTPS ? ActiveBrush : BlankBrush;
+
+            indModBS.Background = R.UserSettings.ModulationBind == ControlModes.NithBS ? ActiveBrush : BlankBrush;
+            indPressBS.Background = R.UserSettings.PressureBind == ControlModes.NithBS ? ActiveBrush : BlankBrush;
+            indPitchBenadBS.Background = R.UserSettings.PitchBendBind == ControlModes.NithBS ? ActiveBrush : BlankBrush;
+
             indBSwitch.Background = R.UserSettings.BreathControlMode == _BreathControlModes.Switch ? ActiveBrush : BlankBrush;
             indSharpNotes.Background = R.UserSettings.SharpNotesMode == _SharpNotesModes.On ? ActiveBrush : BlankBrush;
-            //indBlinkPlay.Background = R.UserSettings.Bli
             indSlidePlay.Background = R.UserSettings.SlidePlayMode == _SlidePlayModes.On ? ActiveBrush : BlankBrush;
             indToggleCursor.Background = R.NDB.CursorHidden ? ActiveBrush: BlankBrush;
             indToggleAutoScroll.Background = R.NDB.AutoScroller.Enabled ? ActiveBrush : BlankBrush;
@@ -239,15 +244,6 @@ namespace Netytar
             txtMIDIch.Text = "MP" + R.NDB.MidiModule.OutDevice.ToString();
             CheckMidiPort();
 
-            if (R.UserSettings.TPS_activateTeeth == true || R.UserSettings.BS_activateBreath==true)
-            {
-                txtSensorPort.Visibility = Visibility.Hidden;
-               
-            }
-            else if(R.UserSettings.TPS_activateTeeth == false || R.UserSettings.BS_activateBreath == false)
-            {
-                txtSensorPort.Visibility = Visibility.Visible;
-            }
         }
 
         private void CheckMidiPort()
@@ -310,50 +306,6 @@ namespace Netytar
             }
         }
 
-        private void btnCtrlKeyboard_Click(object sender, RoutedEventArgs e)
-        {
-            if (NetytarStarted)
-            {
-                R.UserSettings.NetytarControlMode = _NetytarControlModes.Keyboard;
-                R.NDB.ResetModulationAndPressure();
-
-                BreathSensorValue = 0;
-
-                UpdateGUIVisuals();
-            }
-        }
-
-        private void BtnSensorPortPlus_Click(object sender, RoutedEventArgs e)
-        {
-            if (NetytarStarted)
-            {
-                SensorPort++;
-                UpdateSensorConnection();
-            }
-        }
-
-        private void UpdateSensorConnection()
-        {
-            txtSensorPort.Text = "COM" + SensorPort.ToString();
-
-            if (R.NithModule.Connect(SensorPort))
-            {
-                txtSensorPort.Foreground = ActiveBrush;
-            }
-            else
-            {
-                txtSensorPort.Foreground = WarningBrush;
-            }
-        }
-
-        private void BtnSensorPortMinus_Click(object sender, RoutedEventArgs e)
-        {
-            if (NetytarStarted)
-            {
-                SensorPort--;
-                UpdateSensorConnection();
-            }
-        }
 
         private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
@@ -364,15 +316,15 @@ namespace Netytar
 
         private void btnCtrlEyePos_Click(object sender, RoutedEventArgs e)
         {
-            if (NetytarStarted)
-            {
-                R.UserSettings.NetytarControlMode = _NetytarControlModes.EyePos;
-                R.NDB.ResetModulationAndPressure();
-
-                BreathSensorValue = 0;
-
-                UpdateGUIVisuals();
-            }
+           // if (NetytarStarted)
+           // {
+           //     R.UserSettings.NetytarControlMode = _NetytarControlModes.EyePos;
+           //     R.NDB.ResetModulationAndPressure();
+           //
+           //     BreathSensorValue = 0;
+           //
+           //     UpdateGUIVisuals();
+           // }
         }
 
         private void btnExit_Activate(object sender, RoutedEventArgs e)
@@ -417,12 +369,22 @@ namespace Netytar
         }
 
 
-        private void btnPitchBend_Click(object sender, RoutedEventArgs e) //aggiunto per pitch bend 
+        private void btnPitchBendTPS_Click(object sender, RoutedEventArgs e) //aggiunto per pitch bend 
         {
             if (NetytarStarted)
             {
-                R.UserSettings.PitchBendControlMode = R.UserSettings.PitchBendControlMode == _PitchBendControlModes.On ? _PitchBendControlModes.Off : _PitchBendControlModes.On;
-                UpdateGUIVisuals();
+              
+                    if (R.UserSettings.PitchBendBind != ControlModes.NithTPS)
+                    {
+                        R.UserSettings.PitchBendBind = ControlModes.NithTPS;
+                    }
+                    else
+                    {
+                        R.UserSettings.PitchBendBind = ControlModes.Inactive;
+                    }
+                    UpdateGUIVisuals();
+
+                
             }
         }
 
@@ -447,15 +409,15 @@ namespace Netytar
 
         private void btnCtrlEyeVel_Click(object sender, RoutedEventArgs e)
         {
-            if (NetytarStarted)
-            {
-                R.UserSettings.NetytarControlMode = _NetytarControlModes.EyeVel;
-                R.NDB.ResetModulationAndPressure();
-
-                BreathSensorValue = 0;
-
-                UpdateGUIVisuals();
-            }
+           // if (NetytarStarted)
+           // {
+           //     R.UserSettings.NetytarControlMode = _NetytarControlModes.EyeVel;
+           //     R.NDB.ResetModulationAndPressure();
+           //
+           //     BreathSensorValue = 0;
+           //
+           //     UpdateGUIVisuals();
+           // }
         }
 
         private void btnRemoveSharps_Click(object sender, RoutedEventArgs e)
@@ -597,12 +559,20 @@ namespace Netytar
             }
         }
 
-        private void btnMod_Click(object sender, RoutedEventArgs e)
+        private void btnModTPS_Click(object sender, RoutedEventArgs e)
         {
             if (NetytarStarted)
             {
-                R.UserSettings.ModulationControlMode = R.UserSettings.ModulationControlMode == _ModulationControlModes.On ? _ModulationControlModes.Off : _ModulationControlModes.On;
-                UpdateGUIVisuals();
+                    if (R.UserSettings.ModulationBind != ControlModes.NithTPS)
+                    {
+                        R.UserSettings.ModulationBind = ControlModes.NithTPS;
+                    }
+                    else
+                    {
+                        R.UserSettings.ModulationBind = ControlModes.Inactive;
+                    }
+
+                    UpdateGUIVisuals();            
             }
         }
 
@@ -669,15 +639,6 @@ namespace Netytar
             }
         }
 
-        private void btnKeyboard_Click(object sender, RoutedEventArgs e)
-        {
-            if (NetytarStarted)
-            {
-                R.UserSettings.NetytarControlMode = _NetytarControlModes.Keyboard;
-                UpdateGUIVisuals();
-            }
-            brdPress.Visibility=Visibility.Hidden;
-        }
 
         private void btnBreath_Click(object sender, RoutedEventArgs e)
         {
@@ -694,8 +655,6 @@ namespace Netytar
                 //R.UserSettings.TPS_activateTeeth=true;
                 UpdateGUIVisuals();
             }
-
-            SensorName.Content = "Breath TPS";
         }
 
         private void btnTeeth_Click(object sender, RoutedEventArgs e)
@@ -706,14 +665,13 @@ namespace Netytar
                 {
                     R.UserSettings.TPS_activateTeeth = false;
                 }
-                else if (R.UserSettings.TPS_activateTeeth==false)
+                else if (R.UserSettings.TPS_activateTeeth == false)
                 {
                     R.UserSettings.TPS_activateTeeth = true;
                 }
                 //R.UserSettings.TPS_activateTeeth=true;
                 UpdateGUIVisuals();
             }
-            SensorName.Content = "Nith TPS";
         }
 
         private void btnNoteNames_Click(object sender, RoutedEventArgs e)
@@ -781,12 +739,20 @@ namespace Netytar
 
         private void btnHeadYaw_Click(object sender, RoutedEventArgs e)
         {
-            if (NetytarStarted)
-            {
-                R.UserSettings.NetytarControlMode = _NetytarControlModes.NeeqHTYaw;
+           if (NetytarStarted)
+           {
+               R.UserSettings.NetytarControlMode = ControlModes.NithHT;
+                if (R.UserSettings.HT_activateHT == false)
+                {
+                    R.UserSettings.HT_activateHT = true;
+                }
+                else if (R.UserSettings.HT_activateHT == true)
+                {
+                    R.UserSettings.HT_activateHT = false;
+                }
                 UpdateGUIVisuals();
-            }
-            brdPress.Visibility = Visibility.Hidden;
+           }
+           brdPress.Visibility = Visibility.Hidden;
         }
 
         private void btnCalibrateMin_Click(object sender, RoutedEventArgs e)
@@ -839,25 +805,7 @@ namespace Netytar
 
 
 
-    
-
-        private void btnPress_Click(object sender, RoutedEventArgs e)
-        {
-            if (NetytarStarted)
-            {
-                R.UserSettings.TPSPressureControlMode = R.UserSettings.TPSPressureControlMode == _PressureControlModes.On ? _PressureControlModes.Off : _PressureControlModes.On;
-                UpdateGUIVisuals();
-            }
-        }
-
-
       
-
-        private void myButton_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            brdPress.Visibility = Visibility.Visible;
-            brdBS.Visibility = Visibility.Hidden;
-        }
 
         private void BtnSensorPortTPSMinus_Click(object sender, RoutedEventArgs e)
         {
@@ -891,13 +839,6 @@ namespace Netytar
             }
         }
 
-        private void btnBreath_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            brdPress.Visibility = Visibility.Hidden;
-            brdBS.Visibility = Visibility.Visible;
-
-        }
-
         private void BtnSensorBSPortMinus_Click(object sender, RoutedEventArgs e)
         {
             if (NetytarStarted)
@@ -927,6 +868,110 @@ namespace Netytar
             else
             {
                 txtSensorBSPort.Foreground = WarningBrush;
+            }
+        }
+
+        private void btnHeadYawSettings_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnTeethSettings_Click(object sender, RoutedEventArgs e)
+        {
+            if (brdPress.Visibility == Visibility.Visible)
+            {
+                brdPress.Visibility = Visibility.Hidden;
+            }
+            else if (brdPress.Visibility==Visibility.Hidden)
+            {
+                brdPress.Visibility = Visibility.Visible;
+                brdBS.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void btnBreathSettings_Click(object sender, RoutedEventArgs e)
+        {
+            if (brdBS.Visibility == Visibility.Visible)
+            {
+                brdBS.Visibility = Visibility.Hidden;
+            }
+            else if (brdBS.Visibility == Visibility.Hidden)
+            {
+                brdPress.Visibility = Visibility.Hidden;
+                brdBS.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void btnPressBS_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                if (R.UserSettings.PressureBind != ControlModes.NithBS)
+                {
+                    R.UserSettings.PressureBind = ControlModes.NithBS;
+                }
+                else
+                {
+                    R.UserSettings.PressureBind = ControlModes.Inactive;
+                }
+
+                UpdateGUIVisuals();
+                
+
+            }
+        }
+
+        private void btnPressTPS_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                if (R.UserSettings.PressureBind != ControlModes.NithTPS)
+                {
+                    R.UserSettings.PressureBind = ControlModes.NithTPS;
+                }
+                else
+                {
+                    R.UserSettings.PressureBind = ControlModes.Inactive;
+                }
+          
+                //R.UserSettings.PressureControlMode = R.UserSettings.PressureControlMode == _PressureControlModes.On ? _PressureControlModes.Off : _PressureControlModes.On;
+                //R.UserSettings.PressureControlMode = _PressureControlModes.On;
+                UpdateGUIVisuals();
+                //MessageBox.Show(R.UserSettings.PressureBind.ToString());
+            }
+        }
+
+        private void btnModBS_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                if (R.UserSettings.ModulationBind != ControlModes.NithBS)
+                {
+                    R.UserSettings.ModulationBind = ControlModes.NithBS;
+                }
+                else
+                {
+                    R.UserSettings.ModulationBind = ControlModes.Inactive;
+                }
+                UpdateGUIVisuals();
+
+            }
+        }
+
+        private void btnPitchBendBS_Click(object sender, RoutedEventArgs e)
+        {
+            if (NetytarStarted)
+            {
+                if (R.UserSettings.PitchBendBind != ControlModes.NithBS)
+                {
+                    R.UserSettings.PitchBendBind = ControlModes.NithBS;
+                }
+                else
+                {
+                    R.UserSettings.PitchBendBind = ControlModes.Inactive;
+                }
+                UpdateGUIVisuals();
+
             }
         }
     }

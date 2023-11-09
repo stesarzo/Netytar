@@ -19,6 +19,7 @@ namespace Netytar
         public static NithModule NithModule { get; set; } = new NithModule();
         public static NithModule NithModuleBS { get; set; } = new NithModule();
         public static NithModule NithModuleTPS { get; set; } = new NithModule();
+        public static NithModule NithModuleKey { get; set; } = new NithModule();
         public static SavingSystem SavingSystem { get; set; } = new SavingSystem("Settings");
         public static bool RaiseClickEvent { get; internal set; } = false;
         public static NetytarSettings UserSettings { get; set; } = new DefaultSettings();
@@ -28,5 +29,6 @@ namespace Netytar
         public static TeethPressureCalibrationHelper TPhelper { get; set; } = new TeethPressureCalibrationHelper();
 
         public static SavingCalibration SavingCalibration { get; set; } = new SavingCalibration();
+
     }
 } 

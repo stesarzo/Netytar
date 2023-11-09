@@ -127,45 +127,47 @@
                     </Grid>
 
                     <!-- Com port selector -->
-                    <Label Content="Sensor port" />
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width = "1*" />
                             <ColumnDefinition Width = "1*" />
                             <ColumnDefinition Width = "1*" />
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Name="btnSensorPortMinus" Content="⮜" Click="BtnSensorPortMinus_Click" Style="{StaticResource DWood}" />
-                        <Border Grid.Column="1" Style="{StaticResource LCDBorder}">
-                            <TextBlock Name="txtSensorPort" Text="COM" Style="{StaticResource LCDText}">
-                            </TextBlock>
-                        </Border>
-                        <Button Grid.Column="2" Name="btnSensorPortPlus" Content="⮞" Click="BtnSensorPortPlus_Click" Style="{StaticResource DWood}" HorizontalAlignment="Left" Margin="5,5,0,5" Width="115" />
                     </Grid>
 
                     <!-- Control selector -->
-                    <UniformGrid Columns="2" Rows="2">
-                        <Button Name="btnKeyboard" Style="{StaticResource DWoodLeft}" Click="btnKeyboard_Click">
-                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="4,0,0,0">
-                                <Border Name="indKeyboard" Style="{StaticResource Indicator}" />
-                                <Label Content="Keys" VerticalAlignment="Center" FontSize="18"/>
-                            </StackPanel>
-                        </Button>
-                        <Button Name="btnBreath" Style="{StaticResource DWoodLeft}" Click="btnBreath_Click" MouseDoubleClick="btnBreath_MouseDoubleClick">
+                    <UniformGrid Columns="2" Rows="3">
+                        <Button Name="btnBreath" Style="{StaticResource DWoodLeft}" Click="btnBreath_Click">
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="4,0,0,0">
                                 <Border Name="indBreath" Style="{StaticResource Indicator}" />
                                 <Label Content="NithBS" VerticalAlignment="Center" FontSize="18"/>
                             </StackPanel>
                         </Button>
-                        <Button Name="btnTeeth" Style="{StaticResource DWoodLeft}" Click="btnTeeth_Click"  MouseDoubleClick="myButton_MouseDoubleClick" >
+                        <Button Name="btnBreathSettings" Style="{StaticResource DWoodLeft}" Click="btnBreathSettings_Click">
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="4,0,0,0">
+                                <Label Content="Settings" VerticalAlignment="Center" FontSize="18"/>
+                            </StackPanel>
+                        </Button>
+                        <Button  Name="btnTeeth" Style="{StaticResource DWoodLeft}" Click="btnTeeth_Click" >
+                            <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal" Margin="4,0,0,0">
                                 <Border Name="indTeeth" Style="{StaticResource Indicator}" />
                                 <Label Content="NithTPS" VerticalAlignment="Center" FontSize="18"/>
                             </StackPanel>
                         </Button>
-                        <Button Name="btnHeadYaw" Style="{StaticResource DWoodLeft}" Click="btnHeadYaw_Click">
+                        <Button Name="btnTeethSettings" Style="{StaticResource DWoodLeft}" Click="btnTeethSettings_Click">
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="4,0,0,0">
+                                <Label Content="Settings" VerticalAlignment="Center" FontSize="18"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Name="btnHeadYaw" Style="{StaticResource DWoodLeft}" Click="btnHeadYaw_Click">
+                            <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal" Margin="4,0,0,0">
                                 <Border Name="indHeadYaw" Style="{StaticResource Indicator}" />
                                 <Label Content="NithHT" VerticalAlignment="Center" FontSize="18"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Name="btnHeadYawSttings" Style="{StaticResource DWoodLeft}" Click="btnHeadYawSettings_Click">
+                            <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal" Margin="4,0,0,0">
+                                <Label Content="Settings" VerticalAlignment="Center" FontSize="18"/>
                             </StackPanel>
                         </Button>
                     </UniformGrid>
@@ -292,7 +294,7 @@
 
             <!-- Custom stackpanel -->
             <StackPanel Orientation="Vertical" Margin="5,5,5,5">
-                <Label x:Name="SensorName"  Content="-" Visibility="Visible"/>
+                <Label x:Name="SensorName"  Content="Nith TPS" Visibility="Visible"/>
 
                 <!-- Com port selector -->
                 <Label Content="Sensor port" />
@@ -360,7 +362,7 @@
                 </Grid>
                 <UniformGrid Columns="2" Rows="3">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Button Name="btnPitchBend" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnPitchBend_Click">
+                        <Button Name="btnPitchBend" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnPitchBendTPS_Click">
                             <Border Name="indPitchBenad" Style="{StaticResource Indicator}" />
                         </Button>
                         <Label VerticalAlignment="Center" Content="Pitch B." />
@@ -371,7 +373,7 @@
                     </Border>
                     <!-- Mod -->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Button Name="btnMod" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnMod_Click">
+                        <Button Name="btnMod" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnModTPS_Click">
                             <Border Name="indMod" Style="{StaticResource Indicator}" />
                         </Button>
                         <Label VerticalAlignment="Center" Content="Modul." />
@@ -379,7 +381,7 @@
 
                     <!-- Press -->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Button Name="btnPress" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnPress_Click">
+                        <Button Name="btnPressTPS" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnPressTPS_Click">
                             <Border Name="indPress" Style="{StaticResource Indicator}" />
                         </Button>
                         <Label VerticalAlignment="Center" Content="Press." />
@@ -418,7 +420,7 @@
 
                 <UniformGrid Columns="2" Rows="3">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Button Name="btnPitchBendBS" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnPitchBend_Click">
+                        <Button Name="btnPitchBendBS" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnPitchBendBS_Click">
                             <Border Name="indPitchBenadBS" Style="{StaticResource Indicator}" />
                         </Button>
                         <Label VerticalAlignment="Center" Content="Pitch B." />
@@ -429,7 +431,7 @@
                     </Border>
                     <!-- Mod -->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Button Name="btnModBS" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnMod_Click">
+                        <Button Name="btnModBS" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnModBS_Click">
                             <Border Name="indModBS" Style="{StaticResource Indicator}" />
                         </Button>
                         <Label VerticalAlignment="Center" Content="Modul." />
@@ -437,7 +439,7 @@
 
                     <!-- Press -->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Button Name="btnPressBS" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnPress_Click">
+                        <Button Name="btnPressBS" Style="{StaticResource DWood}" Width="{StaticResource HG}" Click="btnPressBS_Click">
                             <Border Name="indPressBS" Style="{StaticResource Indicator}" />
                         </Button>
                         <Label VerticalAlignment="Center" Content="Press." />

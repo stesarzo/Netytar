@@ -13,14 +13,17 @@ namespace Netytar.DMIbox
         Eyetribe
     }
 
-    public enum _NetytarControlModes
+    public enum ControlModes
     {
-        Keyboard,
-        //NeeqBS,
-        //NeeqTPS,
-        EyePos,
-        EyeVel,
-        NeeqHTYaw
+        NithBS,
+        NithTPS,
+        NithHT,
+        Inactive
+    }
+    public enum Keyboard
+    {
+        On,
+        Off
     }
     public enum _PressureControlModes
     {

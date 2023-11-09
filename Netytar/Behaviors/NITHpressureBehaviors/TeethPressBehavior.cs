@@ -80,11 +80,19 @@ namespace Netytar.DMIbox.NithBSBehaviors
                     R.NDB.BreathValue = inputS; // Passo al modulo di logica di strumento il valore "raw" di input, per fare aggiornare un indicatore grafico che "ragiona" in centesimi
                     // R.NDB.pressureSensor = inputS.ToString("F0");
                     double inputMappedTo127 = midi127mapper.Map(input); // Faccio fare la proporzione a 127 per MIDI
-                    R.NDB.TPSPressure = (int)(inputMappedTo127 * pressureMultiplier); // Aggiorno la logica dello strumento cambiando la MIDI channel pressure
-                    R.NDB.Modulation = (int)(inputMappedTo127 / modulationDivider); // " cambiando la modulation
-                    double pitchbend = pitchbendMapper.Map(input);
-                    R.NDB.PitchBend = (int)(pitchbend * pitchbendMultiplier); //pichbend
-
+                    if (R.UserSettings.PressureBind == ControlModes.NithTPS)
+                    {
+                        R.NDB.Pressure = (int)(inputMappedTo127 * pressureMultiplier); // Aggiorno la logica dello strumento cambiando la MIDI channel pressure
+                    }
+                    if (R.UserSettings.ModulationBind == ControlModes.NithTPS)
+                    {
+                        R.NDB.Modulation = (int)(inputMappedTo127 / modulationDivider); // " cambiando la modulation
+                    }
+                    if (R.UserSettings.PitchBendBind == ControlModes.NithTPS)
+                    {
+                        double pitchbend = pitchbendMapper.Map(input);
+                        R.NDB.PitchBend = (int)(pitchbend * pitchbendMultiplier); //pichbend
+                    }
                     // Verifica della doppia soglia per vedere se mandare un note on/note off (ovvero quel "Blow" nella logica dello strumento)
                     if ((input > UPPERTHRESH && !R.NDB.Blow))
                     {

@@ -13,7 +13,7 @@ namespace Netytar.Behaviors.NITHheadBehaviors
         private const int DEADSPEED = 40;
         private const double PRESSURE_MULTIPLIER = 10f;
         private const double VELOCITY_MULTIPLIER = 2.5f;
-        private readonly _NetytarControlModes associatedMode = _NetytarControlModes.NeeqHTYaw;
+        //private readonly _NetytarControlModes associatedMode = _NetytarControlModes.NeeqHTYaw;
         private readonly ValueMapperDouble PressureMapper = new ValueMapperDouble(0.5f, 127);
         private readonly IDoubleFilter SpeedFilter = new DoubleFilterMAExpDecaying(0.8f);
         private int currentDirection = 1;
@@ -28,13 +28,14 @@ namespace Netytar.Behaviors.NITHheadBehaviors
         public void HandleData(NithSensorData nithData)
         {
             // Check associated control mode is selected
-            if (R.UserSettings.NetytarControlMode == associatedMode)
-            {
+            
+            //if (R.UserSettings.NetytarControlMode == associatedMode)
+           // {
                 if (nithData.ContainsArgument(NithArguments.acc_yaw))
                 {
                     HTStrum_ElaboratePosition(nithData);
                 }
-            }
+            //}
         }
         
 

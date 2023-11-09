@@ -113,7 +113,7 @@ namespace Netytar.DMIbox
             get { return modulation; }
             set
             {
-                if (R.UserSettings.ModulationControlMode == _ModulationControlModes.On)
+                if (R.UserSettings.ModulationBind != ControlModes.Inactive)
                 {
                     if (value < 50 && value > 1)
                     {
@@ -133,7 +133,7 @@ namespace Netytar.DMIbox
                     }
                     SetModulation();
                 }
-                else if (R.UserSettings.ModulationControlMode == _ModulationControlModes.Off)
+                else if (R.UserSettings.ModulationBind == ControlModes.Inactive)
                 {
                     modulation = 0;
                     SetModulation();
@@ -149,7 +149,7 @@ namespace Netytar.DMIbox
             get { return pressure; }
             set
             {
-                if (BreathControlMode == _BreathControlModes.Dynamic)
+                if (BreathControlMode == _BreathControlModes.Dynamic && R.UserSettings.PressureBind != ControlModes.Inactive|| R.UserSettings.keyBoardMode==Keyboard.On)
                 {
                     if (value < 50 && value > 1)
                     {
@@ -169,53 +169,58 @@ namespace Netytar.DMIbox
                     }
                     SetPressure();
                 }
-                if (BreathControlMode == _BreathControlModes.Switch)
+                else if (BreathControlMode == _BreathControlModes.Switch && R.UserSettings.PressureControlMode == _PressureControlModes.On)
                 {
                     pressure = 127;
+                    SetPressure();
+                }
+                else if (R.UserSettings.PressureBind== ControlModes.Inactive)
+                {
+                    pressure = 0;
                     SetPressure();
                 }
             }
         }
 
-        public int TPSPressure
-        {
-            get { return TPSpressure; }
-            set
-            {
-                if (R.UserSettings.TPSPressureControlMode==_PressureControlModes.On)
-                {
-                    if (value < 50 && value > 1)
-                    {
-                        TPSpressure = 50;
-                    }
-                    else if (value > 127)
-                    {
-                        TPSpressure = 127;
-                    }
-                    else if (value == 0)
-                    {
-                        TPSpressure = 0;
-                    }
-                    else
-                    {
-                        TPSpressure = value;
-                    }
-                    SetTPSPressure();
-                }
-                else if (R.UserSettings.TPSPressureControlMode == _PressureControlModes.Off)
-                {
-                    TPSpressure = 0;
-                    SetTPSPressure();
-                }
-            }
-        }
+       //public int TPSPressure
+       //{
+       //    get { return TPSpressure; }
+       //    set
+       //    {
+       //        if (R.UserSettings.TPSPressureControlMode==_PressureControlModes.On)
+       //        {
+       //            if (value < 50 && value > 1)
+       //            {
+       //                TPSpressure = 50;
+       //            }
+       //            else if (value > 127)
+       //            {
+       //                TPSpressure = 127;
+       //            }
+       //            else if (value == 0)
+       //            {
+       //                TPSpressure = 0;
+       //            }
+       //            else
+       //            {
+       //                TPSpressure = value;
+       //            }
+       //            SetTPSPressure();
+       //        }
+       //        else if (R.UserSettings.TPSPressureControlMode == _PressureControlModes.Off)
+       //        {
+       //            TPSpressure = 0;
+       //            SetTPSPressure();
+       //        }
+       //    }
+       //}
 
         public int PitchBend //aggiunto
         {
             get { return pitchbend; }
             set
             {
-                if (R.UserSettings.PitchBendControlMode == _PitchBendControlModes.On)
+                if (R.UserSettings.PitchBendBind!=ControlModes.Inactive)
                 {
                     if (value < 50 && value > 1)
                     {
@@ -235,7 +240,7 @@ namespace Netytar.DMIbox
                     }
                     SetPitchBend();
                 }
-                else if (R.UserSettings.PitchBendControlMode == _PitchBendControlModes.Off)
+                else if (R.UserSettings.PitchBendBind==ControlModes.Inactive)
                 {
                     pitchbend = 0;
                     SetPitchNoBend();
@@ -323,10 +328,10 @@ namespace Netytar.DMIbox
             MidiModule.SetPitchBend(PitchBend);
         }
 
-        private void SetTPSPressure()
-        {
-            MidiModule.SetPressure(TPSpressure);
-        }
+        //private void SetTPSPressure()
+        //{
+        //    MidiModule.SetPressure(TPSpressure);
+        //}
 
         private void SetPitchNoBend()
         {

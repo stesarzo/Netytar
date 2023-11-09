@@ -17,7 +17,7 @@ namespace Netytar
         {
             returnVal = 0;
 
-            if(R.UserSettings.NetytarControlMode == _NetytarControlModes.Keyboard)
+            if(R.UserSettings.keyBoardMode == Keyboard.On && R.UserSettings.PressureBind==ControlModes.Inactive)
             {
                 if (e.VirtualKey == (ushort)keyBlow && e.KeyPressState == KeyPressState.Down)
                 {

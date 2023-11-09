@@ -68,6 +68,13 @@ namespace Netytar.DMIbox
                 R.NithModuleBS = new NithModule();
                 R.NithModuleBS.ExpectedArguments = new List<NithArguments> { NithArguments.press }; //dubbio che come argomento vada sempre bene press
             }
+
+            //if (R.UserSettings.keyBoardMode==Keyboard.On)
+            //{
+            //    R.NithModuleKey = new NithModule();
+            //    R.NithModuleKey.ExpectedArguments = new List<NithArguments> { NithArguments.press }; //dubbio che come argomento vada sempre bene press
+            //} 
+
             // BEHAVIORS
             //Rack.DMIBox.KeyboardModule.KeyboardBehaviors.Add(new KBemulateMouse());
             R.NDB.KeyboardModule.KeyboardBehaviors.Add(new KBautoScroller());
@@ -84,8 +91,8 @@ namespace Netytar.DMIbox
             //R.NithModule.SensorBehaviors.Add(new PressureBasedBehavior(_NetytarControlModes.NeeqBS, 0.125f, 1, 8));
             //R.NithModule.SensorBehaviors.Add(new PressureBasedBehavior(_NetytarControlModes.NeeqTPS, 1f, 1, 1));
             R.NithModuleTPS.SensorBehaviors.Add(new TeethPressBehavior(true, 0.125f, 1, 1, 1)) ;
-            //R.NithModuleBS.SensorBehaviors.Add(new BSBehavior(true, 0.125f, 1, 8));//
-            //R.NithModule.SensorBehaviors.Add(new HByawPlay());
+            R.NithModuleBS.SensorBehaviors.Add(new BSBehavior(true, 0.125f, 1, 1,1));
+            R.NithModule.SensorBehaviors.Add(new HByawPlay());
 
             //R.NithBSModule.SensorBehaviors.Add(new SBbreathSensor(20, 28, 1.5f)); // 15 20
             //Rack.DMIBox.SensorReader.Behaviors.Add(new SBaccelerometerTest());
